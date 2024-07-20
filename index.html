@@ -3,10 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Pages Site</title>
+    <title>Fill in the Gaps Exercise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .answers {
+            margin-bottom: 20px;
+        }
+        .result {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, GitHub Pages!</h1>
-    <p>This is my first website hosted with GitHub Pages.</p>
+
+<h1>Fill in the Gaps Exercise</h1>
+
+<p>Pygmaliōn vir Graecus fuit, quī pulcherrima signa ex <input type="text" id="gap1"> cōnficiebat quae hominēs hīs verbīs <input type="text" id="gap2">: “Ō Pygmaliōn” aiebant, “nōn sōlum nātūram es imitātus, sed ipsa nātūra arte tuā <input type="text" id="gap3"> est!”</p>
+
+<p>Tandem Pygmaliōn puellae signum cōnfēcit, cui aureus capillus, <input type="text" id="gap4"> oculī, rubra labra erant. Quam puellam vīvam aspiciendī cupidus, Pygmaliōn <input type="text" id="gap5"> (= per longum tempus) deōrum templa adīre solēbat, quia ovēs bovēsque <input type="text" id="gap6"> volēbat et deōs deāsque <input type="text" id="gap7">: neque enim quisquam, nisi deus, illī signō vītam dare poterat.</p>
+
+<div class="answers">
+    <p>Word Bank:</p>
+    <ul>
+        <li>marmore</li>
+        <li>admirabantur</li>
+        <li>superata</li>
+        <li>caerulei</li>
+        <li>diu</li>
+        <li>sacrificare</li>
+        <li>orare</li>
+    </ul>
+</div>
+
+<button onclick="checkAnswers()">Check Answers</button>
+
+<p class="result" id="result"></p>
+
+<script>
+    function checkAnswers() {
+        const answers = ["marmore", "admirabantur", "superata", "caerulei", "diu", "sacrificare", "orare"];
+        let correct = 0;
+        for (let i = 0; i < answers.length; i++) {
+            const userAnswer = document.getElementById(`gap${i+1}`).value.trim();
+            if (userAnswer.toLowerCase() === answers[i]) {
+                correct++;
+                document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightgreen';
+            } else {
+                document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightcoral';
+            }
+        }
+        document.getElementById('result').textContent = `You got ${correct} out of ${answers.length} correct.`;
+    }
+</script>
+
 </body>
 </html>
