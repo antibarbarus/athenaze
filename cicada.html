@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>τέττιξ καὶ μύρμηκες</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+          ul {
+            list-style-type: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to the entire body */
+            font-size: 18px; /* Slightly larger font size for the main text */
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to input fields */
+            padding: 5px;
+            font-size: 18px;
+            width: 100px; /* Set a fixed width for input fields */
+        }
+        button {
+            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to buttons */
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .answers {
+            margin-bottom: 20px;
+        }
+        .result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <p><a href="ephodion.html">< ὀπίσω</a></p>
+    <h1>τέττιξ καὶ μύρμηκες</h1>
+    <p>Χειμῶνος ὥρᾳ οἱ <input type="text" id="gap1"> τὸν σῖτον <input type="text" id="gap2">. <input type="text" id="gap3"> δὲ <input type="text" id="gap4"> (= πεινᾶττων) ᾔτει αὐτοὺς τροφήν.</p>
+
+    <p>Οἱ δὲ μύρμηκες εἶπον αὐτῷ· «Διὰ τί τὸ <input type="text" id="gap5"> (<> τὸν χειμῶνα) οὐ συνῆγες καὶ σὺ τροφήν;» Ὁ δὲ εἶπεν· «Οὐκ ἐσχόλαζον, ἀλλ᾽ ᾔδον <input type="text" id="gap6">.</p>
+
+    <p>Οἱ δὲ γελάσαντες εἶπον· «Ἀλλ᾽ εἰ θέρους ὥραις <input type="text" id="gap7"> (: μουσικὴν τῷ αὐλῷ ἐποίεις), χειμῶνος <input type="text" id="gap8"> (= χόρευε).»</p>
+
+    <div class="answers">
+        <p><h2>λέξεις</h2></p>
+        <ul>
+            <li>αὐλέω <i>imperf</i></li>
+            <li>θέρος</li>
+            <li>λιμώττω</li>
+            <li>μουσικῶς</li>
+            <li>μύρμηξ</li>
+            <li>ὀρχέομαι</li>
+            <li>τέττιξ</li>
+            <li>ψύχω <i>imperf</i></li>
+        </ul>
+    </div>
+
+    <button onclick="checkAnswers()">Check Answers</button>
+    <button onclick="showAnswers()">Show Answers</button>
+    <button onclick="location.reload()">Delete Answers</button>
+
+    <p class="result" id="result"></p>
+
+    <script>
+        const answers = ["μύρμηκες", "ἔψυχον", "τέττιξ", "λιμώττων", "θέρος", "μουσικῶς", "ηὔλεις", "ὀρχοῦ"];
+
+        function checkAnswers() {
+            let correct = 0;
+            for (let i = 0; i < answers.length; i++) {
+                const userAnswer = document.getElementById(`gap${i+1}`).value.trim().toLowerCase();
+                const correctAnswer = answers[i].toLowerCase();
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                    document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightgreen';
+                } else {
+                    document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightcoral';
+                }
+            }
+            document.getElementById('result').textContent = `You got ${correct} out of ${answers.length} correct.`;
+        }
+
+        function showAnswers() {
+            for (let i = 0; i < answers.length; i++) {
+                document.getElementById(`gap${i+1}`).value = answers[i];
+                document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightblue';
+            }
+        }
+    </script>
+
+</body>
+</html>
