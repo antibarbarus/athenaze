@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Упражнение 1.1</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+          ul {
+            list-style-type: none; /* Remove default bullets */
+            padding-left: 0px;
+            margin-bottom: 0px;
+            margin: 10px;
+        }
+         li {
+    margin-bottom: 5px; /* Устанавливаем отступ в 10px между элементами списка */
+  }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to the entire body */
+            font-size: 16px; /* Slightly larger font size for the main text */
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to input fields */
+            padding: 5px;
+            font-size: 16px;
+            width: 100px; /* Set a fixed width for input fields */
+        }
+        button {
+            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to buttons */
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .answers {
+            margin-bottom: 20px;
+        }
+        .result {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <p><a href="meletemata.html">< назад</a></p>
+    <h1>Упражнение 1.1</h1>
+    <table border="0" class="dataframe table table-bordered">
+     <colgroup>
+        <col style="width: 80%;">
+        <col style="width: 20%;">
+    </colgroup>
+<thead>
+<tr style="text-align: right;">
+  <tr style="text-align: right;">
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><p>1. Ὁ Δικαιόπολις <input type="text" id="gap1"> ἐστιν· οἰκεῖ δὲ οὐκ ἐν τᾶις Ἀθήναις. 
+    <p>2. Ὁ Δικαιόπολις <input type="text" id="gap2"> ἐστιν· οἰκεῖ οῦν ἐν τοῖς ἀγροῖς.</p>
+    <p>3. Ὁ αὐτουργὸς <input type="text" id="gap3"> τὸν κλῆρον καὶ <input type="text" id="gap4"> ἐν τοῖς ἀγροῖς.</p>
+    <p>4. Ὁ <input type="text" id="gap5"> μικρός ἐστιν, μακρὸς δὲ ὁ <input type="text" id="gap6"> καὶ <input type="text" id="gap7">.</p>
+    <p>5. Ὁ <input type="text" id="gap8"> χαλεπός ἐστιν· ὁ οὖν Δικαιόπoλις πολλάκις <input type="text" id="gap9">.</p>
+    <p>6. Ὁ Δικαιόπολις <input type="text" id="gap10">· «ὦ Ζεῦ, χαλεπός ἐστιν ὁ βίος.»</p>
+    <p>7. Ὁ Δικαιόπολίς ἐστιν <input type="text" id="gap11"> ἄοκνος καὶ <input type="text" id="gap12">· ἀεὶ οὖν πονεῖ.</p>
+    <p>8. Πολλάκις <input type="text" id="gap13"> ὁ Δικαιόπολις· ἐλεύθερος γάρ ἐστι καὶ αὐτουργός.</p>
+    <p>9. Ἐν τοῖς ἀγροῖς ἐστιν <input type="text" id="gap14">. Ὁ Δικαιόπολις <input type="text" id="gap15"> τὸν οἶκον· ὁ γὰρ οἶκος <input type="text" id="gap16"> ἐστιν.</p>
+    <p>10. Ἐν τοῖς ἀγροῖς ἐστι πολὺς <input type="text" id="gap17">. Ὁ δὲ κλῆρος <input type="text" id="gap18"> σῖτον οὐ <input type="text" id="gap19">, ἀλλὰ <input type="text" id="gap20">.</p></td>
+<td style="padding: 20px; vertical-align: top;">
+    <div class="answers">
+        <ul>
+            <li>Ἀθηναῖος</li>
+            <li>ἄνθρωπος</li>
+            <li>αὐτουργός</li>
+            <li>βίος</li>
+            <li>γεωργεῖ</li>
+            <li>ἱκανός</li>
+            <li>ἰσχυρός</li>
+            <li>καλός</li>
+            <li>κλῆρος</li>
+            <li>λέγει</li>
+            <li>οἶκος</li>
+            <li>παρέχει</li>
+            <li>πολύς</li>
+            <li>πονεῖ</li>
+            <li>πόνος</li>
+            <li>σῖτος</li>
+            <li>στενάζει</li>
+            <li>φιλεῖ</li>
+            <li>χαίρει</li>
+            <li>χαλεπός</li>
+        </ul>
+        </div>
+        </td>
+
+</tr>
+</tbody>
+</table>
+    <button onclick="checkAnswers()">Check Answers</button>
+    <button onclick="showAnswers()">Show Answers</button>
+    <button onclick="location.reload()">Delete Answers</button>
+
+    <p class="result" id="result"></p>
+
+    <script>
+        const answers = ["Ἀθηναῖός", "αὐτουργός", "γεωργεῖ", "πονεῖ", "κλῆρος", "πόνος", "χαλεπός", "βίος", "στενάζει", "λέγει", "ἄνθρωπος", "ἰσχυρός", "χαίρει", "οἶκος", "φιλεῖ", "καλός", "σῖτος", "παρέχει", "πολύν", "ἱκανόν"];
+
+        function checkAnswers() {
+            let correct = 0;
+            for (let i = 0; i < answers.length; i++) {
+                const userAnswer = document.getElementById(`gap${i+1}`).value.trim().toLowerCase();
+                const correctAnswer = answers[i].toLowerCase();
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                    document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightgreen';
+                } else {
+                    document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightcoral';
+                }
+            }
+            document.getElementById('result').textContent = `You got ${correct} out of ${answers.length} correct.`;
+        }
+
+        function showAnswers() {
+            for (let i = 0; i < answers.length; i++) {
+                document.getElementById(`gap${i+1}`).value = answers[i];
+                document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightblue';
+            }
+        }
+    </script>
+
+</body>
+</html>
