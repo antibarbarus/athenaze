@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 4.3</title>
+    <title>Μελέτημα 4.5</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -41,20 +41,20 @@
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 4.3</h1>
-    <h2>заполните пропуски артиклями и окончаниями (в каждом пункте первое предложение в единственном числе, второе во множественном)</h2>
-<p>1. Πρὸς τῇ κρήνῃ (sing.) αἱ κόραι πληροῦσι τὰς ὑδρίας.</p>
-<p>2. Πολλοὶ ἄγροικοι πρὸς τὰς οἰκίας (plur.) ἐπανέρχονται.</p>
-<p>3. Πρὸς τὴν κώμην (sing.) ἡ γυνὴ σπεύδει.</p>
-<p>4. Τὸ παιδίον πρὸς ταῖς κόραις (plur.) ἐστὶν καὶ βλέπει πρὸς τὴν ὑδρίαν (sing.).</p>
-<p>5. Ἡ θυγάτηρ μένει (= ждет) τὴν μητέρα πρὸς τῇ οἰκίᾳ (sing.).</p>
+    <h1>Μελέτημα 4.5</h1>
+    <h2>заполните пропуски артиклями и окончаниями</h2>
+<p>1. Πρὸς τ<input type="text" id="gap1"> κρήν<input type="text" id="gap2"> (sing.) αἱ κόραι πληροῦσι τὰς ὑδρίας.</p>
+<p>2. Πολλοὶ ἄγροικοι πρὸς τ<input type="text" id="gap3"> οἰκί<input type="text" id="gap4"> (plur.) ἐπανέρχονται.</p>
+<p>3. Πρὸς τ<input type="text" id="gap5"> κώμ<input type="text" id="gap6"> (sing.) ἡ γυνὴ σπεύδει.</p>
+<p>4. Τὸ παιδίον πρὸς τ<input type="text" id="gap7"> κόρ<input type="text" id="gap8"> (plur.) ἐστὶν καὶ βλέπει πρὸς τ<input type="text" id="gap9"> ὑδρί<input type="text" id="gap10"> (sing.).</p>
+<p>5. Ἡ θυγάτηρ μένει (= ждет) τὴν μητέρα πρὸς τ<input type="text" id="gap11"> οἰκί<input type="text" id="gap12"> (sing.).</p>
     <button id="checkAnswers">проверить</button>
     <button id="showAnswers">узнать ответы</button>
     <button id="clearStorage">удалить ответы</button>
     <p class="result" id="result"></p>
 
     <script>
-        const answers = ["α", "η", "Αἱ", "αι", "Ἡ", "η", "ῇ", "ῃ", "Αἱ", "αι", "αι", "αις", "ῇ", "ῃ", "ᾳ", "αῖς", "αις", "ὴν", "ην", "αν", "Αἱ", "ὰς", "ας", "ας", "ης", "ας", "Αἱ", "αι", "ῶν", "ῶν", "η", "ά", "Αἱ", "αι", "αί", "ῇ", "ᾷ", "ῃ", "αῖς", "αῖς", "αις", "ῆς", "ᾶς", "ης", "ὴν", "αν", "ῶν", "ῶν", "ῶν", "αἱ", "αι", "ὰς", "ας"];
+        const answers = ["ῇ", "ῃ", "ὰς", "ας", "ὴν", "ην", "αῖς", "αις", "ὴν", "αν", "ῇ", "ᾳ"];
         
         // Load saved answers from localStorage
         window.onload = () => {
