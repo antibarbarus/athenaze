@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μελέτημα 4.11</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace;
+            padding: 5px;
+            font-size: 16px;
+            width: 80px;
+            transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
+        .incorrect { background-color: lightcoral; }
+        .exercise-text {
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Μελέτημα 4.11</h1>
+    <h2>Заполните пропуски окончаниями</h2>
+    
+    <div class="exercise-text">
+        <p>1. Ἡ δέσποιν-<input type="text" id="gap1"> ἀπὸ τῆς τραπέζ-<input type="text" id="gap2"> τὴν ὑδρίαν λαμβάνει.</p>
+        <p>2. Ἡ δούλη πρὸς τῇ τραπέζ-<input type="text" id="gap3"> καθίζει καὶ τὴν δέσποιν-<input type="text" id="gap4"> καλεῖ.</p>
+        <p>3. «Ὠ δοῦλαι, τί μετὰ τῆς δεσποίν-<input type="text" id="gap5"> πρὸς τὴν τράπεζ-<input type="text" id="gap6"> οὐ βαδίζετε;»</p>
+        <p>4. Ἡ δούλη πρὸς τὴν δέσποιν-<input type="text" id="gap7"> βλέπει καί, «ὦ δέσποιν-<input type="text" id="gap8">,» φησίν, «ἡ τράπεζ-<input type="text" id="gap9"> οὐκέτι πρὸς τῇ κλίνῃ ἐστίν.»</p>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        const answers = ["α", "ης", "ῃ", "αν", "ης", "αν", "αν", "α", "α"];
+        
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        
+        // Функция для установки стилей
+        const setStyles = (element, status) => {
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
+            if (status === 'correct') {
+                element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
+            } else if (status === 'incorrect') {
+                element.classList.add('incorrect');
+            }
+        };
+
+        // Функция для проверки одного ответа
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[index];
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                // Приводим к нижнему регистру для сравнения
+                const normalizedUserAnswer = userAnswer.toLowerCase();
+                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                
+                // Точное совпадение (с учетом регистра)
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики и регистра
+                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
+            }
+        };
+
+        // Функция для обновления общего результата
+        const updateResults = () => {
+            let correct = 0;
+            let almostCorrect = 0;
+            
+            answers.forEach((answer, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                const userAnswer = inputElement.value.trim();
+                
+                if (userAnswer === answer) {
+                    correct++;
+                } else if (userAnswer !== '') {
+                    // Приводим к нижнему регистру для сравнения
+                    const normalizedUserAnswer = userAnswer.toLowerCase();
+                    const normalizedCorrectAnswer = answer.toLowerCase();
+                    
+                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                        almostCorrect++;
+                    }
+                }
+            });
+            
+            const resultElement = document.getElementById('result');
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.className = 'result correct';
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.className = 'result';
+            }
+        };
+
+        // Добавление обработчиков событий
+        window.onload = () => {
+            // Добавляем обработчики для каждого поля ввода
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                
+                // Проверка при загрузке (если есть введенные данные)
+                if (inputElement.value.trim() !== '') {
+                    checkSingleAnswer(i);
+                }
+                
+                // Обработчик ввода для немедленной проверки
+                inputElement.addEventListener('input', () => {
+                    // Немедленная проверка
+                    checkSingleAnswer(i);
+                    
+                    // Обновление общего результата
+                    updateResults();
+                });
+            });
+
+            // Обновление общего результата при загрузке
+            updateResults();
+        };
+    </script>
+</body>
+</html>
