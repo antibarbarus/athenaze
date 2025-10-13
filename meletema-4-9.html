@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μελέτημα - Άσκηση</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 16px;
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace;
+            padding: 5px;
+            font-size: 16px;
+            width: 150px;
+            transition: background-color 0.3s;
+        }
+        button {
+            font-family: 'Fira Mono', monospace;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
+        .incorrect { background-color: lightcoral; }
+        .show { background-color: lightblue; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            vertical-align: top;
+            padding: 10px;
+        }
+        .answers-column {
+            border-left: 1px solid #ccc;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Μελέτημα 4.7</h1>
+    <h2>заполните пропуски словами из списка в нужной форме</h2>
+    
+    <table>
+        <tr>
+            <td>
+                <div class="exercise-text">
+                    <p>1. «Ναί, ὁ ἄγγελος <input type="text" id="gap1"> λέγει ὅτι οἱ Ἀθηναῖοι ἑορτὴν ποιοῦσιν.»</p>
+                    
+                    <p>2. Ἡ Μέλιττα <input type="text" id="gap2"> (< μάλα) ἐθέλει <input type="text" id="gap3"> (= βαίνειν) εἰς τὸ ἄστυ καὶ θεωρεῖν τὴν ἑορτήν· <input type="text" id="gap4"> (<-> πολλάκις) γὰρ εἰς τὸ ἄστυ βαίνει.</p>
+                    
+                    <p>3. Οὐ χαλεπὸν ἀλλὰ <input type="text" id="gap5"> ἐστι <input type="text" id="gap6"> τὸν πατέρα.</p>
+                    
+                    <p>4. Ἡ Μέλιττα ἐν τῇ ὁδῷ πταίει καὶ <input type="text" id="gap7"> τὴν ὑδρίαν.</p>
+                    
+                    <p>5. «Ὠ Μέλιττα, <input type="text" id="gap8"> τρέχεις; <input type="text" id="gap9"> ἥκεις;»</p>
+                    
+                    <p>6. Ἡ θάλαττα ἡ <input type="text" id="gap10"> Ἀθήνας καλή ἐστιν.</p>
+                    
+                    <p>7. Οὐκ <input type="text" id="gap11"> ἐστιν ὅτι οἱ ἄνθρωποι <input type="text" id="gap12"> (= φιλοῦσι) τὰ <input type="text" id="gap13"> (= τὰς χώρας) τὰ παρὰ τὴν θάλατταν.</p>
+                    
+                    <p>8. Ἡ φίλη λέγει <input type="text" id="gap14"> τοῦ ἄστεως.</p>
+                    
+                    <p>9. Ἐν ταῖς τοῦ Πειραιῶς ὁδοῖς πολλοὶ ἄνθρωποι ἐκβαίνουσιν ἐκ τῶν <input type="text" id="gap15"> διὰ τοῦτο πολὺς <input type="text" id="gap16"> ἐστιν.</p>
+                    
+                    <p>10. Ἡ θάλαττα <input type="text" id="gap17"> τὰ χωρία τὰ περὶ Ἀθήνας.</p>
+                    
+                    <p>11. Ἡ <input type="text" id="gap18"> ἡ περὶ Ἀθήνας <input type="text" id="gap19"> ἐστίν, παρέχει γὰρ ἔλαιον, οἶνον καὶ πολλὰ <input type="text" id="gap20">.</p>
+                    
+                    <p>12. Ἐν ταῖς Ἀθήναις μέγα ἐστὶ τὸ τῶν ἀνθρώπων <input type="text" id="gap21">, μεγάλαι δ' αἱ <input type="text" id="gap22">.</p>
+                    
+                    <p>13. «<input type="text" id="gap23"> ἐστὶν ὁ θόρυβος ἐν ταῖς Ἀθήναις, ὦ Μέλιττα.»</p>
+                    
+                    <p>14. Ἐν μὲν τῇ ἀγορᾷ πολλὰ <input type="text" id="gap24"> ἐστιν, ἐν δὲ ταῖς ὁδοῖς, οὐ <input type="text" id="gap25"> ἀπὸ τῆς ἀγορᾶς, πολλὰ <input type="text" id="gap26"> (< ἔργον) ἐστιν.</p>
+                    
+                    <p>15. Ἐν τοῖς τῆς ἡμετέρας κώμης ἐργαστηρίοις <input type="text" id="gap27"> <input type="text" id="gap28"> πολλὰ ἔργα ποιοῦσιν· ποιοῦσι γὰρ <input type="text" id="gap29"> καὶ <input type="text" id="gap30"> καὶ ἄροτρον καὶ <input type="text" id="gap31"> πολλάκις καὶ <input type="text" id="gap32"> (= οἰκίαν ποιοῦσιν).</p>
+                </div>
+            </td>
+            <td class="answers-column">
+                <div class="answers">
+                    <ul>
+                        <li>ἀγαπῶσι(ν)</li>
+                        <li>ἀληθῶς</li>
+                        <li>ἄτοπος</li>
+                        <li>βοή</li>
+                        <li>ἐργαστήριον</li>
+                        <li>θόρυβος</li>
+                        <li>θραύω</li>
+                        <li>θύρα</li>
+                        <li>ἰέναι</li>
+                        <li>καπηλεῖον</li>
+                        <li>καρποφόρος</li>
+                        <li>κλίνη</li>
+                        <li>μάλιστα</li>
+                        <li>μακράν</li>
+                        <li>ὅσος</li>
+                        <li>οἰκοδομέω</li>
+                        <li>οἱ αὐτοί</li>
+                        <li>παρά</li>
+                        <li>πείθω</li>
+                        <li>περί</li>
+                        <li>πλῆθος</li>
+                        <li>πλοῖον</li>
+                        <li>ποῖ</li>
+                        <li>πόθεν</li>
+                        <li>προσκλύζω</li>
+                        <li>ῥᾴδιος</li>
+                        <li>σπανίως</li>
+                        <li>σῦκον</li>
+                        <li>τράπεζα</li>
+                        <li>χώρα</li>
+                        <li>χωρίον</li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        <button id="showAnswers">узнать ответы</button>
+        <button id="clearAnswers">очистить все</button>
+    </div>
+    
+    <p class="result" id="result"></p>
+
+    <script>
+        const answers = [
+            "ἀληθῶς",
+            "μάλιστα", 
+            "ἰέναι",
+            "σπανίως",
+            "ῥᾴδιόν", 
+            "πείθειν",
+            "θραύει",
+            "ποῖ",
+            "πόθεν", 
+            "παρὰ",
+            "ἄτοπόν",
+            "ἀγαπῶσι",
+            "χωρία",
+            "περὶ",
+            "πλοίων",
+            "θόρυβός",
+            "προσκλύζει",
+            "χώρα",
+            "καρποφόρος",
+            "σῦκα",
+            "πλῆθος",
+            "βοαί",
+            "ὅσος",
+            "καπηλεῖα",
+            "μακρὰν",
+            "ἐργαστήρια",
+            "οἱ",
+            "αὐτοί",
+            "κλίνην",
+            "θύραν", 
+            "τράπεζαν",
+            "οἰκοδομοῦσιν"
+        ];
+        
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        
+        // Βοηθητική συνάρτηση για στυл
+        const setStyles = (element, status) => {
+            element.classList.remove('correct', 'almost-correct', 'incorrect', 'show');
+            if (status === 'correct') {
+                element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
+            } else if (status === 'incorrect') {
+                element.classList.add('incorrect');
+            } else if (status === 'show') {
+                element.classList.add('show');
+            }
+        };
+
+        // Συνάρτηση για άμεσο έλεγχο απαντήσεων
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[index];
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                // Точное совпадение
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики
+                else if (removeDiacritics(userAnswer) === removeDiacritics(correctAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
+            }
+        };
+
+        // Συνάρτηση для ενημέρωσης συνολικού αποτελέσματος
+        const updateResults = () => {
+            let correct = 0;
+            let almostCorrect = 0;
+            
+            answers.forEach((answer, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                const userAnswer = inputElement.value.trim();
+                
+                if (userAnswer === answer) {
+                    correct++;
+                } else if (userAnswer !== '' && removeDiacritics(userAnswer) === removeDiacritics(answer)) {
+                    almostCorrect++;
+                }
+            });
+            
+            const resultElement = document.getElementById('result');
+            if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике).`;
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+            }
+        };
+
+        // Προσθήκη event listeners για άμεσο έλεγχο
+        window.onload = () => {
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                
+                // Έλεγχος κατά τη φόρτωση (если есть введенные данные)
+                if (inputElement.value.trim() !== '') {
+                    checkSingleAnswer(i);
+                }
+                
+                // Event listener για άμεσο έλεγχο κατά την πληκτρολόγηση
+                inputElement.addEventListener('input', () => {
+                    // Άμεσος έλεγχος
+                    checkSingleAnswer(i);
+                    
+                    // Ενημέρωση συνολικού αποτελέσματος
+                    updateResults();
+                });
+            });
+
+            // Ενημέρωση συνολικού αποτελέσματος κατά τη φόρτωση
+            updateResults();
+        };
+
+        // Προβολή σωστών απαντήσεων
+        document.getElementById('showAnswers').addEventListener('click', () => {
+            answers.forEach((answer, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                inputElement.value = answer;
+                setStyles(inputElement, 'show');
+            });
+            updateResults();
+        });
+
+        // Καθαρισμός όλων των απαντήσεων
+        document.getElementById('clearAnswers').addEventListener('click', () => {
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                inputElement.value = '';
+                setStyles(inputElement, '');
+            });
+            updateResults();
+        });
+    </script>
+</body>
+</html>
