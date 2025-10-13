@@ -24,6 +24,7 @@
             padding: 5px;
             font-size: 16px;
             width: 150px;
+            transition: background-color 0.3s;
         }
         button {
             font-family: 'Fira Mono', monospace;
@@ -133,9 +134,8 @@
     </table>
 
     <div>
-        <button id="checkAnswers">проверить</button>
-    <button id="showAnswers">узнать ответы</button>
-    <button id="clearStorage">удалить ответы</button>
+        <button id="showAnswers">узнать ответы</button>
+        <button id="clearStorage">удалить ответы</button>
     </div>
     
     <p class="result" id="result"></p>
@@ -176,16 +176,6 @@
             "οἰκοδομοῦσιν"
         ];
         
-        // Φόρτωση αποθηκευμένων απαντήσεων
-        window.onload = () => {
-            answers.forEach((_, i) => {
-                const savedValue = localStorage.getItem(`gap${i + 1}`);
-                if (savedValue) {
-                    document.getElementById(`gap${i + 1}`).value = savedValue;
-                }
-            });
-        };
-
         // Βοηθητική συνάρτηση για στυλ
         const setStyles = (element, status) => {
             element.classList.remove('correct', 'incorrect', 'show');
@@ -198,19 +188,66 @@
             }
         };
 
-        // Έλεγχος απαντήσεων και αποθήκευση
-        document.getElementById('checkAnswers').addEventListener('click', () => {
+        // Συνάρτηση για άμεσο έλεγχο απαντήσεων
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim().toLowerCase();
+            const correctAnswer = answers[index].toLowerCase();
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                const status = userAnswer === correctAnswer ? 'correct' : 'incorrect';
+                setStyles(inputElement, status);
+            }
+        };
+
+        // Συνάρτηση για ενημέρωση συνολικού αποτελέσματος
+        const updateResults = () => {
             let correct = 0;
             answers.forEach((answer, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
                 const userAnswer = inputElement.value.trim().toLowerCase();
-                localStorage.setItem(`gap${i + 1}`, userAnswer);
-                const status = userAnswer === answer.toLowerCase() ? 'correct' : 'incorrect';
-                if (status === 'correct') correct++;
-                setStyles(inputElement, status);
+                if (userAnswer === answer.toLowerCase()) {
+                    correct++;
+                }
             });
-            document.getElementById('result').textContent = `${correct} из ${answers.length}  ответов правильны.`;
-        });
+            document.getElementById('result').textContent = `${correct} из ${answers.length} ответов правильны.`;
+        };
+
+        // Φόρτωση αποθηκευμένων απαντήσεων και ρύθμιση event listeners
+        window.onload = () => {
+            // Φόρτωση αποθηκευμένων απαντήσεων
+            answers.forEach((_, i) => {
+                const savedValue = localStorage.getItem(`gap${i + 1}`);
+                if (savedValue) {
+                    document.getElementById(`gap${i + 1}`).value = savedValue;
+                }
+            });
+
+            // Προσθήκη event listeners για άμεσο έλεγχο
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                
+                // Έλεγχος κατά τη φόρτωση
+                checkSingleAnswer(i);
+                
+                // Event listener για άμεσο έλεγχο κατά την πληκτρολόγηση
+                inputElement.addEventListener('input', () => {
+                    // Αποθήκευση στην localStorage
+                    localStorage.setItem(`gap${i + 1}`, inputElement.value);
+                    
+                    // Άμεσος έλεγχος
+                    checkSingleAnswer(i);
+                    
+                    // Ενημέρωση συνολικού αποτελέσματος
+                    updateResults();
+                });
+            });
+
+            // Ενημέρωση συνολικού αποτελέσματος κατά τη φόρτωση
+            updateResults();
+        };
 
         // Προβολή σωστών απαντήσεων
         document.getElementById('showAnswers').addEventListener('click', () => {
@@ -220,6 +257,7 @@
                 setStyles(inputElement, 'show');
                 localStorage.setItem(`gap${i + 1}`, answer);
             });
+            updateResults();
         });
 
         // Καθαρισμός αποθηκευμένων απαντήσεων
