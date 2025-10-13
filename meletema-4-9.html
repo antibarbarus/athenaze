@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 4.8</title>
+    <title>Μελέτημα 4.9</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -18,93 +18,49 @@
             margin: 20px;
             font-family: 'Fira Mono', monospace;
             font-size: 16px;
+            line-height: 1.6;
         }
         input[type="text"] {
             font-family: 'Fira Mono', monospace;
             padding: 5px;
             font-size: 16px;
-            width: 150px;
+            width: 80px;
             transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
         .result {
             font-weight: bold;
             margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
         }
         .correct { background-color: lightgreen; }
         .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .exercise-text {
+            margin-bottom: 20px;
         }
-        td {
-            vertical-align: top;
-            padding: 10px;
-        }
-        .answers-column {
-            border-left: 1px solid #ccc;
-            width: 30%;
+        p {
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
-        <p><a href="meletemata.html">< назад</a></p>
-
-    <h1>Μελέτημα 4.8</h1>
-    <h2>Заполните пропуски словами из списка в нужной форме</h2>
+    <p><a href="meletemata.html">< назад</a></p>
+    <h1>Μελέτημα 4.9</h1>
+    <h2>заполните пропуски правильными окончаниями</h2>
     
-    <table>
-        <tr>
-            <td>
-                <div class="exercise-text">
-                    <p>1. Ἡ φίλη· « Εἰ <input type="text" id="gap1">, ἄκουε πάντα τὰ περὶ τοῦ ἄστεως.»</p>
-                    
-                    <p>2. Ἐν ᾦ βαδίζουσιν, αἱ κόραι ἀλλήλαις <input type="text" id="gap2">.</p>
-                    
-                    <p>3. Ἐπεὶ εἰς τὴν οἰκίαν <input type="text" id="gap3"> (= εἰσβαίνει), ἡ Μέλιττα <input type="text" id="gap4"> ἄλλην ὑδρίαν.</p>
-                    
-                    <p>4. Πρὸς τὴν κρήνην αὖθις βαίνει, ἀλλ' ἐν τῇ ὁδῷ <input type="text" id="gap5"> τῇ Μυῤῥίνῃ.</p>
-                    
-                    <p>5. Ἡ μήτηρ· « Σπεῦδ', ὦ θύγατερ· ταχέως <input type="text" id="gap6"> πρὸς τὴν κρήνην.»</p>
-                    
-                    <p>6. Ἡ Μέλιττα μάλα σπεύδει, ἀλλὰ φίλη τις <input type="text" id="gap7"> καὶ καλεῖ αὐτήν.</p>
-                    
-                    <p>7. Ἄλλην ὑδρίαν θραύει ἡ παῖς. Διὰ τοῦτο <input type="text" id="gap8"> καὶ λέγει· « <input type="text" id="gap9"> <input type="text" id="gap10"> μέλλει λέγειν ἡ μήτηρ;»</p>
-                </div>
-            </td>
-            <td class="answers-column">
-                <div class="answers">
-                    <ul>
-                        <li>δακρύω</li>
-                        <li>διώκω</li>
-                        <li>εἰσέρχεται</li>
-                        <li>ἐντυγχάνω</li>
-                        <li>ζητέω</li>
-                        <li>ἴθι</li>
-                        <li>λαλέω</li>
-                        <li>σχολάζω</li>
-                        <li>τί ποτε</li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <div class="exercise-text">
+        <p>1. Ὦ Μυρρίνη, ὦ Μέλιττα, διὰ τί οὐ πον<input type="text" id="gap1">, καὶ ποῖ σπεύδ-<input type="text" id="gap2">;»</p>
+        <p>2. Ἡ δὲ Μυρρίνη καὶ ἡ Μέλιττα, «οἴκαδε,» φασίν, «σπεύδ-<input type="text" id="gap3">, οὐδὲ πον-<input type="text" id="gap4">, ἐν νῷ γὰρ ἔχ-<input type="text" id="gap5"> παρασκευάζειν ταχέως τὸ δεῖπνον· ὁ γὰρ ἀνήρ οὐκέτι πον-<input type="text" id="gap6"> καὶ οἴκαδε σπεύδ-<input type="text" id="gap7">, μέλλ-<input type="text" id="gap8"> γὰρ δειπν-<input type="text" id="gap9">. Σὺ δὲ διὰ τί οὐ πον-<input type="text" id="gap10">, καὶ ποῖ σπεύδ-<input type="text" id="gap11">;»</p>
+        <p>3. «Ἐγὼ οὐκ οἴκοι πον-<input type="text" id="gap12">, ἀλλὰ εἰς τὸν ἀγρὸν σπεύδ-<input type="text" id="gap13">· ἐγὼ γὰρ καὶ ὁ ἄνηρ τὰ πρόβατα ζητ-<input type="text" id="gap14"> καὶ διώκ-<input type="text" id="gap15">.»</p>
+    </div>
 
     <p class="result" id="result"></p>
 
     <script>
-        const answers = [
-            "σχολάζεις",
-            "λαλοῦσιν", 
-            "εἰσέρχεται",
-            "ζητεῖ",
-            "ἐντυγχάνει",
-            "ἴθι",
-            "διώκει",
-            "δακρύει",
-            "τί",
-            "ποτε"
-        ];
+        const answers = ["εῖτε", "ετε", "ομεν", "οῦμεν", "ομεν", "εῖ", "ει", "ει", "εῖν", "εῖς", "εις", "ῶ", "ω", "οῦμεν", "ομεν"];
         
         // Функция для удаления диакритики
         const removeDiacritics = (str) => {
@@ -132,12 +88,16 @@
             if (userAnswer === '') {
                 setStyles(inputElement, '');
             } else {
-                // Точное совпадение
+                // Приводим к нижнему регистру для сравнения
+                const normalizedUserAnswer = userAnswer.toLowerCase();
+                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                
+                // Точное совпадение (с учетом регистра)
                 if (userAnswer === correctAnswer) {
                     setStyles(inputElement, 'correct');
                 } 
-                // Совпадение без учета диакритики
-                else if (removeDiacritics(userAnswer) === removeDiacritics(correctAnswer)) {
+                // Совпадение без учета диакритики и регистра
+                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
                     setStyles(inputElement, 'almost-correct');
                 } 
                 // Неправильный ответ
@@ -158,16 +118,27 @@
                 
                 if (userAnswer === answer) {
                     correct++;
-                } else if (userAnswer !== '' && removeDiacritics(userAnswer) === removeDiacritics(answer)) {
-                    almostCorrect++;
+                } else if (userAnswer !== '') {
+                    // Приводим к нижнему регистру для сравнения
+                    const normalizedUserAnswer = userAnswer.toLowerCase();
+                    const normalizedCorrectAnswer = answer.toLowerCase();
+                    
+                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                        almostCorrect++;
+                    }
                 }
             });
             
             const resultElement = document.getElementById('result');
-            if (almostCorrect > 0) {
-                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике).`;
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.style.backgroundColor = 'lightgreen';
+            } else if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.style.backgroundColor = '';
             } else {
                 resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+                resultElement.style.backgroundColor = '';
             }
         };
 
