@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Древнегреческий язык: Падежи и артикли</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 16px;
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace;
+            padding: 5px;
+            font-size: 16px;
+            width: 180px;
+            transition: background-color 0.3s;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
+        .incorrect { background-color: lightcoral; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        td, th {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .answers-column {
+            border-left: 1px solid #ccc;
+            width: 30%;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .exercise-table {
+            flex: 1;
+            min-width: 300px;
+        }
+        .instructions {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p><a href="meletemata.html">< назад</a></p>
+    <h1>Древнегреческий язык: Падежи и артикли</h1>
+    
+    <div class="instructions">
+        <h2>Заполните таблицу словами из списка. К каждому слову добавьте артикль (для звательного падежа — междометие).</h2>
+    </div>
+    
+    <div class="container">
+        <div class="exercise-table">
+            <table id="declension-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>singularis</th>
+                        <th>pluralis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>nominativus</th>
+                        <td><input type="text" id="nom-sg"></td>
+                        <td><input type="text" id="nom-pl"></td>
+                    </tr>
+                    <tr>
+                        <th>genetivus</th>
+                        <td><input type="text" id="gen-sg"></td>
+                        <td><input type="text" id="gen-pl"></td>
+                    </tr>
+                    <tr>
+                        <th>dativus</th>
+                        <td><input type="text" id="dat-sg"></td>
+                        <td><input type="text" id="dat-pl"></td>
+                    </tr>
+                    <tr>
+                        <th>accusativus</th>
+                        <td><input type="text" id="acc-sg"></td>
+                        <td><input type="text" id="acc-pl"></td>
+                    </tr>
+                    <tr>
+                        <th>vocativus</th>
+                        <td><input type="text" id="voc-sg"></td>
+                        <td><input type="text" id="voc-pl"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p class="result" id="result"></p>
+        </div>
+        
+        <div class="answers-column">
+            <div class="answers">
+                <h3>Список слов:</h3>
+                <ul>
+                    <li>δεσποτῶν</li>
+                    <li>κόραι (x2)</li>
+                    <li>μαχαίρας (нож, ж.р.)</li>
+                    <li>τραπέζη</li>
+                    <li>θαλάττας</li>
+                    <li>χώραις</li>
+                    <li>δούλην</li>
+                    <li>δέσποινα</li>
+                    <li>νεανίας (юноша, м.р.)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const answers = {
+            "nom-sg": "δ νεανίας",
+            "nom-pl": "αἱ κόραι",
+            "gen-sg": "τῆς μαχαίρας",
+            "gen-pl": "τῶν δεσποτῶν",
+            "dat-sg": "τῇ τραπέζη",
+            "dat-pl": "ταῖς χώραις",
+            "acc-sg": "τὴν δούλην",
+            "acc-pl": "τὰς θαλάττας",
+            "voc-sg": "ὧ δέσποινα",
+            "voc-pl": "ὧ κόραι"
+        };
+        
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        
+        // Функция для установки стилей
+        const setStyles = (element, status) => {
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
+            if (status === 'correct') {
+                element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
+            } else if (status === 'incorrect') {
+                element.classList.add('incorrect');
+            }
+        };
+
+        // Функция для проверки одного ответа
+        const checkSingleAnswer = (inputId) => {
+            const inputElement = document.getElementById(inputId);
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[inputId];
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                // Приводим к нижнему регистру для сравнения
+                const normalizedUserAnswer = userAnswer.toLowerCase();
+                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                
+                // Точное совпадение (с учетом регистра)
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики и регистра
+                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
+            }
+        };
+
+        // Функция для обновления общего результата
+        const updateResults = () => {
+            let correct = 0;
+            let almostCorrect = 0;
+            
+            Object.keys(answers).forEach(inputId => {
+                const inputElement = document.getElementById(inputId);
+                const userAnswer = inputElement.value.trim();
+                const correctAnswer = answers[inputId];
+                
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                } else if (userAnswer !== '') {
+                    // Приводим к нижнему регистру для сравнения
+                    const normalizedUserAnswer = userAnswer.toLowerCase();
+                    const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                    
+                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                        almostCorrect++;
+                    }
+                }
+            });
+            
+            const resultElement = document.getElementById('result');
+            const total = Object.keys(answers).length;
+            
+            if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${total} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+            } else {
+                resultElement.textContent = `${correct} из ${total} ответов правильны.`;
+            }
+        };
+
+        // Добавление обработчиков событий
+        window.onload = () => {
+            Object.keys(answers).forEach(inputId => {
+                const inputElement = document.getElementById(inputId);
+                
+                // Проверка при загрузке (если есть введенные данные)
+                if (inputElement.value.trim() !== '') {
+                    checkSingleAnswer(inputId);
+                }
+                
+                // Обработчик ввода для немедленной проверки
+                inputElement.addEventListener('input', () => {
+                    // Немедленная проверка
+                    checkSingleAnswer(inputId);
+                    
+                    // Обновление общего результата
+                    updateResults();
+                });
+            });
+
+            // Обновление общего результата при загрузке
+            updateResults();
+        };
+    </script>
+</body>
+</html>
