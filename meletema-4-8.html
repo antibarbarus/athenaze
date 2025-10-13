@@ -26,13 +26,6 @@
             width: 150px;
             transition: background-color 0.3s;
         }
-        button {
-            font-family: 'Fira Mono', monospace;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 5px;
-        }
         .result {
             font-weight: bold;
             margin-top: 10px;
@@ -40,7 +33,6 @@
         .correct { background-color: lightgreen; }
         .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
-        .show { background-color: lightblue; }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -98,11 +90,6 @@
         </tr>
     </table>
 
-    <div>
-        <button id="showAnswers">узнать ответы</button>
-        <button id="clearAnswers">очистить все</button>
-    </div>
-    
     <p class="result" id="result"></p>
 
     <script>
@@ -126,15 +113,13 @@
         
         // Функция для установки стилей
         const setStyles = (element, status) => {
-            element.classList.remove('correct', 'almost-correct', 'incorrect', 'show');
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
             if (status === 'correct') {
                 element.classList.add('correct');
             } else if (status === 'almost-correct') {
                 element.classList.add('almost-correct');
             } else if (status === 'incorrect') {
                 element.classList.add('incorrect');
-            } else if (status === 'show') {
-                element.classList.add('show');
             }
         };
 
@@ -209,26 +194,6 @@
             // Обновление общего результата при загрузке
             updateResults();
         };
-
-        // Показать правильные ответы
-        document.getElementById('showAnswers').addEventListener('click', () => {
-            answers.forEach((answer, i) => {
-                const inputElement = document.getElementById(`gap${i + 1}`);
-                inputElement.value = answer;
-                setStyles(inputElement, 'show');
-            });
-            updateResults();
-        });
-
-        // Очистить все ответы
-        document.getElementById('clearAnswers').addEventListener('click', () => {
-            answers.forEach((_, i) => {
-                const inputElement = document.getElementById(`gap${i + 1}`);
-                inputElement.value = '';
-                setStyles(inputElement, '');
-            });
-            updateResults();
-        });
     </script>
 </body>
 </html>
