@@ -38,6 +38,7 @@
             margin-top: 10px;
         }
         .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
         .show { background-color: lightblue; }
         table {
@@ -135,7 +136,7 @@
 
     <div>
         <button id="showAnswers">узнать ответы</button>
-        <button id="clearStorage">удалить ответы</button>
+        <button id="clearAnswers">очистить все</button>
     </div>
     
     <p class="result" id="result"></p>
@@ -176,11 +177,18 @@
             "οἰκοδομοῦσιν"
         ];
         
-        // Βοηθητική συνάρτηση για στυλ
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        
+        // Βοηθητική συνάρτηση για στυл
         const setStyles = (element, status) => {
-            element.classList.remove('correct', 'incorrect', 'show');
+            element.classList.remove('correct', 'almost-correct', 'incorrect', 'show');
             if (status === 'correct') {
                 element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
             } else if (status === 'incorrect') {
                 element.classList.add('incorrect');
             } else if (status === 'show') {
@@ -191,52 +199,63 @@
         // Συνάρτηση για άμεσο έλεγχο απαντήσεων
         const checkSingleAnswer = (index) => {
             const inputElement = document.getElementById(`gap${index + 1}`);
-            const userAnswer = inputElement.value.trim().toLowerCase();
-            const correctAnswer = answers[index].toLowerCase();
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[index];
             
             if (userAnswer === '') {
                 setStyles(inputElement, '');
             } else {
-                const status = userAnswer === correctAnswer ? 'correct' : 'incorrect';
-                setStyles(inputElement, status);
+                // Точное совпадение
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики
+                else if (removeDiacritics(userAnswer) === removeDiacritics(correctAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
             }
         };
 
-        // Συνάρτηση για ενημέρωση συνολικού αποτελέσματος
+        // Συνάρτηση для ενημέρωσης συνολικού αποτελέσματος
         const updateResults = () => {
             let correct = 0;
+            let almostCorrect = 0;
+            
             answers.forEach((answer, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
-                const userAnswer = inputElement.value.trim().toLowerCase();
-                if (userAnswer === answer.toLowerCase()) {
+                const userAnswer = inputElement.value.trim();
+                
+                if (userAnswer === answer) {
                     correct++;
+                } else if (userAnswer !== '' && removeDiacritics(userAnswer) === removeDiacritics(answer)) {
+                    almostCorrect++;
                 }
             });
-            document.getElementById('result').textContent = `${correct} из ${answers.length} ответов правильны.`;
+            
+            const resultElement = document.getElementById('result');
+            if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике).`;
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+            }
         };
 
-        // Φόρτωση αποθηκευμένων απαντήσεων και ρύθμιση event listeners
+        // Προσθήκη event listeners για άμεσο έλεγχο
         window.onload = () => {
-            // Φόρτωση αποθηκευμένων απαντήσεων
-            answers.forEach((_, i) => {
-                const savedValue = localStorage.getItem(`gap${i + 1}`);
-                if (savedValue) {
-                    document.getElementById(`gap${i + 1}`).value = savedValue;
-                }
-            });
-
-            // Προσθήκη event listeners για άμεσο έλεγχο
             answers.forEach((_, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
                 
-                // Έλεγχος κατά τη φόρτωση
-                checkSingleAnswer(i);
+                // Έλεγχος κατά τη φόρτωση (если есть введенные данные)
+                if (inputElement.value.trim() !== '') {
+                    checkSingleAnswer(i);
+                }
                 
                 // Event listener για άμεσο έλεγχο κατά την πληκτρολόγηση
                 inputElement.addEventListener('input', () => {
-                    // Αποθήκευση στην localStorage
-                    localStorage.setItem(`gap${i + 1}`, inputElement.value);
-                    
                     // Άμεσος έλεγχος
                     checkSingleAnswer(i);
                     
@@ -255,15 +274,18 @@
                 const inputElement = document.getElementById(`gap${i + 1}`);
                 inputElement.value = answer;
                 setStyles(inputElement, 'show');
-                localStorage.setItem(`gap${i + 1}`, answer);
             });
             updateResults();
         });
 
-        // Καθαρισμός αποθηκευμένων απαντήσεων
-        document.getElementById('clearStorage').addEventListener('click', () => {
-            localStorage.clear();
-            location.reload();
+        // Καθαρισμός όλων των απαντήσεων
+        document.getElementById('clearAnswers').addEventListener('click', () => {
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                inputElement.value = '';
+                setStyles(inputElement, '');
+            });
+            updateResults();
         });
     </script>
 </body>
