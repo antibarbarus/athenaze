@@ -135,11 +135,6 @@
         </tr>
     </table>
 
-    <div>
-        <button id="showAnswers">узнать ответы</button>
-        <button id="clearAnswers">очистить все</button>
-    </div>
-    
     <p class="result" id="result"></p>
 
     <script>
@@ -183,7 +178,7 @@
             return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         };
         
-        // Βοηθητική συνάρτηση για στυл
+        // Βοηθητική συνάρτηση для στυл
         const setStyles = (element, status) => {
             element.classList.remove('correct', 'almost-correct', 'incorrect', 'show');
             if (status === 'correct') {
@@ -197,7 +192,7 @@
             }
         };
 
-        // Συνάρτηση για άμεσο έλεγχο απαντήσεων
+        // Συνάρτηση для άμεσο έλεγχο απαντήσεων
         const checkSingleAnswer = (index) => {
             const inputElement = document.getElementById(`gap${index + 1}`);
             const userAnswer = inputElement.value.trim();
@@ -268,26 +263,6 @@
             // Ενημέρωση συνολικού αποτελέσματος κατά τη φόρτωση
             updateResults();
         };
-
-        // Προβολή σωστών απαντήσεων
-        document.getElementById('showAnswers').addEventListener('click', () => {
-            answers.forEach((answer, i) => {
-                const inputElement = document.getElementById(`gap${i + 1}`);
-                inputElement.value = answer;
-                setStyles(inputElement, 'show');
-            });
-            updateResults();
-        });
-
-        // Καθαρισμός όλων των απαντήσεων
-        document.getElementById('clearAnswers').addEventListener('click', () => {
-            answers.forEach((_, i) => {
-                const inputElement = document.getElementById(`gap${i + 1}`);
-                inputElement.value = '';
-                setStyles(inputElement, '');
-            });
-            updateResults();
-        });
     </script>
 </body>
 </html>
