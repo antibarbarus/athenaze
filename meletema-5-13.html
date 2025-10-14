@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 4.13β</title>
+    <title>Μελέτημα 5.13</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -24,7 +24,7 @@
             font-family: 'Fira Mono', monospace;
             padding: 5px;
             font-size: 16px;
-            width: 120px;
+            width: 80px;
             transition: background-color 0.3s;
             border: 1px solid #ccc;
             border-radius: 3px;
@@ -38,74 +38,29 @@
         .correct { background-color: lightgreen; }
         .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
-        .exercise-container {
-            display: flex;
-            gap: 20px;
-        }
         .exercise-text {
-            flex: 3;
-        }
-        .word-list {
-            flex: 1;
-            padding: 20px;
-            border-left: 1px solid #ccc;
+            margin-bottom: 20px;
         }
         p {
             margin-bottom: 15px;
-        }
-        /* Для очень длинных слов увеличиваем ширину дополнительно */
-        .wide-input {
-            width: 180px;
         }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 4.13β</h1>
-    <h2>заполните пропуски словами из списка в нужной форме</h2>
+    <h1>Μελέτημα 5.13</h1>
+    <h2>заполните пропуски формами местоимения αὐτός, αὐτή, αὐτό</h2>
     
-    <div class="exercise-container">
-        <div class="exercise-text">
-            <p>Гυνή <input type="text" id="gap1">  Φαίδρα <input type="text" id="gap2">  τῇ κρήνῃ προσχωρεῖ. Δούλη δὲ ἀκολουθεῖ. Ἡ δὲ δούλη μεγάλην ὑδρίαν φέρει· κάμνει δὲ ἡ δούλη καί, «ὦ <input type="text" id="gap3" class="wide-input"> (<> δούλη),» φησίν, «μὴ οὕτω ταχέως βάδιζε· μεγάλη γάρ ἐστιν ἡ ὑδρία, καὶ οὐ <input type="text" id="gap4" class="wide-input">  ἐστι σπεύδειν.» Ἡ δὲ Φαίδρα, «μὴ φλυάρει, ὦ δούλη,» φησίν, «ἀλλὰ σπεῦδε. Δι' ὀλίγου γὰρ μέλλω δεῖπνον <input type="text" id="gap5" class="wide-input">  τῷ δεσπότῃ. Ἆρ' ἀγνοεῖς ὅτι <input type="text" id="gap6" class="wide-input"> , εἰ μὴ δειπνεῖ;» </p>
-
-            <p>Ἡ δὲ δούλη, «ναὶ <input type="text" id="gap7">  <input type="text" id="gap8">  <input type="text" id="gap9"> ,» φησίν, «μάλα χαλεπός ἐστιν ὁ δεσπότης, εἰ ἀγανακτεῖ. Ἐγὼ μὲν <input type="text" id="gap10"> τὴν <input type="text" id="gap11" class="wide-input">  πονῶ, ὁ δὲ δεσπότης ἀεὶ χαλεπός ἐστι πρὸς ἐμέ. Οὕτω χαλεπός ἐστιν ὁ ἀνὴρ ὥστε πάντες οἱ δοῦλοι φόβον ἔχουσιν, <input type="text" id="gap12">  (= ἐν ᾧ) ἐν τοῖς ἀγροῖς πονοῦσιν. Διὰ τοῦτο δὲ οἱ δοῦλοι τὸν δεσπότην οὐ φιλόυσιν. Οὐ δυνατὸν γάρ ἐστι <input type="text" id="gap13" class="wide-input">  δεσπότην φιλεῖν. Εἰ γάρ τις τῶν δούλων καθίζει <input type="text" id="gap14" class="wide-input"> (<> πολὺν) χρόνον, ὁ δεσπότης μάλα <input type="text" id="gap15" class="wide-input"> (= ἀγανακτεῖ)· <input type="text" id="gap16" class="wide-input"> δὲ εἰς τὸν <input type="text" id="gap17" class="wide-input"> βλέπει καί, «<input type="text" id="gap18" class="wide-input"> » φησίν, «τί ἐν νῷ ἔχει ποιεῖν ὁ δοῦλος;» Ἔπειτα πρὸς τὸν δοῦλον τρέχει καὶ αὐτὸν τύπτει. Οἱ οὖν δοῦλοι στενάζουσι καὶ  λέγουσιν· «Ὦ δέσποτα, μὴ τύπτε ἡμᾶς,» ἀλλ’ <input type="text" id="gap19" class="wide-input">  <input type="text" id="gap20" class="wide-input"> (= ὅμως) ὁ δεσπότης αὐτοὺς <input type="text" id="gap21" class="wide-input">.»</p>
-
-            <p>Ἡ δὲ δέσποινα, «μὴ φλυάρει, ὦ <input type="text" id="gap22" class="wide-input">,» φησίν, «οὕτω γὰρ λέγουσιν οἱ ἀργοὶ δοῦλοι· <input type="text" id="gap23" class="wide-input"> γὰρ ποιεῖν ἐθέλουσιν, καὶ διὰ τοῦτο τὸν δεσπότην <input type="text" id="gap24" class="wide-input"> εἰ αὐτοὺς πονεῖν <input type="text" id="gap25" class="wide-input">. ἀλλὰ σπεῦδε νῦν· <input type="text" id="gap26" class="wide-input"> (= καιρός) γάρ ἐστί σοι ὕδωρ φέρειν.»</p>
-        </div>
-        
-        <div class="word-list">
-            <ul>
-                <li>ἀγανακτέω</li> 
-                <li>ἄθλιος</li> 
-                <li>αὐτίκα</li>
-                <li>δέσποινα</li>
-                <li>κελεύω</li>
-                <li>κολάζω</li>
-                <li>μὰ τὸν Δία</li>
-                <li>οἴμοι</li>
-                <li>ὅλην ἡμέραν</li>
-                <li>ὀλίγος</li>
-                <li>ὀνόματι</li>
-                <li>ὅτε</li>
-                <li>οὐδέν</li>
-                <li>οὐδὲν ἧττον</li>
-                <li>οὐρανός</li>
-                <li>παρασκευάζω</li>
-                <li>ῥᾴδιος</li>
-                <li>τις</li>
-                <li>τοιοῦτος</li>
-                <li>ὕδωр</li>
-                <li>χαλεπαίνω</li>
-                <li>ψέγω</li>
-                <li>ὥρα</li>              
-            </ul>
-        </div>
+    <div class="exercise-text">
+        <p>1. Λύκος τις ἔνεστιν ἐν τῷ τῶν προβάτων αὐλίῳ· ὁ δὲ Φίλιππος λίθῳ βάλλει <input type="text" id="gap1">, καὶ ἅμα βοᾷ τῷ Ἄργῳ· «Ἄγε, δίωκε <input type="text" id="gap2">.» Ὁ δὲ λύκος <input type="text" id="gap3"> ὁρᾷ καὶ ἀπ' <input type="text" id="gap4"> φεύγει.</p>
+        <p>2. Ἡ Μέλιττα καὶ κόρη τις βραδέως βαδίζουσιν· ἡ Μυῤῥίνη <input type="text" id="gap5"> ὁρᾷ καὶ ὑδρίαν <input type="text" id="gap6"> παρέχει καί, « <input type="text" id="gap7"> πληροῦτε (= γεμίζετε),» φησίν, «ὦ κόραι.»</p>
+        <p>3. Ὁ πάππος <input type="text" id="gap8"> (= τῷ Φιλίππῳ) ἐντυγχάνει καί, «τὰ πρόβατα,» φησίν, «ἐκ τοῦ αὐλίου ἐκφεύγει· δίωκε <input type="text" id="gap9">, καὶ αὖθις εἰς τὸ αὔλιον ἔλαυνε.» Καὶ ὁ Φίλιππος <input type="text" id="gap10"> λέγει· «Ναί, ὦ πάππε.»</p>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
-        const answers = ["τις", "ὀνόματι", "δέσποινα", "ῥᾴδιόν", "παρασκευάζειν", "ἀγανακτεῖ", "μὰ", "τὸν", "Δία", "ὅλην", "ἡμέραν", "ὅτε", "τοιοῦτον", "ὀλίγον", "χαλεπαίνει", "αὐτίκα", "οὐρανὸν", "Οἴμοι", "οὐδὲν", "ἧττον", "κολάζει", "ἀθλία", "οὐδὲν", "ψέγουσιν", "κελεύει", "ὥρα"];
+        const answers = ["αὐτόν", "αὐτόν", "αὐτὸν", "αὐτοῦ", "αὐτὰς", "αὐταῖς", "αὐτὴν", "αὐτῷ", "αὐτά", "αὐτῷ"];
         
         // Функция для удаления диакритики
         const removeDiacritics = (str) => {
@@ -191,6 +146,11 @@
         window.onload = () => {
             answers.forEach((_, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
+                
+                // Проверка при загрузке (если есть введенные данные)
+                if (inputElement.value.trim() !== '') {
+                    checkSingleAnswer(i);
+                }
                 
                 // Обработчик ввода для немедленной проверки
                 inputElement.addEventListener('input', () => {
