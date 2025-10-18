@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 1.1</title>
+    <title>Μελέτημα 1.4</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -52,30 +52,25 @@
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 1.1</h1>
+    <h1>Μελέτημα 1.4</h1>
     <h2>Заполните пропуски нужными формами артикля и окончания существительных и глаголов</h2>
     
     <div class="instructions">
-       
     </div>
     
     <div class="exercise-text">
-        <p>1. Ὁ Δικαιόπολις αὐτουργ-<input type="text" id="gap1"> ἐστιν.</p>
-        <p>2. <input type="text" id="gap2"> αὐτουργὸς ἰσχυρ-<input type="text" id="gap3"> ἐστιν.</p>
-        <p>3. Ὁ ἀγρ-<input type="text" id="gap4"> μικρ-<input type="text" id="gap5"> ἐστιν.</p>
-        <p>4. <input type="text" id="gap6"> πόνος μακρ-<input type="text" id="gap7"> ἐστιν.</p>
-        <p>5. Ὁ αὐτουργὸς πον-<input type="text" id="gap8">.</p>
-        <p>6. Ὁ κλῆρ-<input type="text" id="gap9"> παρέχ-<input type="text" id="gap10"> σῖτ-<input type="text" id="gap11">.</p>
-        <p>7. Ὁ κλῆρ-<input type="text" id="gap12"> μικρ-<input type="text" id="gap13"> ἐστιν, ἀλλὰ καλ-<input type="text" id="gap14">.</p>
-        <p>8. <input type="text" id="gap15"> Δικαιόπολις γεωργ-<input type="text" id="gap16"> τὸν ἀγρ-<input type="text" id="gap17">.</p>
-        <p>9. Ὁ αὐτουργ-<input type="text" id="gap18"> φιλ-<input type="text" id="gap19"> <input type="text" id="gap20"> καλ-<input type="text" id="gap21"> κλῆρ-<input type="text" id="gap22">.</p>
-        <p>10. Οὐ πολ-<input type="text" id="gap23"> σῖτ-<input type="text" id="gap24"> ἀλλὰ ἱκαν-<input type="text" id="gap25"> παρέχει <input type="text" id="gap26"> κλῆρ-<input type="text" id="gap27">.</p>
+        <p>1. Ἐν τῷ ἀγρ-<input type="text" id="gap1"> ὁ Δικαιόπολος πον-<input type="text" id="gap2">, καὶ σκάπτ-<input type="text" id="gap3"> <input type="text" id="gap4"> ἀγρόν.</p>
+        <p>2. Ἐκ τοῦ ἀγρ-<input type="text" id="gap5"> ὁ Δικαιόπολις φέρει μέγ-<input type="text" id="gap6"> λίθ-<input type="text" id="gap7">.</p>
+        <p>3. Ὁ ἥλι-<input type="text" id="gap8"> κατατρίβ-<input type="text" id="gap9"> τὸν αὐτουργ-<input type="text" id="gap10">.</p>
+        <p>4. <input type="text" id="gap11"> αὐτουργὸς ἡσυχάζ-<input type="text" id="gap12"> ὑπὸ τ-<input type="text" id="gap13"> δένδρ-<input type="text" id="gap14">.</p>
+        <p>5. Δι᾽ ὀλίγου ὁ Δικαιόπολις ἐπαίρ-<input type="text" id="gap15"> ἑαυτ-<input type="text" id="gap16">, καὶ πρὸς <input type="text" id="gap17"> οἶκον βαδίζει.</p>
+        <p>6. Ὁ Δικαιόπολις μάλα κάμν-<input type="text" id="gap18">, καὶ ἐν τῷ οἴκ-<input type="text" id="gap19"> καθεύδ-<input type="text" id="gap20">.</p>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
-        const answers = ["ός", "Ὁ", "ός", "ὸς", "ός", "Ὁ", "ός", "εῖ", "ος", "ει", "ον", "ος", "ός", "ός", "Ὁ", "εῖ", "όν", "ὸς", "εῖ", "τὸν", "ὸν", "ον", "ὺν", "ον", "ὸν", "ὁ", "ος"];
+        const answers = ["ῷ", "εῖ", "ει", "τὸν", "οῦ", "αν", "ον", "ος", "ει", "όν", "Ὁ", "ει", "ῷ", "ῳ", "ει", "όν", "τὸν", "ει", "ῳ", "ει"];
         
         // Функция для удаления диакритики
         const removeDiacritics = (str) => {
