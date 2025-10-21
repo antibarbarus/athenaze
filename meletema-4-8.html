@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 4.5</title>
+    <title>Μελέτημα 4.8</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -48,36 +48,42 @@
             margin-bottom: 20px;
             font-style: italic;
         }
-        .case-hint {
-            font-size: 12px;
-            color: #666;
-            margin-left: 5px;
-        }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 4.5</h1>
+    <h1>Μελέτημα 4.8</h1>
     <h2>Заполните пропуски артиклями и окончаниями</h2>
     
     <div class="instructions">
     </div>
     
     <div class="exercise-text">
-        <p>1. Πρὸς τ-<input type="text" id="gap1"> οἰκί-<input type="text" id="gap2"> <span class="case-hint">sg</span> τὸ παιδίον παίζει.</p>
-        <p>2. Πολλαὶ γυναῖκες πρὸς τ-<input type="text" id="gap3"> κρήν-<input type="text" id="gap4"> <span class="case-hint">sg</span> βαδίζουσιν.</p>
-        <p>3. Πρὸς τ-<input type="text" id="gap5"> ἀγορ-<input type="text" id="gap6"> <span class="case-hint">sg</span> ὁ γεωργὸς σπεύδει.</p>
-        <p>4. Ὁ γεωργὸς πρὸς τ-<input type="text" id="gap7"> αὐλί-<input type="text" id="gap8"> <span class="case-hint">sg</span> ἐστίν, καὶ βλέπει πρὸς τ-<input type="text" id="gap9"> πρόβατ-<input type="text" id="gap10"> <span class="case-hint">pl</span>.</p>
+        <p>1. Ὁ χαλεπ-<input type="text" id="gap1"> δεσπότ-<input type="text" id="gap2"> ἀεὶ ἀγανακτεῖ.<br>
+           Οἱ χαλεπ-<input type="text" id="gap3"> δεσπότ-<input type="text" id="gap4"> ἀεὶ ἀγανακτοῦσιν.</p>
+        
+        <p>2. Ἀπὸ τοῦ χαλεπ-<input type="text" id="gap5"> δεσπότ-<input type="text" id="gap6"> ὁ δοῦλος οὐκ ἀποχωρεῖ.<br>
+           Ἀπὸ τῶν χαλεπ-<input type="text" id="gap7"> δεσποτ-<input type="text" id="gap8"> οἱ δοῦλοι οὐκ ἀποχωροῦσιν.</p>
+        
+        <p>3. Ὦ φίλ-<input type="text" id="gap9"> δέσποτ-<input type="text" id="gap10">, μὴ ἀγανάκτει.<br>
+           Ὦ φίλ-<input type="text" id="gap11"> δεσπότ-<input type="text" id="gap12">, μὴ ἀγανακτεῖτε.</p>
+        
+        <p>4. Τὸ δεῖпνον παρασκεύαζε τῷ χαλεπ-<input type="text" id="gap13"> δεσπόт-<input type="text" id="gap14">.<br>
+           Τὸ δεῖπνον παρασκευάζετε τοῖς χαλεπ-<input type="text" id="gap15"> δεσπόт-<input type="text" id="gap16">.</p>
+        
+        <p>5. Τὸν χαλεп-<input type="text" id="gap17"> δεσπόт-<input type="text" id="gap18"> ὁ δοῦλος οὐ φιλεῖ.<br>
+           Τοὺς χαλεπ-<input type="text" id="gap19"> δεσπόт-<input type="text" id="gap20"> οἱ δοῦλοι οὐ φιлоῦσιν.</p>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
         const answers = [
-            "ῇ", "ᾳ", 
-            "ὴν", "ην", 
-            "ὴν", "ὰν", 
-            "ῷ", "ῳ", "ὰ", "α"
+            "ὸς", "ης", "οὶ", "αι",
+            "οῦ", "ου", "ῶν", "ῶν",
+            "ε", "α", "οι", "αι",
+            "ῷ", "ῃ", "οῖς", "αις",
+            "ὸν", "ην", "οὺς", "ας"
         ];
         
         // Функция для удаления диакритики

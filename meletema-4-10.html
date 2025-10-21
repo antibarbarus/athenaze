@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 4.5</title>
+    <title>Μελέτημα 4.10</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -48,36 +48,41 @@
             margin-bottom: 20px;
             font-style: italic;
         }
-        .case-hint {
-            font-size: 12px;
-            color: #666;
-            margin-left: 5px;
-        }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 4.5</h1>
-    <h2>Заполните пропуски артиклями и окончаниями</h2>
+    <h1>Μελέτημα 4.10</h1>
+    <h2>Заполните пропуски окончаниями</h2>
     
-    <div class="instructions">
-    </div>
+    <div class="instructions">    </div>
     
     <div class="exercise-text">
-        <p>1. Πρὸς τ-<input type="text" id="gap1"> οἰκί-<input type="text" id="gap2"> <span class="case-hint">sg</span> τὸ παιδίον παίζει.</p>
-        <p>2. Πολλαὶ γυναῖκες πρὸς τ-<input type="text" id="gap3"> κρήν-<input type="text" id="gap4"> <span class="case-hint">sg</span> βαδίζουσιν.</p>
-        <p>3. Πρὸς τ-<input type="text" id="gap5"> ἀγορ-<input type="text" id="gap6"> <span class="case-hint">sg</span> ὁ γεωργὸς σπεύδει.</p>
-        <p>4. Ὁ γεωργὸς πρὸς τ-<input type="text" id="gap7"> αὐλί-<input type="text" id="gap8"> <span class="case-hint">sg</span> ἐστίν, καὶ βλέπει πρὸς τ-<input type="text" id="gap9"> πρόβατ-<input type="text" id="gap10"> <span class="case-hint">pl</span>.</p>
+        <p>1. Ἐν τῷ κλήρῳ μέγ-<input type="text" id="gap1"> ἀγρὸς καὶ μεγ-<input type="text" id="gap2"> οἰκία καὶ μέγ-<input type="text" id="gap3"> δένδρον εἰσίν.<br>
+           Ἐν τοῖς κλήροις μεγ-<input type="text" id="gap4"> ἀγροὶ καὶ μεγ-<input type="text" id="gap5"> οἰκίαι καὶ μεγ-<input type="text" id="gap6"> δένδρα εἰσιν.</p>
+        
+        <p>2. Ὁ γεωργὸς φέρει μέγ-<input type="text" id="gap7"> σάκκον καὶ μέγ-<input type="text" id="gap8"> ἄροτρον εἰς μεγ-<input type="text" id="gap9"> οἰκίαν.<br>
+           Οἱ γεωργοὶ φέρουσι μεγ-<input type="text" id="gap10"> σάκκους καὶ μεγ-<input type="text" id="gap11"> ἄροτρα εἰς μεγ-<input type="text" id="gap12"> οἰκίας.</p>
+        
+        <p>3. Ὦ μέγ-<input type="text" id="gap13"> Ζεῦ, συλλάμβανε.<br>
+           Ὦ μεγ-<input type="text" id="gap14"> Ζεῦ καὶ Ἄπολλον, συλλαμβάνετε.</p>
+        
+        <p>4. Ἐκ τῆς μεγ-<input type="text" id="gap15"> οἰκίας τοῦ μεγ-<input type="text" id="gap16"> κλήρου ὁ γεωργὸς φέρει τοὺς καρποὺς τοῦ μεγ-<input type="text" id="gap17"> δένδρου.<br>
+           Ἐκ τῶν μεγ-<input type="text" id="gap18"> οἰκιῶν τῶν μεγ-<input type="text" id="gap19"> κλήρων οἱ γεωργοὶ φέρουσι τοὺς καρποὺς τῶν μεγ-<input type="text" id="gap20"> δένδρων.</p>
+        
+        <p>5. Πρὸς τῇ μεγ-<input type="text" id="gap21"> οἰκίᾳ ὁ γεωργὸς καθίζει ἐπὶ τῷ μεγ-<input type="text" id="gap22"> λίθῳ ὑπὸ τῷ μεγ-<input type="text" id="gap23"> δένδρῳ.<br>
+           Πρὸς ταῖς μεγ-<input type="text" id="gap24"> οἰκίαις οἱ γεωργοὶ καθίζουσιν ἐπὶ τοῖς μεγ-<input type="text" id="gap25"> λίθοις ὑπὸ τοῖς μεγ-<input type="text" id="gap26"> δένδροις.</p>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
         const answers = [
-            "ῇ", "ᾳ", 
-            "ὴν", "ην", 
-            "ὴν", "ὰν", 
-            "ῷ", "ῳ", "ὰ", "α"
+            "ας", "άλη", "α", "άλοι", "άλαι", "άλα",
+            "αν", "α", "άλην", "άλους", "άλα", "άλας",
+            "ας", "άλοι",
+            "άλης", "άλου", "άλου", "άλων", "άλων", "άλων",
+            "άλῃ", "άλῳ", "άλῳ", "άλαις", "άλοις", "άλοις"
         ];
         
         // Функция для удаления диакритики

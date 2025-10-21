@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 4.5</title>
+    <title>Μελέτημα 4.9β</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -48,36 +48,37 @@
             margin-bottom: 20px;
             font-style: italic;
         }
-        .case-hint {
-            font-size: 12px;
-            color: #666;
-            margin-left: 5px;
-        }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 4.5</h1>
-    <h2>Заполните пропуски артиклями и окончаниями</h2>
+    <h1>Μελέτημα 4.9β</h1>
+    <h2>Заполните пропуски окончаниями</h2>
     
     <div class="instructions">
     </div>
     
     <div class="exercise-text">
-        <p>1. Πρὸς τ-<input type="text" id="gap1"> οἰκί-<input type="text" id="gap2"> <span class="case-hint">sg</span> τὸ παιδίον παίζει.</p>
-        <p>2. Πολλαὶ γυναῖκες πρὸς τ-<input type="text" id="gap3"> κρήν-<input type="text" id="gap4"> <span class="case-hint">sg</span> βαδίζουσιν.</p>
-        <p>3. Πρὸς τ-<input type="text" id="gap5"> ἀγορ-<input type="text" id="gap6"> <span class="case-hint">sg</span> ὁ γεωργὸς σπεύδει.</p>
-        <p>4. Ὁ γεωργὸς πρὸς τ-<input type="text" id="gap7"> αὐλί-<input type="text" id="gap8"> <span class="case-hint">sg</span> ἐστίν, καὶ βλέπει πρὸς τ-<input type="text" id="gap9"> πρόβατ-<input type="text" id="gap10"> <span class="case-hint">pl</span>.</p>
+        <p>1. Ὑπὸ τῷ δένδρῳ πολ-<input type="text" id="gap1"> σκιὰ. Ἐν τῇ σκιᾷ πολ-<input type="text" id="gap2"> σπέρμα καὶ πολ-<input type="text" id="gap3"> σῖτός εἰσιν.</p>
+        
+        <p>2. Ὁ ἀγρὸς πολ-<input type="text" id="gap4"> σῖτον καὶ πολ-<input type="text" id="gap5"> σπέρμα παρέχει.</p>
+        
+        <p>3. Τὸ δένδρον παρέχει πολ-<input type="text" id="gap6"> σκιάν.</p>
+        
+        <p>4. Ἐκ πολ-<input type="text" id="gap7"> σκιᾶς ὁ γεωργὸς τὸν σάκκον φέρει. Ὁ δὲ σάκκος μεστός ἐστι πολ-<input type="text" id="gap8"> σίτου καὶ πολ-<input type="text" id="gap9"> σπέρματος.</p>
+        
+        <p>5. Ἐν πολ-<input type="text" id="gap10"> φόβῳ ἐστὶν ὁ δοῦλος· ὁ μὲν γὰρ δεσπότης ἀγανακτεῖ, ὁ δὲ δοῦλος ἐν πολ-<input type="text" id="gap11"> σκιᾷ ἡσυχάζει.</p>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
         const answers = [
-            "ῇ", "ᾳ", 
-            "ὴν", "ην", 
-            "ὴν", "ὰν", 
-            "ῷ", "ῳ", "ὰ", "α"
+            "λὴ", "ὺ", "ὺς",
+            "ὺν", "ὺ",
+            "λὴν",
+            "λῆς", "λοῦ", "λοῦ",
+            "λῷ", "λῇ"
         ];
         
         // Функция для удаления диакритики
