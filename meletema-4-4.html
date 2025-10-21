@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 3.6</title>
+    <title>Μελέτημα 4.4</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -24,7 +24,7 @@
             font-family: 'Fira Mono', monospace;
             padding: 5px;
             font-size: 16px;
-            width: 120px;
+            width: 80px;
             transition: background-color 0.3s;
             border: 1px solid #ccc;
             border-radius: 3px;
@@ -52,23 +52,28 @@
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 3.6</h1>
-    <h2>Заполните пропуски отрицаниями οὐκέτι и μηκέτι</h2>
+    <h1>Μελέτημα 4.4</h1>
+    <h2>Заполните пропуски артиклями и окончаниями</h2>
     
     <div class="instructions">
     </div>
     
     <div class="exercise-text">
-        <p>1. « <input type="text" id="gap1"> πονεῖτε, ὦ γεωργοί.» Οἱ γεωργοὶ <input type="text" id="gap2"> πονοῦσιν.</p>
-        <p>2. «Ὦ Φίλιππε, <input type="text" id="gap3"> σπεῦδε.» Ὁ Φίλιππος <input type="text" id="gap4"> σπεύδει.</p>
-        <p>3. «Ὦ πάτερ, <input type="text" id="gap5"> ἀρότρευε.» Ὁ πατὴρ <input type="text" id="gap6"> ἀροτρεύει.</p>
-        <p>4. «Ὦ υἱοί, <input type="text" id="gap7"> καταβάλλετε τοὺς λίθους.» Οἱ υἱοὶ <input type="text" id="gap8"> καταβάλλουσι τοὺς λίθους.</p>
+        <p>1. <input type="text" id="gap1"> γυναῖκ-<input type="text" id="gap2"> ἀπὸ τῆς κρήν-<input type="text" id="gap3"> βαίνουσιν, καὶ τὰς ὑδρί-<input type="text" id="gap4"> φέρουσιν εἰς τὰς οἰκί-<input type="text" id="gap5">.</p>
+        <p>2. Ἡ δ' ὁδὸς πολλ-<input type="text" id="gap6"> καὶ χαλεπ-<input type="text" id="gap7"> ἐστιν, οὐδὲ δυνατόν ἐστι φέρειν τὰς μεγάλ-<input type="text" id="gap8"> ὑδρί-<input type="text" id="gap9">.</p>
+        <p>3. Ἐν τῇ τῆς κώμ-<input type="text" id="gap10"> ἀγορ-<input type="text" id="gap11"> πολλ-<input type="text" id="gap12"> καὶ καλ-<input type="text" id="gap13"> κόρ-<input type="text" id="gap14"> εἰσίν, καὶ ἀπὸ πολλ-<input type="text" id="gap15"> οἰκι-<input type="text" id="gap16"> γυναῖκ-<input type="text" id="gap17"> πολλ-<input type="text" id="gap18"> ἐκβαίνουσιν, καὶ <input type="text" id="gap19"> ὑδρίας πληροῦσιν.</p>
+        <p>4. Ἡ δὲ Μέλιττα ἐν τ-<input type="text" id="gap20"> οἰκί-<input type="text" id="gap21"> μένει.</p>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
-        const answers = ["Μηκέτι", "οὐκέτι", "μηκέτι", "οὐκέτι", "μηκέτι", "οὐκέτι", "μηκέτι", "οὐκέτι"];
+        const answers = [
+            "Αἱ", "ες", "ης", "ας", "ας",
+            "ὴ", "ή", "ας", "ας",
+            "ης", "ᾷ", "αὶ", "αὶ", "αι", "ῶν", "ῶν", "ες", "αὶ", "τὰς",
+            "ῇ", "ᾳ"
+        ];
         
         // Функция для удаления диакритики
         const removeDiacritics = (str) => {
