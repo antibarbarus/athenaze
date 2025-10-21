@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 3.1</title>
+    <title>Μελέτημα 5.16</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -18,133 +18,191 @@
             margin: 20px;
             font-family: 'Fira Mono', monospace;
             font-size: 16px;
+            line-height: 1.6;
         }
         input[type="text"] {
             font-family: 'Fira Mono', monospace;
             padding: 5px;
             font-size: 16px;
-            width: 150px;
-        }
-        button {
-            font-family: 'Fira Mono', monospace;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+            width: 120px;
+            transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
         .result {
             font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
         }
         .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
-        .show { background-color: lightblue; }
+        .exercise-container {
+            display: flex;
+            gap: 20px;
+        }
+        .exercise-text {
+            flex: 3;
+        }
+        .word-list {
+            flex: 1;
+            padding: 20px;
+            border-left: 1px solid #ccc;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        /* Для очень длинных слов увеличиваем ширину дополнительно */
+        .wide-input {
+            width: 180px;
+        }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 3.1</h1>
-    <h2>заполните пропуски словами из списка в нужной форме</h2>
-    <table border="0">
-        <colgroup>
-            <col style="width: 80%;">
-            <col style="width: 20%;">
-        </colgroup>
-        <thead>
-            <tr><th colspan="2" style="text-align: right;"></th></tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                   <p><input type="text" id="gap1"> δὲ <input type="text" id="gap2"> Φίλιππος, ὁ τοῦ Δικαιοπόλιδος <input type="text" id="gap3">, πρὸς τὸν <input type="text" id="gap4"> (: τὸν Δικαιόπολιν) βαδίζει· φέρει δὲ αὐτῷ τὸ <input type="text" id="gap5">. Ὁ δὲ <input type="text" id="gap6"> (: ὁ Φίλιππος), «ὦ <input type="text" id="gap7">,» φησίν, «<input type="text" id="gap8"> πόνει ἀλλὰ <input type="text" id="gap9"> τὸ ἄροτρον· δεῖπνον γὰρ φέρω.». Ὁ οὖν <input type="text" id="gap10"> λείπει τὸ ἄροτρον καὶ πρὸς τὸν παῖδα βαδίζει. Καθίζουσιν οὖν ὅ τε πατήρ καὶ ὁ παῖς καὶ <input type="text" id="gap11">. 
+    <h1>Μελέτημα 5.16</h1>
+    <h2>Заполните пропуски словами из списка в нужной форме</h2>
+    
+    <div class="exercise-container">
+        <div class="exercise-text">
+            <p>1. Ὁ αὐτουργὸς <input type="text" id="gap1"> τὸ σπέρμα.</p>
+            <p>2. Ἀλλ' <input type="text" id="gap2">, οἱ βόες οὐκέτι ἕλκουσι τὸ ἄροτρον.</p>
+            <p>3. Λίθος μέγας <input type="text" id="gap3"> τὸ ἄροτρον. Ὁ δὲ δοῦλος οὐκ αἴρει τὸν λίθον.</p>
+            <p>4. Ὁ Ξανθίας, «οὐ <input type="text" id="gap4"> ἐστιν,» <input type="text" id="gap5"> (= λέγει), «αἴρειν τὸν λίθον, μέγας γάρ ἐστιν.»</p>
+            <p>5. Ὁ Δικαιόπολις· «Ὠ <input type="text" id="gap6"> δοῦλε, μὴ <input type="text" id="gap7"> ἀλλ' αἴρε <input type="text" id="gap8"> (= τὸν λίθον).»</p>
+            <p>6. Ὁ τε αὐτουργὸς καὶ ὁ δοῦλος <input type="text" id="gap9"> αἴρουσι τὸν λίθον, ἀλλὰ <input type="text" id="gap10"> φέρουσιν αὐτόν, μέγας γάρ ἐστιν.</p>
+            <p>7. <input type="text" id="gap11"> <input type="text" id="gap12"> φέρουσι τὸν λίθον, ὁ Ξανθίας <input type="text" id="gap13"> καὶ <input type="text" id="gap14"> τὸν λίθον.</p>
+            <p>8. Ὁ λίθος <input type="text" id="gap15"> πρὸς τὸν τοῦ αὐτουργοῦ πόδα.</p>
+            <p>9. Ὁ Δικαιόπολις· «Ὠ μαστιγία, διὰ τί καταβάλλεις τὸν λίθον;» Ὁ δοῦλος· «Οὐκ <input type="text" id="gap16"> εἰμι, ὦ δέσποτα.»</p>
+            <p>10. Ὁ τε αὐτουργὸς καὶ ὁ δοῦλος <input type="text" id="gap17"> αἴρουσι καὶ φέρουσι τὸν λίθον.</p>
+        </div>
+        
+        <div class="word-list">
+            <ul>
+                <li>αἴτιος</li>
+                <li>ἀνόητος</li>
+                <li>δυνατός</li>
+                <li>αὐτόν</li>
+                <li>ἐμποδίζω</li>
+                <li>καταβάλλω</li>
+                <li>πίπτω</li>
+                <li>πταίω</li>
+                <li>σπείρω</li>
+                <li>φησι(ν)</li>
+                <li>φλυαρέω</li>
+                <li>ἅμα</li>
+                <li>αὖθις</li>
+                <li>μόλις</li>
+                <li>ἐν ᾧ</li>
+                <li>ἰδού</li>
+            </ul>
+        </div>
+    </div>
 
-                    <p><input type="text" id="gap12"> τὸ δεῖπνον ὁ Δικαιόπολις «μένε, ὦ <input type="text" id="gap13">», φησίν, καὶ συλλάμβανε· <input type="text" id="gap14"> γάρ εἰσιν οἱ λίθοι ἐν τῷ ἀγρὸν, οὐδὲ δυνατόν ἐστιν <input type="text" id="gap15"> λίθους ἐκ τοῦ ἀγροῦ ἐκφέρειν, εἰ μὴ συλλαμβάνεις. Σὺ δὲ μέγας ἐστίν καὶ <input type="text" id="gap16">· αἶρε οὖν τοὺς λίθους καὶ ἔκφερε αὐτοὺς ἐκ τοῦ ἀγροῦ.»</p> 
-
-                    <p>Πολὺν χρόνον ὅ τε Δικαιόπολις καὶ ὁ Φίλιπος ἐν τῷ ἀγρῷ πονοῦσιν. <input type="text" id="gap17"> καταδύνει ὁ ἥλιος, τοὺς βοῦς <input type="text" id="gap18"> καὶ πρὸς τὸν οἶκον βαδίζουσιν.</p>   
-                    
-                </td>
-                <td style="padding: 20px; vertical-align: top;">
-                    <div class="answers">
-                        <ul>
-                            <li>ἀνδρεῖος</li>
-                            <li>δειπνέω</li>
-                            <li>δεῖπνον</li>
-                            <li>ἐν τούτῷ</li>
-                            <li>ἐπεί</li>
-                            <li>λύω</li>
-                            <li>μηκέτι</li>
-                            <li>υἱός</li>
-                            <li>παῖ</li>
-                            <li>παῖς</li>
-                            <li>πάτερ</li>
-                            <li>πατέρα</li>
-                            <li>πατήρ</li>
-                            <li>πολλοί</li>
-                            <li>τοσοῦτος</li>
-                            
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <button id="checkAnswers">проверить</button>
-    <button id="showAnswers">узнать ответы</button>
-    <button id="clearStorage">удалить ответы</button>
     <p class="result" id="result"></p>
 
     <script>
-        const answers = ["Ἐν", "τούτῳ", "υἱός", "πατέρα", "δεῖπνον", "παῖς", "πάτερ", "μηκέτι", "λεῖπε", "πατὴρ", "δειπνοῦσιν", "Μετὰ", "παῖ", "πολλοὶ", "τοσούτους", "ἀνδρεῖος", "Ἐπεὶ", "λύουσιν"];
+        const answers = ["σπείρει", "ἰδού", "ἐμποδίζει", "δυνατόν", "φησίν", "ἀνόητε", "φλυάρει", "αὐτόν", "ἅμα", "μόλις", "Ἐν", "ᾧ", "πταίει", "καταβάλλει", "πίπτει", "αἴτιος", "αὖθις"];
         
-        // Load saved answers from localStorage
-        window.onload = () => {
-            answers.forEach((_, i) => {
-                const savedValue = localStorage.getItem(`gap${i + 1}`);
-                if (savedValue) {
-                    document.getElementById(`gap${i + 1}`).value = savedValue;
-                }
-            });
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         };
-
-        // Utility function to set styles
+        
+        // Функция для установки стилей
         const setStyles = (element, status) => {
-            element.classList.remove('correct', 'incorrect', 'show');
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
             if (status === 'correct') {
                 element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
             } else if (status === 'incorrect') {
                 element.classList.add('incorrect');
-            } else if (status === 'show') {
-                element.classList.add('show');
             }
         };
 
-        // Check answers and save to localStorage
-        document.getElementById('checkAnswers').addEventListener('click', () => {
+        // Функция для проверки одного ответа
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[index];
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                // Приводим к нижнему регистру для сравнения
+                const normalizedUserAnswer = userAnswer.toLowerCase();
+                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                
+                // Точное совпадение (с учетом регистра)
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики и регистра
+                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
+            }
+        };
+
+        // Функция для обновления общего результата
+        const updateResults = () => {
             let correct = 0;
+            let almostCorrect = 0;
+            
             answers.forEach((answer, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
-                const userAnswer = inputElement.value.trim().toLowerCase();
-                localStorage.setItem(`gap${i + 1}`, userAnswer); // Save the user's input
-                const status = userAnswer === answer.toLowerCase() ? 'correct' : 'incorrect';
-                if (status === 'correct') correct++;
-                setStyles(inputElement, status);
+                const userAnswer = inputElement.value.trim();
+                
+                if (userAnswer === answer) {
+                    correct++;
+                } else if (userAnswer !== '') {
+                    // Приводим к нижнему регистру для сравнения
+                    const normalizedUserAnswer = userAnswer.toLowerCase();
+                    const normalizedCorrectAnswer = answer.toLowerCase();
+                    
+                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                        almostCorrect++;
+                    }
+                }
             });
-            document.getElementById('result').textContent = `${correct} из ${answers.length}  ответов правильны.`;
-        });
+            
+            const resultElement = document.getElementById('result');
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.style.backgroundColor = 'lightgreen';
+            } else if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.style.backgroundColor = '';
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+                resultElement.style.backgroundColor = '';
+            }
+        };
 
-        // Show correct answers
-        document.getElementById('showAnswers').addEventListener('click', () => {
-            answers.forEach((answer, i) => {
+        // Добавление обработчиков событий
+        window.onload = () => {
+            answers.forEach((_, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
-                inputElement.value = answer;
-                setStyles(inputElement, 'show'); // Set style for shown answer
-                localStorage.setItem(`gap${i + 1}`, answer); // Save correct answers
+                
+                // Обработчик ввода для немедленной проверки
+                inputElement.addEventListener('input', () => {
+                    // Немедленная проверка
+                    checkSingleAnswer(i);
+                    
+                    // Обновление общего результата
+                    updateResults();
+                });
             });
-        });
 
-        // Clear localStorage and reset the form
-        document.getElementById('clearStorage').addEventListener('click', () => {
-            localStorage.clear();
-            location.reload();
-        });
+            // Обновление общего результата при загрузке
+            updateResults();
+        };
     </script>
 </body>
 </html>

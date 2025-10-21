@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 4.1</title>
+    <title>Μελέτημα 4.2</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -18,93 +18,94 @@
             margin: 20px;
             font-family: 'Fira Mono', monospace;
             font-size: 16px;
+            line-height: 1.6;
         }
         input[type="text"] {
             font-family: 'Fira Mono', monospace;
             padding: 5px;
             font-size: 16px;
-            width: 150px;
+            width: 120px;
             transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
         .result {
             font-weight: bold;
             margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
         }
         .correct { background-color: lightgreen; }
         .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .exercise-container {
+            display: flex;
+            gap: 20px;
         }
-        td {
-            vertical-align: top;
-            padding: 10px;
+        .exercise-text {
+            flex: 3;
         }
-        .answers-column {
+        .word-list {
+            flex: 1;
+            padding: 20px;
             border-left: 1px solid #ccc;
-            width: 30%;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        /* Для очень длинных слов увеличиваем ширину дополнительно */
+        .wide-input {
+            width: 180px;
         }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 4.1</h1>
-    <h2>заполните пропуски словами из списка в нужной форме</h2>
+    <h1>Μελέτημα 4.2</h1>
+    <h2>Заполните пропуски словами из списка в нужной форме</h2>
     
-    <table>
-        <tr>
-            <td>
-                <div class="exercise-text">
-                    <p><input type="text" id="gap1"> τοῦ <input type="text" id="gap2"> ὁ τε Φίλιππος καὶ ὁ Δικαιόπολις ἐν τοῖς ἀγροῖς πονοῦσιν· ὁ μὲν γὰρ Φίλιππος <input type="text" id="gap3"> <input type="text" id="gap4"> παρέχει <input type="text" id="gap5"> τοῖς <input type="text" id="gap6"> καὶ ἀμέλγει αὐτά· τὰ γὰρ πρόβατα ἐν τῷ <input type="text" id="gap7"> ἐστίν. Ὁ δὲ Δικαιόπολις τὰς ἐλαίας <input type="text" id="gap8"> καὶ ἔλαιον ποιεῖ.</p> 
-
-                    <p>Τέλος δὲ ὁ Δικαιόπολις μάλα κάμνει καὶ οὐκ <input type="text" id="gap9"> πονεῖν. Ἡ οὖν <input type="text" id="gap10"> τὸν <input type="text" id="gap11"> καλεῖ καί, «ἔπαιρε σεαυτόν, ὦ <input type="text" id="gap12">,» φησίν· «ὁ γὰρ ἥλιος <input type="text" id="gap13">, ἡ δὲ <input type="text" id="gap14"> καὶ ἐγὼ <input type="text" id="gap15"> <input type="text" id="gap16"> <input type="text" id="gap17"> βαδίζειν πρὸς τὴν <input type="text" id="gap18">.» Ὁ δὲ Δικαιόπολις λέγει· 'Μὴ χαλεπὴ ἴσθι, ὦ <input type="text" id="gap19">· μάλα γὰρ κάμνω καὶ ἐθέλω καθεύδειν.»
-</p> 
-
-                    <p>Ἡ οὖν Μυρρίνη καὶ ἡ Μέλιττα πρὸς τὴν κρήνην βαδίζουσιν (ἡ Μέλιττα θυγάτηρ ἐστίν, <input type="text" id="gap20"> μάλα καλή). Ἡ τε οὖν μήτηρ καὶ ἡ θυγάτηр τὰς <input type="text" id="gap21"> φέρουσιν· μεγάλαί δ’εἰσὶν αἱ ὑδρίαι, <input type="text" id="gap22"> οὐ δυνατὸν ἐστι σπεύδειν.</p>
-
-                    <p>Ἡ οὖν Μυρρίνη καὶ ἡ Μέλιττα <input type="text" id="gap23"> τὴν <input type="text" id="gap24">. Ἡ δὲ κώμη οὐ μεγάλη ἐστίν. Ἡ δὲ Μуρρίνη τε καὶ ἡ Μέλιττα τὴν <input type="text" id="gap25"> οὐκ ἀγνοοῦσιν. Πολλοὶ ἤδη ἄνθρωποι ἐν ταῖς ὁδοῖς εἰσίν· οἱ γὰρ γεωργοὶ ἀπὸ τῆς κώμης πρὸς τοὺς ἀγροὺς σπεύδουσι <input type="text" id="gap26"> τῶν δούλων. Ἐν δὲ τῇ κώμῃ <input type="text" id="gap27"> τὰ <input type="text" id="gap28"> καὶ αἱ <input type="text" id="gap29"> μένουσιν. Αἱ δὲ <input type="text" id="gap30"> αἱ ἐν τῇ κώμῃ οὐ μεγάλαι εἰσίν, <input type="text" id="gap31"> δὲ ἱκαναί. <input type="text" id="gap32"> <input type="text" id="gap33"> οἱ γεωργοὶ τὰς οἰκίας φιλοῦσιν, καὶ μάλα χαίρουσιν ἔπει μετὰ τὰ <input type="text" id="gap34"> ἐκ τῶν ἀγρῶν οἴκαδε <input type="text" id="gap35">.</p>
-                </div>
-            </td>
-            <td class="answers-column">
-                <div class="answers">
-                    <ul>
-<li>ἄγροικος</li> 
-<li>ἀμέλγω</li> 
-<li>ἀνατέλλω</li>
-<li>ἀνήρ, ἄνδρα acc, ἄνερ voc</li>
-<li>αὔλιον</li>
-<li>γυνή, γύναι voc, γυναῖκες nom pl</li>
-<li>διὰ τοῦτο</li>
-<li>διὰ χειμῶνος</li>
-<li>διαπερῶσι(ν) < διαπεράω</li>
-<li>ἐθέλω</li>
-<li>ἐν νῷ ἔχω</li>
-<li>ἐπανέρχονται < ἐπανέρχομαι</li>
-<li>ἔργον</li>
-<li>θυγάτηρ</li>
-<li>καθ' ἡμέραν</li>
-<li>κόρη</li>
-<li>κώμη</li>
-<li>μετά + gen</li>
-<li>μόνον</li>
-<li>ὁδός</li>
-<li>οἰκία</li>
-<li>παιδίον</li>
-<li>πιέζω</li>
-<li>ὑδρία</li>
-<li>χόρτος</li>
-<li>ὥστε</li>               
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <div class="exercise-container">
+        <div class="exercise-text">
+            <p>1. Ἡ <input type="text" id="gap1"> ἡ τῆς κώμης οὐ μεγάλη ἐστὶν ὥσπερ αἱ τῶν <input type="text" id="gap2"> ἀγοραί.</p>
+            <p>2. Ἡ ἀγορὰ οὐ μεγάλη ἐστίν, ἀλλ' <input type="text" id="gap3"> ἀεὶ <input type="text" id="gap4"> ἐστιν ἀνθρώπων.</p>
+            <p>3. Ἥ τε Μυρρίνη καὶ ἡ παῖς <input type="text" id="gap5"> (= διαπερῶσι) τὴν ἀγοράν.</p>
+            <p>4. Ἀπὸ τῆς ἀγορᾶς οἱ ἄνθρωποι <input type="text" id="gap6"> πρὸς τοὺς ἀγρούς.</p>
+            <p>5. Πρὸς τῇ κρήνῃ ἄλλαι γυναῖκες <input type="text" id="gap7">, καὶ τὰς ὑδρίας πληροῦσιν.</p>
+            <p>6. Ἤδη <input type="text" id="gap8"> <input type="text" id="gap9"> (= ἕωθεν) αἱ ἄλλαι γυναῖκες πάρεισιν πρὸς τῇ κρήνῃ.</p>
+            <p>7. Ἄλλην κόρην ἡ Μέλιττα καλεῖ· «Χαῖρε, ὦ <input type="text" id="gap10">.</p>
+            <p>8. <input type="text" id="gap11"> λέγει ὅτι οἱ Ἀθηναῖοι <input type="text" id="gap12"> ποιοῦσιν.</p>
+            <p>9. Ἐν τῇ ἑορτῇ οἱ Ἀθηναῖοι <input type="text" id="gap13"> καὶ ἀγῶνας ποιοῦσιν.</p>
+            <p>10. Ὁ ἄγγελος <input type="text" id="gap14"> ἀπὸ τοῦ ἄστεως.</p>
+            <p>11. Αἱ γυναῖκες <input type="text" id="gap15"> (<> βραδέως) προσχωροῦσι τῷ ἀγγελῳ καὶ <input type="text" id="gap16">.</p>
+            <p>12. Αἱ γυναῖκες <input type="text" id="gap17"> βαδίζειν εἰς τὸ ἄστυ καὶ θεωρεῖν τοὺς χοροὺς καὶ τοὺς ἀγῶνας.</p>
+        </div>
+        
+        <div class="word-list">
+            <ul>
+                <li>ἄγγελος</li>
+                <li>ἀγορά</li>
+                <li>ἄστεων</li>
+                <li>ἑορτή</li>
+                <li>φίλη</li>
+                <li>χορός</li>
+                <li>μεστός</li>
+                <li>ἀκούω</li>
+                <li>ἀποχωρέω</li>
+                <li>διαβαίνω</li>
+                <li>ἐθέλω</li>
+                <li>ἥκω</li>
+                <li>πάρειμι</li>
+                <li>ὅμως</li>
+                <li>ταχέως</li>
+                <li>ἐξ ἑωθινοῦ</li>
+            </ul>
+        </div>
+    </div>
 
     <p class="result" id="result"></p>
 
     <script>
-        const answers = ["Διὰ", "χειμῶνος", "καθ᾽", "ἡμέραν", "χόρτον", "προβάτοις", "αὐλίῳ", "πιέζει", "ἐθέλει", "γυνὴ", "ἄνδρα", "ἄνερ", "ἀνατέλλει", "θυγάτηρ", "ἐν", "νῷ", "ἔχομεν", "κρήνην", "γύναι", "κόρη", "ὑδρίας", "ὥστε", "διαπερῶσι", "κώμην", "ὁδὸν", "μετὰ", "μόνον", "παιδία", "γυναῖκες", "οἰκίαι", "ἀγροίκοις", "Διὰ", "τοῦτο", "ἔργα", "ἐπανέρχονται"];
+        const answers = ["ἀγορὰ", "ἄστεων", "ὅμως", "μεστή", "διαβαίνουσι", "ἀποχωροῦσι", "πάρεισιν", "ἐξ", "ἑωθινοῦ", "φίλη", "Ἄγγελος", "ἑορτὴν", "χοροὺς", "ἥκει", "ταχέως", "ἀκούουσιν", "ἐθέλουσι"];
         
         // Функция для удаления диакритики
         const removeDiacritics = (str) => {
@@ -174,10 +175,15 @@
             });
             
             const resultElement = document.getElementById('result');
-            if (almostCorrect > 0) {
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.style.backgroundColor = 'lightgreen';
+            } else if (almostCorrect > 0) {
                 resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.style.backgroundColor = '';
             } else {
                 resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+                resultElement.style.backgroundColor = '';
             }
         };
 
@@ -185,11 +191,6 @@
         window.onload = () => {
             answers.forEach((_, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
-                
-                // Проверка при загрузке (если есть введенные данные)
-                if (inputElement.value.trim() !== '') {
-                    checkSingleAnswer(i);
-                }
                 
                 // Обработчик ввода для немедленной проверки
                 inputElement.addEventListener('input', () => {

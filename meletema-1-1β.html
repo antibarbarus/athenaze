@@ -3,126 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Упражнение 1.2</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
-    <style>
-        body {
-            margin: 20px;
-            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to the entire body */
-            font-size: 16px; /* Slightly larger font size for the main text */
-        }
-        input[type="text"] {
-            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to input fields */
-            padding: 5px;
-            font-size: 16px;
-            width: 100px; /* Set a fixed width for input fields */
-        }
-        button {
-            font-family: 'Fira Mono', monospace; /* Apply Fira Mono font to buttons */
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .question {
-            margin-bottom: 20px;
-        }
-        .answers {
-            margin-bottom: 20px;
-        }
-        .result {
-            font-weight: bold;
-        }
-
-    </style>
-</head>
-<body>
-    <p><a href="meletemata.html">< назад</a></p>
-    <h1>Упражнение 1.2</h1>
-    <table border="0" class="dataframe table table-bordered">
-     <colgroup>
-        <col style="width: 50%;">
-        <col style="width: 50%;">
-    </colgroup>
-<thead>
-<tr style="text-align: right;">
-  <tr style="text-align: right;">
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-    <p><b>nominativus</b></p>
-    &nbsp;
-    <p>οἶκος</p>
-    <p><input type="text" id="gap2"></p>
-    <p>ἄοκνος</p>
-    <p><input type="text" id="gap4"></p>
-    <p>πολύς</p>
-    <p><input type="text" id="gap6"></p>
-    <p>Ἀθηναῖος</p>
-    <p><input type="text" id="gap8"></p>
-    <p>χαλεπός</p>
-    <p><input type="text" id="gap10"></p>
-</p>
-<td style="padding: 10px; ">
-    <p><b>accusativus</b></p>
-    &nbsp;
-    <p><input type="text" id="gap1"></p>
-    <p>τόν</p>
-    <p><input type="text" id="gap3"></p>
-    <p>ἰσχυρόν</p>
-    <p><input type="text" id="gap5"></p>
-    <p>ἀγρόν</p>
-    <p><input type="text" id="gap7"></p>
-    <p>μόσχον</p>
-    <p><input type="text" id="gap9"></p>
-    <p>σῖτον</p>
-        </td>
-
-</tr>
-</tbody>
-</table>
-    <button onclick="checkAnswers()">Check Answers</button>
-    <button onclick="showAnswers()">Show Answers</button>
-    <button onclick="location.reload()">Delete Answers</button>
-
-    <p class="result" id="result"></p>
-
-    <script>
-        const answers = ["οἶκον", "ὁ", "ἄοκνον", "ἰσχυρός", "πολύν", "ἀγρός", "Ἀθηναῖον", "μόσχος", "χαλεπόν", "σῖτος"];
-
-        function checkAnswers() {
-            let correct = 0;
-            for (let i = 0; i < answers.length; i++) {
-                const userAnswer = document.getElementById(`gap${i+1}`).value.trim().toLowerCase();
-                const correctAnswer = answers[i].toLowerCase();
-                if (userAnswer === correctAnswer) {
-                    correct++;
-                    document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightgreen';
-                } else {
-                    document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightcoral';
-                }
-            }
-            document.getElementById('result').textContent = `You got ${correct} out of ${answers.length} correct.`;
-        }
-
-        function showAnswers() {
-            for (let i = 0; i < answers.length; i++) {
-                document.getElementById(`gap${i+1}`).value = answers[i];
-                document.getElementById(`gap${i+1}`).style.backgroundColor = 'lightblue';
-            }
-        }
-    </script>
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Упражнение 1.1</title>
+    <title>Μελέτημα 1.1β</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
           ul {
@@ -165,7 +46,7 @@
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Упражнение 1.1</h1>
+    <h1>Μελέτημα 1.1β</h1>
     <table border="0" class="dataframe table table-bordered">
      <colgroup>
         <col style="width: 80%;">
