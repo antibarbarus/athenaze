@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μελέτημα 5.16</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace;
+            padding: 5px;
+            font-size: 16px;
+            width: 120px;
+            transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
+        .incorrect { background-color: lightcoral; }
+        .exercise-container {
+            display: block;
+        }
+        .exercise-text {
+            width: 100%;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        /* Для очень длинных слов увеличиваем ширину дополнительно */
+        .wide-input {
+            width: 180px;
+        }
+    </style>
+</head>
+<body>
+    <p><a href="meletemata.html">< назад</a></p>
+    <h1>Μελέτημα 5.16</h1>
+    <h2>Заполните таблицу</h2>
+    
+    <div class="exercise-container">
+        <div class="exercise-text">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nominativus</th>
+                        <th>Accusativus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>βίος</td>
+                        <td><input type="text" id="gap1"></td>
+                    </tr>
+                    <tr>
+                        <td>αὐτουργός</td>
+                        <td><input type="text" id="gap2"></td>
+                    </tr>
+                    <tr>
+                        <td>μικρός</td>
+                        <td><input type="text" id="gap3"></td>
+                    </tr>
+                    <tr>
+                        <td>ἐλεύθερος</td>
+                        <td><input type="text" id="gap4"></td>
+                    </tr>
+                    <tr>
+                        <td>δ</td>
+                        <td><input type="text" id="gap5"></td>
+                    </tr>
+                    <tr>
+                        <td>πολὼς</td>
+                        <td><input type="text" id="gap6"></td>
+                    </tr>
+                    <tr>
+                        <td>κλῆρος</td>
+                        <td><input type="text" id="gap7"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <p class="result" id="result"></p>
+
+    <script>
+        const answers = ["βίον", "αὐτουργόν", "μικρόν", "ἐλεύθερον", "τόν", "πολὼν", "κλῆρον"];
+        
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        
+        // Функция для установки стилей
+        const setStyles = (element, status) => {
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
+            if (status === 'correct') {
+                element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
+            } else if (status === 'incorrect') {
+                element.classList.add('incorrect');
+            }
+        };
+
+        // Функция для проверки одного ответа
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[index];
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                // Приводим к нижнему регистру для сравнения
+                const normalizedUserAnswer = userAnswer.toLowerCase();
+                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                
+                // Точное совпадение (с учетом регистра)
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики и регистра
+                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
+            }
+        };
+
+        // Функция для обновления общего результата
+        const updateResults = () => {
+            let correct = 0;
+            let almostCorrect = 0;
+            
+            answers.forEach((answer, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                const userAnswer = inputElement.value.trim();
+                
+                if (userAnswer === answer) {
+                    correct++;
+                } else if (userAnswer !== '') {
+                    // Приводим к нижнему регистру для сравнения
+                    const normalizedUserAnswer = userAnswer.toLowerCase();
+                    const normalizedCorrectAnswer = answer.toLowerCase();
+                    
+                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                        almostCorrect++;
+                    }
+                }
+            });
+            
+            const resultElement = document.getElementById('result');
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.style.backgroundColor = 'lightgreen';
+            } else if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.style.backgroundColor = '';
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+                resultElement.style.backgroundColor = '';
+            }
+        };
+
+        // Добавление обработчиков событий
+        window.onload = () => {
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                
+                // Обработчик ввода для немедленной проверки
+                inputElement.addEventListener('input', () => {
+                    // Немедленная проверка
+                    checkSingleAnswer(i);
+                    
+                    // Обновление общего результата
+                    updateResults();
+                });
+            });
+
+            // Обновление общего результата при загрузке
+            updateResults();
+        };
+    </script>
+</body>
+</html>
