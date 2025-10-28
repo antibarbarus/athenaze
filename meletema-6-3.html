@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 5.18</title>
+    <title>Μελέτημα 6.3</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -24,7 +24,7 @@
             font-family: 'Fira Mono', monospace;
             padding: 5px;
             font-size: 16px;
-            width: 80px;
+            width: 120px;
             transition: background-color 0.3s;
             border: 1px solid #ccc;
             border-radius: 3px;
@@ -38,52 +38,113 @@
         .correct { background-color: lightgreen; }
         .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
+        .exercise-container {
+            display: flex;
+            gap: 20px;
+        }
         .exercise-text {
-            margin-bottom: 20px;
+            flex: 3;
+        }
+        .word-list {
+            flex: 1;
+            padding: 20px;
+            border-left: 1px solid #ccc;
         }
         p {
             margin-bottom: 15px;
         }
-        .instructions {
-            margin-bottom: 20px;
-            font-style: italic;
+        /* Для очень длинных слов увеличиваем ширину дополнительно */
+        .wide-input {
+            width: 180px;
         }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 5.18</h1>
-    <h2>заполните пропуски правильными окончаниями</h2>
+    <h1>Μελέτημα 6.3</h1>
+    <h2>Заполните пропуски словами из списка в нужной форме</h2>
     
-    
-    <div class="exercise-text">
-        <p>Ἥ τε Μέλιττα καὶ ἡ Παμφίλη ὑπὸ δένδρ-<input type="text" id="gap1"> καθίζ-<input type="text" id="gap2"> καὶ λαλ-<input type="text" id="gap3">. Φλέγει γὰρ ὁ ἥλι-<input type="text" id="gap4">, καὶ αἱ κόρ-<input type="text" id="gap5"> ἐν τῇ σκι-<input type="text" id="gap6"> ἡσυχάζ-<input type="text" id="gap7">.</p>
-        <p>Ὁ δὲ Φίλιππος μετὰ τ-<input type="text" id="gap8"> Φαίδρ-<input type="text" id="gap9"> ἐν τῇ ὁδ-<input type="text" id="gap10"> τῇ πρὸς τὸ ὄρος ὄπισθεν πολλῶν προβάτ-<input type="text" id="gap11"> βαδίζει. Ὁ μὲν οὖν Φαῖδρος τρέχει καὶ, «δεῦρο ἀκολούθ-<input type="text" id="gap12"> μοι,» φησίν, «ὦ Φίλιππ-<input type="text" id="gap13">, καὶ ἀνάβαιν-<input type="text" id="gap14"> ἐπὶ μακρ-<input type="text" id="gap15"> δένδρον μετ᾽ ἐμοῦ· βούλομαι γὰρ ἐγὼ εἰς ἄκρ-<input type="text" id="gap16"> τὸ δένδρ-<input type="text" id="gap17"> ἀναβαίν-<input type="text" id="gap18">.» Ἔπειτα δὲ ταχέως ἐπὶ τ-<input type="text" id="gap19"> δένδρ-<input type="text" id="gap20"> ἀναβαίνει.</p>
-        <p>Ὁ δὲ Φίλιππος· «Οὐδαμῶς, ὦ Φαῖδρ-<input type="text" id="gap21">· οὐ γὰρ ἐθέλ-<input type="text" id="gap22"> νῦν ἐπὶ τὰ δένδρα ἀναβαίνειν. Ἰδού, τὰ γὰρ πρόβατ-<input type="text" id="gap23"> ἤδη ἀποχωρ-<input type="text" id="gap24"> ἐν τ-<input type="text" id="gap25"> ὁδ-<input type="text" id="gap26">, οὐδέ ἐστι καιρὸς παίζειν νῦν.»</p>
-        <p>Ὁ δὲ Φαῖδρος, «μὴ φλυάρ-<input type="text" id="gap27">, ὦ Φίλιππε,» φησίν· «φόβον γὰρ ἔχ-<input type="text" id="gap28">, καὶ διὰ τοῦτο οὐκ ἐθέλ-<input type="text" id="gap29"> ἐπὶ τοσοῦτον δένδρ-<input type="text" id="gap30"> ἀναβαίνειν· μάλα γὰρ μακρ-<input type="text" id="gap31"> ἐστιν.» Ἔπειτα δὲ τοὺς καρπ-<input type="text" id="gap32"> ἀπὸ τ-<input type="text" id="gap33"> δένδρ-<input type="text" id="gap34"> λαμβάνει καὶ τὸν Φίλιππον τ-<input type="text" id="gap35"> καρπ-<input type="text" id="gap36"> βάλλει. Ὁ δὲ Φίλιππος, «οἴμοι,» φησίν, «τί ποιεῖς, ὦ μαστιγί-<input type="text" id="gap37">; Κακὸς γὰρ παῖς εἶ σύ, ὦ Φαῖδρε.»</p>
-        <p>Ὁ δὲ Φαῖδρος, «καὶ σύ,» φησίν, «οὐκ ἀνдρεῖ-<input type="text" id="gap38"> εἶ, ἀλλὰ φόβ-<input type="text" id="gap39"> ἔχεις ὥσπερ αἱ κόρ-<input type="text" id="gap40">.»</p>
-        <p>Ἐν δὲ τούτῳ ἐξαίφνης ὅ τε Φίλιππος καὶ ὁ Φαῖδρος βοὴ-<input type="text" id="gap41"> ἀκούουσιν. Ἡ γὰρ Μέλιττα μέγα βοᾷ, ἐπεὶ λύκ-<input type="text" id="gap42"> μέγας καὶ ἄγρι-<input type="text" id="gap43"> αὐτ-<input type="text" id="gap44"> τε προσχωρεῖ καὶ τ-<input type="text" id="gap45"> Παμφίλ-<input type="text" id="gap46">.</p>
-        <p>Ὁ μὲν οὖν Φαῖδρος ἀπὸ τ-<input type="text" id="gap47"> δένδρ-<input type="text" id="gap48"> ταχέως καταβαίνει, καὶ ἅμα τ-<input type="text" id="gap49"> Φιλίππ-<input type="text" id="gap50"> τρέχει πρὸς τ-<input type="text" id="gap51"> κόρ-<input type="text" id="gap52">. Ἐπεὶ δὲ οὐ μακρὰν ἀπὸ τ-<input type="text" id="gap53"> κορ-<input type="text" id="gap54"> τὸν λύκον ὁρῶσιν, ὁ μὲν Φαῖδρος εἰς δένδρ-<input type="text" id="gap55"> σπεύδει καὶ ἐπ᾽ αὐτ-<input type="text" id="gap56"> ἀναβαίνει — πολὺς γὰρ φόβ-<input type="text" id="gap57"> αὐτὸν λαμβάνει — ὁ δὲ Φίλιππος βακτηρί-<input type="text" id="gap58"> λαμβάνει καὶ πρὸς τ-<input type="text" id="gap59"> λύκ-<input type="text" id="gap60"> σπεύδει· μέγα δὲ βοᾷ καὶ τὸν λύκον λίθ-<input type="text" id="gap61"> βάλλει. Ὁ μὲν οὖν λύκος πρὸς τὸν Φίλιππον ἀναστρέφει καὶ ἐπ᾽ αὐτ-<input type="text" id="gap62"> ὁρμᾷ, ὁ δὲ παῖς τ-<input type="text" id="gap63"> βακτηρί-<input type="text" id="gap64"> οὕτω βιαίως τύπτει αὐτὸν ὥστε ὁ λύκος ἀποφεύг-<input type="text" id="gap65">. Ὁ μὲν Ἄργος τὰς τοῦ δεσπότ-<input type="text" id="gap66"> βο-<input type="text" id="gap67"> ἀκούει, καὶ λείπει τὰ πρόβατα καὶ τρέχει πρὸς τὸν δεσπότ-<input type="text" id="gap68">· ἐπεὶ δὲ ὁρᾷ τὸν λύκον, μέγα βοᾷ καὶ αὐτ-<input type="text" id="gap69"> διώκει.</p>
-        <p>Ὁ δὲ Φίλιππος, «πῶς ἔχ-<input type="text" id="gap70">,» φησίν, «ὦ κόρ-<input type="text" id="gap71">;»</p>
-        <p>Ἡ δὲ Μέλιττα, «καλῶς ἔχ-<input type="text" id="gap72"> ἡμεῖς,» φησίν, «ὦ Φίλιππε. Σὺ δὲ παῖς μάλα ἀνδρεῖ-<input type="text" id="gap73"> εἶ καὶ ἰσχυρ-<input type="text" id="gap74">.»</p>
-        <p>Ὁ δὲ Φίλιππος, «ποῦ δέ ἐστιν,» φησίν, «ὁ Φαῖδρος;»</p>
-        <p>Ἐν ᾧ δὲ τοῦτο λέγει τὸν Φαῖδρον ἐπὶ τ-<input type="text" id="gap75"> δένδρ-<input type="text" id="gap76"> ὁρ-<input type="text" id="gap77">· ἔτι γὰρ φόβ-<input type="text" id="gap78"> ἔχει, οὐδὲ ἐθέλει καταβαίνειν.</p>
+    <div class="exercise-container">
+        <div class="exercise-text">
+            <p>1. Κρήτη <input type="text" id="gap1"> ἐστιν· Μίνως αὐτῆς <input type="text" id="gap2"> ἐστιν.</p>
+            <p>2. Ἐν τῷ τῆς Κρήτης <input type="text" id="gap3" class="wide-input"> οἰκεῖ ὁ Μινώταυρος, θηρίον δεινόν.</p>
+            <p>3. Ὁ Μινώταυρος <input type="text" id="gap4"> ἐστιν, ἀλλ' οὐχ ὅλος· τὸ γὰρ <input type="text" id="gap5"> ἄνθρωπός ἐστιν.</p>
+            <p>4. Ὁ Αἰγεὺς <input type="text" id="gap6"> (= βασιλεύς ἐστιν) ἐν ταῖς Ἀθήναις.</p>
+            <p>5. Ὁ Μίνως τὸν Αἰγέα παρέχειν βούλεται <input type="text" id="gap7"> (= 7) νεανίας καὶ <input type="text" id="gap8"> (= 7) <input type="text" id="gap9" class="wide-input"> (= κόρας).</p>
+            <p>6. Ὁ Αἰγεὺς τῷ Μινωταύρῳ <input type="text" id="gap10"> τοὺς νεανίας καὶ τὰς παρθένους <input type="text" id="gap11">᾽ <input type="text" id="gap12">.</p>
+            <p>7. Ὁ Θησεὺς ἐπεὶ <input type="text" id="gap13"> (= παῖς οὐκέτ' ἐστίν) εἰς Κρήτην ἰέναι <input type="text" id="gap14"> (= ἐθέλει).</p>
+            <p>8. Ὁ νεανίας βούλεται τὸν Μινώταυρον μηκέτι τοὺς <input type="text" id="gap15" class="wide-input"> (= φίλους) ἐσθίειν· βούλεται οὖν <input type="text" id="gap16"> (= συλλαμβάνειν) αὐτοῖς.</p>
+            <p>9. Τῷ οὖν Αἰγεῖ λέγει· « <input type="text" id="gap17"> φίλε, βούλομαι <input type="text" id="gap18"> (= πλοίῳ ἰέναι) πρὸς τὴν Κρήτην· <input type="text" id="gap19"> γὰρ τοὺς ἑταίρους.»</p>
+            <p>10. Ὁ Αἰγεὺς μάλιστα <input type="text" id="gap20"> (= φόβον ἔχει), τέλος δὲ πέμπει τὸν υἱόν, αὐτῷ γὰρ <input type="text" id="gap21">.</p>
+            <p>11. Ἀλλ', <input type="text" id="gap22"> <input type="text" id="gap23"> (= ὅτε..., αὐτίκα) ὁ Θησεὺς <input type="text" id="gap24" class="wide-input"> εἰς τὴν Κρήτην καὶ ἐκβαίνει ἐκ τῆς <input type="text" id="gap25">, ὁ βασιλεὺς καὶ ἡ <input type="text" id="gap26" class="wide-input"> αὐτὸν <input type="text" id="gap27">.</p>
+            <p>12. Οἱ δοῦλοι ἄγουσι τὸν Θησέα εἰς τὴν τοῦ Μίνωος <input type="text" id="gap28"> (= εἰς τὸ ... ἄστυ) καὶ ἐν τῷ <input type="text" id="gap29" class="wide-input"> φυλάττουσιν.</p>
+            <p>13. Τὴν τοῦ Μίνωος πόλιν <input type="text" id="gap30" class="wide-input"> Κνωσσόν.</p>
+            <p>14. Ἡ δ' Ἀριάδνη, ἐπεὶ ὁρᾷ τὸν νεανίαν, <input type="text" id="gap31"> αὐτοῦ, καὶ βούλεται <input type="text" id="gap32"> αὐτόν.</p>
+            <p>15. Ὁτε <input type="text" id="gap33"> γίγνεται, ἡ Ἀριάδνη τῷ Θησεῖ παρέχει τὸ <input type="text" id="gap34"> καὶ τὸ <input type="text" id="gap35">, ἔπειτα πρὸς τὴν ναῦν <input type="text" id="gap36" class="wide-input"> (= ἀποβαίνει).</p>
+            <p>16. Ἤδη νὺξ <input type="text" id="gap37">, καὶ ὁ Θησεὺς τὴν <input type="text" id="gap38"> (<> νύξ) μένει.</p>
+        </div>
+        
+        <div class="word-list">
+            <ul>
+                <li>βασίλεια</li>
+                <li>βασιλεύς</li>
+                <li>δεσμωτήριον</li>
+                <li>ἑταῖρος</li>
+                <li>ἡμέρα</li>
+                <li>λαβύρινθος</li>
+                <li>λίνον</li>
+                <li>ναῦς</li>
+                <li>νῆσος</li>
+                <li>νύξ</li>
+                <li>ξίφος</li>
+                <li>(ὦ) πάππα</li>
+                <li>παρθένος</li>
+                <li>πόλις</li>
+                <li>ταῦρος</li>
+                <li>ἑπτά (x2)</li>
+                <li>ἀπέρχομαι</li>
+                <li>ἀφικνέομαι</li>
+                <li>βασιλεύω</li>
+                <li>βοηθέω</li>
+                <li>βούλομαι</li>
+                <li>γίγνομαι</li>
+                <li>δέχομαι</li>
+                <li>ἐράω</li>
+                <li>ἡβάω</li>
+                <li>οἰκτίρω</li>
+                <li>ὀνομάζω</li>
+                <li>πείθομαι</li>
+                <li>πέμπω</li>
+                <li>πλέω</li>
+                <li>σῴζω</li>
+                <li>φοβέομαι</li>
+                <li>ἐπεὶ πρῶτον</li>
+                <li>ἥμισυ</li>
+                <li>κατ' ἔτος</li>
+            </ul>
+        </div>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
         const answers = [
-            "ῳ", "ουσι", "οῦσιν", "ος", "αι", "ᾷ", "ουσιν",
-            "οῦ", "ου", "ῷ", "ων", "ει", "ε", "ε", "ὸν", "ον", "ον", "ειν", "ὸ", "ον",
-            "ε", "ω", "α", "εῖ", "ῇ", "ῷ",
-            "ει", "εις", "εις", "ον", "όν", "οὺς", "οῦ", "ου", "οῖς", "οῖς", "α",
-            "ος", "ον", "αι",
-            "ν", "ος", "ος", "ῇ", "ῇ", "ῃ",
-            "οῦ", "ου", "ῷ", "ῳ", "ὰς", "ας", "ῶν", "ῶν", "ον", "ὸ", "ος", "αν", "ὸν", "ον", "ῳ", "ὸν", "ῇ", "ᾳ", "ει", "ου", "ὰς", "ην", "ὸν",
-            "ετε", "αι",
-            "ομεν", "ος", "ός",
-            "ῷ", "ῳ", "ᾷ", "ον"
+            "νῆσός", "βασιλεύς",
+            "λαβυρίνθῳ",
+            "ταῦρός", "ἥμισυ",
+            "βασιλεύει",
+            "ἑπτὰ", "ἑπτὰ", "παρθένους",
+            "πέμπει", "κατ", "ἔτος",
+            "ἡβᾷ", "βούλεται",
+            "ἑταίρους", "βοηθεῖν",
+            "πάππα", "πλεῖν", "οἰκτίρω",
+            "φοβεῖται", "πείθεται",
+            "ἐπεὶ", "πρῶτον", "ἀφικνεῖται", "νεώς", "βασίλεια", "δέχονται",
+            "πόλιν", "δεσμωτηρίῳ",
+            "ὀνομάζουσι",
+            "ἐρᾷ", "σῴζειν",
+            "νὺξ", "ξίφος", "λίνον", "ἀπέρχεται",
+            "γίγνεται", "ἡμέραν"
         ];
         
         // Функция для удаления диакритики
@@ -170,11 +231,6 @@
         window.onload = () => {
             answers.forEach((_, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
-                
-                // Проверка при загрузке (если есть введенные данные)
-                if (inputElement.value.trim() !== '') {
-                    checkSingleAnswer(i);
-                }
                 
                 // Обработчик ввода для немедленной проверки
                 inputElement.addEventListener('input', () => {
