@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 7.2</title>
+    <title>Μελέτημα 7.10</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -24,7 +24,7 @@
             font-family: 'Fira Mono', monospace;
             padding: 5px;
             font-size: 16px;
-            width: 80px;
+            width: 120px;
             transition: background-color 0.3s;
             border: 1px solid #ccc;
             border-radius: 3px;
@@ -38,61 +38,95 @@
         .correct { background-color: lightgreen; }
         .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
+        .exercise-container {
+            display: flex;
+            gap: 20px;
+        }
         .exercise-text {
-            margin-bottom: 20px;
+            flex: 3;
+        }
+        .word-list {
+            flex: 1;
+            padding: 20px;
+            border-left: 1px solid #ccc;
         }
         p {
             margin-bottom: 15px;
         }
-        .instructions {
-            margin-bottom: 20px;
-            font-style: italic;
+        /* Для очень длинных слов увеличиваем ширину дополнительно */
+        .wide-input {
+            width: 180px;
         }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 7.2</h1>
-    <h2>Заполните пропуски окончаниями существительных</h2>
+    <h1>Μελέτημα 7.10</h1>
+    <h2>Заполните пропуски словами из списка в нужной форме</h2>
     
-    <div class="instructions">
-
-    </div>
-    
-    <div class="exercise-text">
-        <p>1. Ἡ Μυρρίνη μήτηρ ἐστὶ τοῦ παι-<input type="text" id="gap1">. Ἡ Μυρρίνη μήτηρ ἐστὶ τῶν παίδ-<input type="text" id="gap2">.</p>
+    <div class="exercise-container">
+        <div class="exercise-text">
+            <p>1. Εἰς τὸ ἄντρον ὁ <input type="text" id="gap1"> εἰσέρχεται, <input type="text" id="gap2"> μέγιστος καὶ δεινός.</p>
+            <p>2. Οἱ ἄνθρωποι τοῖς <input type="text" id="gap3" class="wide-input"> ὁρῶσιν.</p>
+            <p>3. Τοῖς ἀνθρώποις <input type="text" id="gap4"> ὀφθαλμοί εἰσιν.</p>
+            <p>4. Τῷ Κύκλωπι ἐν τῷ <input type="text" id="gap5"> ἐστὶν <input type="text" id="gap6"> ὀφθαλμός· ὁ οῦν Κύκλωψ <input type="text" id="gap7" class="wide-input"> (= δεινός) ἐστιν.</p>
+            <p>5. Οἱ Ἀχαιοὶ εἰς τὸν τοῦ ἄντρου <input type="text" id="gap8"> καταφεύγουσιν.</p>
+            <p>6. Ὁ Κύκλωψ τὰ <input type="text" id="gap9" class="wide-input"> εἰσελαύνει εἰς τὸ ἄντρον· ἔπειτα δὲ μέγιστον λίθον εἰς τὴν τοῦ ἄντρου <input type="text" id="gap10" class="wide-input"> εἰσβάλλει.</p>
+            <p>7. Ὁ ωὲν Ὀδυσσεύς· «Ἀχαιοί ἐσμεν.» Ὁ δὲ γίγας οὐδὲν <input type="text" id="gap11" class="wide-input"> τῷ Ὀδυσσεῖ.</p>
+            <p>8. Δύο τῶν ξένων <input type="text" id="gap12" class="wide-input"> καὶ πρὸς τὴν γῆν <input type="text" id="gap13">.</p>
+            <p>9. Οἱ <input type="text" id="gap14" class="wide-input"> ἐκ τῶν κεφαλῶν <input type="text" id="gap15" class="wide-input">, καὶ τὴν γῆν <input type="text" id="gap16" class="wide-input">.</p>
+            <p>10. Ἡ Μέλιττα γιγνώσκειν βούλεται <input type="text" id="gap17"> ὁ Ὀδυεσσεὺς σῴζει ἑαυτὸν καὶ τοὺς ἑταίρους.</p>
+            <p>11. Ὁ Ὀδυεσσεύς, ἄνθρωπος πολύμητις καί <input type="text" id="gap18">, παρέχει τῷ γίγαντι τὸν οἶνον· ὁ δὲ δι᾽ ὀλίγου <input type="text" id="gap19"> καὶ καθεύδει.</p>
+            <p>12. Ὁ δ᾽ Ὀδυεσσεὺς <input type="text" id="gap20" class="wide-input"> μέγιστον εὑρίσκει, καὶ ἐν τῷ πυρὶ <input type="text" id="gap21" class="wide-input"> καὶ ἐλαύνει εἰς τὸν τοῦ Κύκλωπος ὀφθαλμόν.</p>
+            <p>13. Ὁ γίγας εὐθὺς <input type="text" id="gap22" class="wide-input"> καὶ δεινῶς κλάζει· οὐκέτι ὁρᾷ, <input type="text" id="gap23" class="wide-input"> γάρ ἐστιν.</p>
+        </div>
         
-        <p>2. Τῷ παι-<input type="text" id="gap3"> ἡ Μυρρίνη μῦθόν τινα λέγει. Τοῖς παι-<input type="text" id="gap4"> ἡ Μυρρίνη μῦθόν τινα λέгει.</p>
-        
-        <p>3. Πρὸς τὸν παῖ-<input type="text" id="gap5"> ἡ μήτηρ βλέπει. Πρὸς τοὺς παῖ-<input type="text" id="gap6"> ἡ μήτηρ βλέπει.</p>
-        
-        <p>4. Σίγα, ὦ πα-<input type="text" id="gap7">, καὶ ἄκουε. Σιγᾶτε, ὦ πα-<input type="text" id="gap8">, καὶ ἀκούετε.</p>
-        
-        <p>5. Ὁ πα-<input type="text" id="gap9"> ὁρᾷ τὸ δέρμ-<input type="text" id="gap10"> καὶ τὴν λαμπά-<input type="text" id="gap11">. Οἱ παῖ-<input type="text" id="gap12"> ὁρῶσιν τὰ δέρμ-<input type="text" id="gap13"> καὶ τὰς λαμπά-<input type="text" id="gap14">.</p>
-        
-        <p>6. Ἐπὶ τῷ δέρμ-<input type="text" id="gap15"> λαμπά-<input type="text" id="gap16"> ἐστιν. Ἐπὶ τοῖς δέρμ-<input type="text" id="gap17"> λαμπά-<input type="text" id="gap18"> εἰσιν.</p>
-        
-        <p>7. Ἀπὸ τοῦ δέρμ-<input type="text" id="gap19"> ὁ παῖ-<input type="text" id="gap20"> τὴν λαμπά-<input type="text" id="gap21"> ἀποφέρει. Ἀπὸ τῶν δερμ-<input type="text" id="gap22"> οἱ παῖ-<input type="text" id="gap23"> τὰς λαμπά-<input type="text" id="gap24"> ἀποφέρουσιν.</p>
-        
-        <p>8. Τὸ πρόβατον ὁρᾷ τὸ φῶ-<input type="text" id="gap25"> τὸ τῆς λαμπά-<input type="text" id="gap26">. Οἱ παῖ-<input type="text" id="gap27"> ἐν τῷ σκότῳ ὁρῶσι τὸ φῶ-<input type="text" id="gap28"> τὸ τῶν λαμπά-<input type="text" id="gap29">.</p>
-        
-        <p>9. Ἐπὶ τῇ λαμπά-<input type="text" id="gap30"> πῦρ ἐστιν. Ἐπὶ ταῖς λαμπά-<input type="text" id="gap31"> πῦρ ἐστιν.</p>
+        <div class="word-list">
+            <ul>
+                <li>γίγας</li>
+                <li>ἐγκέφαλος</li>
+                <li>εἴσοδος</li>
+                <li>μέτωπον</li>
+                <li>μυχός</li>
+                <li>ὀφθαλμός</li>
+                <li>ποίμνια</li>
+                <li>ῥόπαλον</li>
+                <li>Κύκλωψ</li>
+                <li>σοφός</li>
+                <li>τυφλός</li>
+                <li>φοβερός</li>
+                <li>δύο</li>
+                <li>εἷς</li>
+                <li>ἀναπηδάω</li>
+                <li>ἀποκρίνομαι</li>
+                <li>ἁρπάζω</li>
+                <li>δεύω</li>
+                <li>ἐκρέω</li>
+                <li>θερμαίνω</li>
+                <li>κόπτω</li>
+                <li>μεθύω</li>
+                <li>πῶς</li>
+            </ul>
+        </div>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
         const answers = [
-            "δός", "ων", 
-            "δὶ", "σὶν", 
-            "δα", "δας", 
-            "ῖ", "ῖδες", 
-            "ῖς", "α", "δα", 
-            "δες", "ατα", "δας",
-            "ατι", "ς", "ασι", "δες",
-            "ατος", "ς", "δα", "άτων", "δες", "δας",
-            "ς", "δος", "δες", "ς", "δων",
-            "δι", "σι"
+            "Κύκλωψ", "γίγας",
+            "ὀφθαλμοῖς",
+            "δύο",
+            "μετώπῳ", "εἷς", "φοβερός",
+            "μυχὸν",
+            "ποίμνια", "εἴσοδον",
+            "ἀποκρίνεται",
+            "ἁρπάζει", "κόπτει",
+            "ἐγκέφαλοι", "ἐκρέουσιν", "δεύουσιν",
+            "πῶς",
+            "σοφός", "μεθύει",
+            "ῥόπαλον", "θερμαίνει",
+            "ἀναπηδᾷ", "τυφλὸς"
         ];
         
         // Функция для удаления диакритики
@@ -179,11 +213,6 @@
         window.onload = () => {
             answers.forEach((_, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
-                
-                // Проверка при загрузке (если есть введенные данные)
-                if (inputElement.value.trim() !== '') {
-                    checkSingleAnswer(i);
-                }
                 
                 // Обработчик ввода для немедленной проверки
                 inputElement.addEventListener('input', () => {
