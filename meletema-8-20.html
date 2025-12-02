@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μελέτημα 8.20</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace;
+            padding: 5px;
+            font-size: 16px;
+            width: 100px;
+            transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
+        .incorrect { background-color: lightcoral; }
+        .exercise-text {
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .instructions {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .num-hint {
+            font-size: 12px;
+            color: #666;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <p><a href="meletemata.html">< назад</a></p>
+    <h1>Μελέτημα 8.20</h1>
+    <h2>Заполните пропуски формами количественных числительных</h2>
+    
+    <div class="instructions">
+        используйте формы среднего рода: напр. ἕν καὶ ἕν εἰσι δύο
+    </div>
+    
+    <div class="exercise-text">
+        <p>1. <input type="text" id="gap1"> <span class="num-hint">(V)</span> καὶ <input type="text" id="gap2"> <span class="num-hint">(I)</span> <input type="text" id="gap3"> εἰσιν.</p>
+        <p>2. <input type="text" id="gap4"> <span class="num-hint">(I)</span> καὶ <input type="text" id="gap5"> <span class="num-hint">(III)</span> <input type="text" id="gap6"> εἰσιν.</p>
+        <p>3. <input type="text" id="gap7"> <span class="num-hint">(II)</span> καὶ <input type="text" id="gap8"> <span class="num-hint">(III)</span> <input type="text" id="gap9"> εἰσίν.</p>
+        <p>4. <input type="text" id="gap10"> <span class="num-hint">(III)</span> καὶ <input type="text" id="gap11"> <span class="num-hint">(I)</span> <input type="text" id="gap12"> εἰσιν.</p>
+        <p>5. <input type="text" id="gap13"> <span class="num-hint">(VII)</span> καὶ <input type="text" id="gap14"> <span class="num-hint">(II)</span> <input type="text" id="gap15"> εἰσίν.</p>
+        <p>6. <input type="text" id="gap16"> <span class="num-hint">(IV)</span> καὶ <input type="text" id="gap17"> <input type="text" id="gap18"> <span class="num-hint">(VIII)</span> εἰσιν.</p>
+        <p>7. <input type="text" id="gap19"> <span class="num-hint">(IX)</span> καὶ <input type="text" id="gap20"> <span class="num-hint">(I)</span> <input type="text" id="gap21"> εἰσίν.</p>
+        <p>8. <input type="text" id="gap22"> καὶ <input type="text" id="gap23"> <span class="num-hint">(I)</span> <input type="text" id="gap24"> <span class="num-hint">(VII)</span> εἰδιν.</p>
+        <p>9. <input type="text" id="gap25"> <span class="num-hint">(VI)</span> καὶ <input type="text" id="gap26"> <input type="text" id="gap27"> <span class="num-hint">(X)</span> εἰσίν.</p>
+    </div>
+
+    <p class="result" id="result"></p>
+
+    <script>
+        const answers = [
+            "πέντε", "ἕν", "ἕξ",
+            "ἕν", "τρία", "τέτταρα",
+            "δύο", "τρία", "πέντε",
+            "τρία", "ἕν", "τέτταρα",
+            "ἑπτὰ", "δύο", "ἐννέα",
+            "τέτταρα", "τέτταρα", "ὀκτώ",
+            "ἐννέα", "ἕν", "δέκα",
+            "ἕξ", "ἕν", "ἑπτά",
+            "ἕξ", "τέτταρα", "δέκα"
+        ];
+        
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        
+        // Функция для установки стилей
+        const setStyles = (element, status) => {
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
+            if (status === 'correct') {
+                element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
+            } else if (status === 'incorrect') {
+                element.classList.add('incorrect');
+            }
+        };
+
+        // Функция для проверки одного ответа
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[index];
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                // Приводим к нижнему регистру для сравнения
+                const normalizedUserAnswer = userAnswer.toLowerCase();
+                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                
+                // Точное совпадение (с учетом регистра)
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики и регистра
+                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
+            }
+        };
+
+        // Функция для обновления общего результата
+        const updateResults = () => {
+            let correct = 0;
+            let almostCorrect = 0;
+            
+            answers.forEach((answer, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                const userAnswer = inputElement.value.trim();
+                
+                if (userAnswer === answer) {
+                    correct++;
+                } else if (userAnswer !== '') {
+                    // Приводим к нижнему регистру для сравнения
+                    const normalizedUserAnswer = userAnswer.toLowerCase();
+                    const normalizedCorrectAnswer = answer.toLowerCase();
+                    
+                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                        almostCorrect++;
+                    }
+                }
+            });
+            
+            const resultElement = document.getElementById('result');
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.style.backgroundColor = 'lightgreen';
+            } else if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.style.backgroundColor = '';
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+                resultElement.style.backgroundColor = '';
+            }
+        };
+
+        // Добавление обработчиков событий
+        window.onload = () => {
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                
+                // Проверка при загрузке (если есть введенные данные)
+                if (inputElement.value.trim() !== '') {
+                    checkSingleAnswer(i);
+                }
+                
+                // Обработчик ввода для немедленной проверки
+                inputElement.addEventListener('input', () => {
+                    // Немедленная проверка
+                    checkSingleAnswer(i);
+                    
+                    // Обновление общего результата
+                    updateResults();
+                });
+            });
+
+            // Обновление общего результата при загрузке
+            updateResults();
+        };
+    </script>
+</body>
+</html>

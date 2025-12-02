@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μελέτημα 5.22</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace;
+            padding: 5px;
+            font-size: 16px;
+            width: 120px;
+            transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
+        .incorrect { background-color: lightcoral; }
+        .exercise-container {
+            display: flex;
+            gap: 20px;
+        }
+        .exercise-text {
+            flex: 3;
+        }
+        .word-list {
+            flex: 1;
+            padding: 20px;
+            border-left: 1px solid #ccc;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        /* Для очень длинных слов увеличиваем ширину дополнительно */
+        .wide-input {
+            width: 180px;
+        }
+    </style>
+</head>
+<body>
+    <p><a href="meletemata.html">< назад</a></p>
+    <h1>Μελέτημα 5.22</h1>
+    <h2>Заполните пропуски словами из списка в нужной форме</h2>
+    
+    <div class="exercise-container">
+        <div class="exercise-text">
+            <p>1. Πολύς ἐστιν ὁ <input type="text" id="gap1"> ἐν ταῖς ὁδοῖς.</p>
+            <p>2. Ὁ πάππος <input type="text" id="gap2" class="wide-input"> ἐπὶ τῇ βακτηρίᾳ.</p>
+            <p>3. Ὁ Πολέμαρχος οὐ <input type="text" id="gap3" class="wide-input"> (= ἀφνειός) ἐστιν, ἀλλ’ ἀγαθός· αὐτῷ γὰρ <input type="text" id="gap4"> μὲν οὐκ ἔστιν, πολλοὶ δὲ παῖδες: πολλάκις γὰρ <input type="text" id="gap5" class="wide-input">.</p>
+            <p>4. Τῷ ἀγαθῷ ἀνδρὶ πᾶς ὁ <input type="text" id="gap6"> πατρίς ἐστιν.</p>
+            <p>5. Ὁ φίλος μόλις <input type="text" id="gap7" class="wide-input"> τὸν Δικαιόπολιν οὕτω σπανίως εἰς τὸ ἄστυ πορευόμενον.</p>
+            <p>6. Οὐ <input type="text" id="gap8"> ἐστι τῷ Δικαιοπόλιδι ἀεὶ ἐν τῷ ἀγρῷ ἐργαζομένῳ.</p>
+            <p>7. Ὁ μὲν <input type="text" id="gap9" class="wide-input"> (Ι) τῶν παίδων ἤδη νεανίας ἐστίν, ὁ δὲ <input type="text" id="gap10" class="wide-input"> (ΙΙ) μειράκιον.</p>
+            <p>8. Οἱ νεανίαι ἐν τῇ Ἀκροπόλει <input type="text" id="gap11" class="wide-input">, μένοντες τὴν ἑορτήν.</p>
+            <p>9. Ὁ Δικαιόπολις ἀγνοεῖ <input type="text" id="gap12" class="wide-input"> παῖδας ἔχει ὁ Κτήσιππος.</p>
+            <p>10. Τῷ μὲν πρώτῳ τῶν τοῦ Πολεμάρχου παίδων ἐστὶ Νικόβουλος <input type="text" id="gap13">, τῷ δὲ δευτέρῳ Ἱέρων, τῷ δὲ <input type="text" id="gap14" class="wide-input"> Μελάνιππος, τῷ δὲ <input type="text" id="gap15" class="wide-input"> Φιλότιμος, τῷ δὲ <input type="text" id="gap16" class="wide-input"> Διαγόρας.</p>
+            <p>11. Οἵ τε ἄνθρωποι καὶ τὰ θηρία τὰ ἑαυτῶν <input type="text" id="gap17" class="wide-input"> φιλοῦσιν.</p>
+            <p>12. Αἱ μητέρες τὰ τέκνα οὐ μόνον <input type="text" id="gap18" class="wide-input">, ἀλλὰ καὶ <input type="text" id="gap19" class="wide-input">· τὰ δὲ τῶν μητέρων σπανίως <input type="text" id="gap20" class="wide-input"> (= ταῖς μητράσι … πείθονται).</p>
+            <p>13. Ἡ Μέλιττα σιγᾷ: κόρη γὰρ ἡ <input type="text" id="gap21"> μέγιστον <input type="text" id="gap22"> φέρει.</p>
+            <p>14. «Καιρὸς ἐπανιέναι ἤδη ἐστίν. εἰς <input type="text" id="gap23" class="wide-input">, ὦ φίλε.»</p>
+        </div>
+        
+        <div class="word-list">
+            <ul>
+                <li>κόσμος</li>
+                <li>ὅμιλος</li>
+                <li>ὄνομα</li>
+                <li>σιγή</li>
+                <li>σχολή</li>
+                <li>τέκνον</li>
+                <li>χρυσός</li>
+                <li>πλούσιος</li>
+                <li>πόσος</li>
+                <li>δεύτερος</li>
+                <li>πέμπτος</li>
+                <li>πρῶτος</li>
+                <li>τέτταρος</li>
+                <li>τρίτος</li>
+                <li>γνωρίζομαι</li>
+                <li>διατρίβω</li>
+                <li>ἐρείδομαι</li>
+                <li>παιδοποιέω</li>
+                <li>τίκτω</li>
+                <li>τρέφω</li>
+                <li>ὑπακνούω</li>
+                <li>εἰς</li>
+                <li>αὖθις</li>
+            </ul>
+        </div>
+    </div>
+
+    <p class="result" id="result"></p>
+
+    <script>
+        const answers = [
+            "ὅμιλος",
+            "ἐρείδεται",
+            "πλούσιος", "χρυσὸς", "παιδοποιεῖ",
+            "κόσμος",
+            "γνωρίζεται",
+            "σχολή",
+            "πρῶτος", "δεύτερος",
+            "διατρίβουσιν",
+            "πόσους",
+            "ὄνομα", "τρίτῳ", "τετάρτῳ", "πέμπτῳ",
+            "τέκνα",
+            "τίκτουσιν", "τρέφουσιν", "ὑπακούουσιν",
+            "σιγὴ", "κόσμον",
+            "αὖθις"
+        ];
+        
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        
+        // Функция для установки стилей
+        const setStyles = (element, status) => {
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
+            if (status === 'correct') {
+                element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
+            } else if (status === 'incorrect') {
+                element.classList.add('incorrect');
+            }
+        };
+
+        // Функция для проверки одного ответа
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[index];
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                // Приводим к нижнему регистру для сравнения
+                const normalizedUserAnswer = userAnswer.toLowerCase();
+                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                
+                // Точное совпадение (с учетом регистра)
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики и регистра
+                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
+            }
+        };
+
+        // Функция для обновления общего результата
+        const updateResults = () => {
+            let correct = 0;
+            let almostCorrect = 0;
+            
+            answers.forEach((answer, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                const userAnswer = inputElement.value.trim();
+                
+                if (userAnswer === answer) {
+                    correct++;
+                } else if (userAnswer !== '') {
+                    // Приводим к нижнему регистру для сравнения
+                    const normalizedUserAnswer = userAnswer.toLowerCase();
+                    const normalizedCorrectAnswer = answer.toLowerCase();
+                    
+                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                        almostCorrect++;
+                    }
+                }
+            });
+            
+            const resultElement = document.getElementById('result');
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.style.backgroundColor = 'lightgreen';
+            } else if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.style.backgroundColor = '';
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+                resultElement.style.backgroundColor = '';
+            }
+        };
+
+        // Добавление обработчиков событий
+        window.onload = () => {
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                
+                // Обработчик ввода для немедленной проверки
+                inputElement.addEventListener('input', () => {
+                    // Немедленная проверка
+                    checkSingleAnswer(i);
+                    
+                    // Обновление общего результата
+                    updateResults();
+                });
+            });
+
+            // Обновление общего результата при загрузке
+            updateResults();
+        };
+    </script>
+</body>
+</html>
