@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μελέτημα 9.10</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace;
+            padding: 5px;
+            font-size: 16px;
+            width: 80px;
+            transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
+        .incorrect { background-color: lightcoral; }
+        .exercise-text {
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .instructions {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <p><a href="meletemata.html">< назад</a></p>
+    <h1>Μελέτημα 9.10</h1>
+    <h2>Заполните пропуски окончаниями причастий</h2>
+    
+    <div class="instructions">
+        для форм глагола εἰμί вставьте всю форму
+    </div>
+    
+    <div class="exercise-text">
+        <p>1. Πολλοὶ μὲν τῶν πολιτῶν μεθύ-<input type="text" id="gap1"> κωμάζουσιν, ἡ δὲ Μέλιττα πρὸς ταῖς πύλαις οὐχ ἡσυχάζει καθεύδ-<input type="text" id="gap2">.</p>
+        <p>2. Τῇ Μελίττῃ καθευδ-<input type="text" id="gap3"> ἐν τοῖς ὕπνοις πολλὰ καὶ δεινὰ γίγνεται.</p>
+        <p>3. Φοβεῖται δοκ-<input type="text" id="gap4"> ἑαυτῇ εἶναι τοῦ Χρύσου θυγάτηρ οὖσα ἅμα τῷ Ἀγαμέμνονι <input type="text" id="gap5">, δεσπότῃ (εἰμί).</p>
+        <p>4. Ὁ Ἀγαμέμνων μέγιστός ἐστι τῶν ἐν τῇ Ἑλλάδι <input type="text" id="gap6"> (εἰμί) βασιλέων.</p>
+        <p>5. Ὁ Χρύσης λέγει τοῖς βασιλεῦσι σιγ-<input type="text" id="gap7"> καὶ ἀκού-<input type="text" id="gap8">· «Ὦ βασιλῆς, τοὺς θεοὺς τὸν οὐρανὸν ἔχ-<input type="text" id="gap9"> τιμᾶτε, ἀπολύ-<input type="text" id="gap10"> τὴν ἐμὴν θυγατέρα.»</p>
+        <p>6. Οἱ βασιλεῖς θόρυβον ποι-<input type="text" id="gap11"> τὴν κόρην ἀπολύειν ἐθέλουσιν, ἀλλὰ τὸν Ἀγαμέμνονα χαλεπὸν <input type="text" id="gap12"> (εἰμί) μάλα φοβοῦνται.</p>
+        <p>7. Μόνος γὰρ ἐν τοῖς παρ-<input type="text" id="gap13"> ὁ Ἀγαμέμνων οὐκ ἐθέλει, ἀπολύ-<input type="text" id="gap14"> τὴν κόρην, δέχεσθαι τὸν χρυσόν.</p>
+        <p>8. Λέγει τῷ ἱερεῖ ὁ βασιλεύς: «Μέλλει ἡ θυγάτηρ σου γηράσκειν ἐν Ἄργει οἰκ-<input type="text" id="gap15">, μετὰ ταῖς ἄλλαις δούλαις τιμ-<input type="text" id="gap16"> καὶ θεραπεύ-<input type="text" id="gap17"> τὴν ἐμὴν γυναῖκα.»</p>
+        <p>9. Ἡ οὖν Μέλιττα ἐγείρεται βο-<input type="text" id="gap18">: «Ὦ μῆτερ, βοηθ-<input type="text" id="gap19"> σῷζέ με.»</p>
+        <p>10. Ἡ δὲ μήτηρ τῆς παιδὸς ἀκού-<input type="text" id="gap20">, καὶ αὐτὴν φιλ-<input type="text" id="gap21">, κελεύει αὐτὴν μὴ φοβεῖσθαι.</p>
+    </div>
+
+    <p class="result" id="result"></p>
+
+    <script>
+        const answers = [
+            "οντες", "ουσα",
+            "ούσῃ",
+            "οῦσα", "ὄντι",
+            "ὄντων",
+            "ῶσι", "ουσιν", "οντας", "οντες",
+            "οῦντες", "ὄντα",
+            "οῦσιν", "ων",
+            "οῦσα", "ῶσα", "ουσα",
+            "ῶσα", "οῦσα",
+            "ουσα", "οῦσα"
+        ];
+        
+        // Функция для удаления диакритики
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+        
+        // Функция для установки стилей
+        const setStyles = (element, status) => {
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
+            if (status === 'correct') {
+                element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
+            } else if (status === 'incorrect') {
+                element.classList.add('incorrect');
+            }
+        };
+
+        // Функция для проверки одного ответа
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim();
+            const correctAnswer = answers[index];
+            
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else {
+                // Приводим к нижнему регистру для сравнения
+                const normalizedUserAnswer = userAnswer.toLowerCase();
+                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+                
+                // Точное совпадение (с учетом регистра)
+                if (userAnswer === correctAnswer) {
+                    setStyles(inputElement, 'correct');
+                } 
+                // Совпадение без учета диакритики и регистра
+                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                    setStyles(inputElement, 'almost-correct');
+                } 
+                // Неправильный ответ
+                else {
+                    setStyles(inputElement, 'incorrect');
+                }
+            }
+        };
+
+        // Функция для обновления общего результата
+        const updateResults = () => {
+            let correct = 0;
+            let almostCorrect = 0;
+            
+            answers.forEach((answer, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                const userAnswer = inputElement.value.trim();
+                
+                if (userAnswer === answer) {
+                    correct++;
+                } else if (userAnswer !== '') {
+                    // Приводим к нижнему регистру для сравнения
+                    const normalizedUserAnswer = userAnswer.toLowerCase();
+                    const normalizedCorrectAnswer = answer.toLowerCase();
+                    
+                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
+                        almostCorrect++;
+                    }
+                }
+            });
+            
+            const resultElement = document.getElementById('result');
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.style.backgroundColor = 'lightgreen';
+            } else if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.style.backgroundColor = '';
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+                resultElement.style.backgroundColor = '';
+            }
+        };
+
+        // Добавление обработчиков событий
+        window.onload = () => {
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                
+                // Проверка при загрузке (если есть введенные данные)
+                if (inputElement.value.trim() !== '') {
+                    checkSingleAnswer(i);
+                }
+                
+                // Обработчик ввода для немедленной проверки
+                inputElement.addEventListener('input', () => {
+                    // Немедленная проверка
+                    checkSingleAnswer(i);
+                    
+                    // Обновление общего результата
+                    updateResults();
+                });
+            });
+
+            // Обновление общего результата при загрузке
+            updateResults();
+        };
+    </script>
+</body>
+</html>
