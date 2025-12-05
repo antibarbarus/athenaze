@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Μελέτημα 9.2</title>
+    <title>Μελέτημα 9.7</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
     <style>
         ul {
@@ -24,7 +24,7 @@
             font-family: 'Fira Mono', monospace;
             padding: 5px;
             font-size: 16px;
-            width: 80px;
+            width: 120px;
             transition: background-color 0.3s;
             border: 1px solid #ccc;
             border-radius: 3px;
@@ -38,50 +38,93 @@
         .correct { background-color: lightgreen; }
         .almost-correct { background-color: gold; }
         .incorrect { background-color: lightcoral; }
+        .exercise-container {
+            display: flex;
+            gap: 20px;
+        }
         .exercise-text {
-            margin-bottom: 20px;
+            flex: 3;
+        }
+        .word-list {
+            flex: 1;
+            padding: 20px;
+            border-left: 1px solid #ccc;
         }
         p {
             margin-bottom: 15px;
         }
-        .instructions {
-            margin-bottom: 20px;
-            font-style: italic;
+        /* Для очень длинных слов увеличиваем ширину дополнительно */
+        .wide-input {
+            width: 180px;
         }
     </style>
 </head>
 <body>
     <p><a href="meletemata.html">< назад</a></p>
-    <h1>Μελέτημα 9.2</h1>
-    <h2>Заполните пропуски окончаниями причастий</h2>
+    <h1>Μελέτημα 9.7</h1>
+    <h2>Заполните пропуски словами из списка в нужной форме</h2>
     
-    <div class="instructions">
-        для форм глагола εἰμί вставьте всю форму
-    </div>
-    
-    <div class="exercise-text">
-        <p>1. Ὁ Δικαιόπολις πρὸς τὴν Ἀκρόπολιν πορεύεται σπεύδ-<input type="text" id="gap1"> τε καὶ ἡγούμενος τοῖς παισίν.</p>
-        <p>2. Ἡ Μυρρίνη πορεύεται σπεύδ-<input type="text" id="gap2"> τε καὶ ἐπομένη τῷ ἀνδρί.</p>
-        <p>3. Ἡ μήτηρ καὶ ἡ θυγάτηρ σπεύδ-<input type="text" id="gap3"> τε καὶ πάντα ὁρ-<input type="text" id="gap4"> πορεύονται.</p>
-        <p>4. Οἱ παῖδες πορεύονται σπεύδ-<input type="text" id="gap5"> τε καὶ ἐπόμενοι τῷ πατρί.</p>
-        <p>5. Ὁ πατὴρ τοὺς παῖδας ἐσθί-<input type="text" id="gap6"> τοὺς ἀλλάντας καὶ τὸν οἶνον πίν-<input type="text" id="gap7"> καλεῖ.</p>
-        <p>6. Ἐν τῇ ἀγορᾷ οἱ ἄνδρες βο-<input type="text" id="gap8"> καὶ θόρυβον ποι-<input type="text" id="gap9"> πρὸς τὴν Ἀκρόπολιν σπεύδουσιν.</p>
-        <p>7. Ὁ ἀλλαντοπώλης βο-<input type="text" id="gap10"> καὶ φέρ-<input type="text" id="gap11"> τὰ ὤνια προσχωρεῖ.</p>
-        <p>8. Οἱ παῖδες ὀρῶσι τὴν τῆς θεοῦ εἰκόνα ἔχ-<input type="text" id="gap12"> ἐν τῇ μὲν δεξιᾷ τὸ δόρυ, ἐν τῇ δὲ ἀριστερᾷ φέρ-<input type="text" id="gap13"> τὴν ἀσπίδα.</p>
-        <p>9. Τὸ ἱερόν, ἔχ-<input type="text" id="gap14"> τὸ τῆς θεᾶς ἄγαλμα, ὁ Παρθενών ἐστιν.</p>
-        <p>10. Οἱ ἄνδρες προσβαίνουσι πρὸς τὸ ἱερόν, ἐν τῇ Ἀκροπόλει <input type="text" id="gap15"> (εἰμι).</p>
-        <p>11. Οἱ ἄνδρες ἀγαθοὶ <input type="text" id="gap16"> (εἰμι) καὶ τὸν θεὸν τιμ-<input type="text" id="gap17"> τὴν πομπὴν θεῶνται.</p>
-        <p>12. Οἱ παῖδες θαυμάζ-<input type="text" id="gap18"> βλέπουσι τὴν τῆς θεᾶς εἰκόνα, ἐν τῷ ἱερῷ <input type="text" id="gap19"> (εἰμι).</p>
+    <div class="exercise-container">
+        <div class="exercise-text">
+            <p>1. Ἡ πομπὴ προβαίνει· ὁ δὲ <input type="text" id="gap1"> (< κηρύττω) προσχωρῶν κελεύει τὸν ὅμιλον <input type="text" id="gap2" class="wide-input"> γίγνεσθαι.</p>
+            <p>2. Προχωροῦσι παρθένοι κάλλισται <input type="text" id="gap3"> φέρουσαι πλήρη <input type="text" id="gap4">· ἕπονται δὲ οὐ μόνον πολῖται, ἀλλὰ καὶ <input type="text" id="gap5" class="wide-input"> (= ξένοι ἐν 'Αθήναις οἰκοῦντες) φέροντες <input type="text" id="gap6" class="wide-input">.</p>
+            <p>3. Ἀκολουθοῦσι δὲ <input type="text" id="gap7" class="wide-input"> (= μάλιστα ἀγαθοί) νεανίαι, καὶ οἱ <input type="text" id="gap8" class="wide-input"> (= δοῦλοι) ἄγοντες τὰ <input type="text" id="gap9" class="wide-input">.</p>
+            <p>4. Οἱ ὑπηρέται <input type="text" id="gap10" class="wide-input"> (<> πρῶτοι) βαδίζουσιν.</p>
+            <p>5. Ὁ κῆρυξ κελεύει τὸν <input type="text" id="gap11"> (= τοὺς πολίτας) σιγᾶν.</p>
+            <p>6. Ὁ οὖν κῆρυξ <input type="text" id="gap12" class="wide-input"> (< κῆρυξ): «<input type="text" id="gap13" class="wide-input"> (= σιγᾶτε), ὦ πολῖται.»</p>
+            <p>7. Ὁ <input type="text" id="gap14" class="wide-input"> εὔχεται τῷ Διονύσῳ· «Ὦ ἄναξ Διόνυσε, δέχου τὴν <input type="text" id="gap15" class="wide-input"> καὶ <input type="text" id="gap16" class="wide-input"> (= πλήθυνε) τοὺς τῶν ἀμπέλων βότρυας.»</p>
+            <p>8. Ἐπεὶ ὁ ἱερεὺς βοῦν σφάττει, οἱ ὑπηρέται <input type="text" id="gap17" class="wide-input"> ὄντες τὸν βοῦν <input type="text" id="gap18" class="wide-input">, καὶ <input type="text" id="gap19" class="wide-input"> τοῖς πολίταις τὰ τοῦ ἱερείου κρέα.</p>
+            <p>9. Οἱ παρόντες τέρπονται (= χαίρουσι) τῇ <input type="text" id="gap20" class="wide-input"> (= τῷ ἱερῷ δείπνῳ), πολλοὶ δὲ ἤδη μεθύοντες <input type="text" id="gap21" class="wide-input">.</p>
+            <p>10. Ὁ πάππος βούλεται αὐτὸς κωμάζειν, ἀλλ’ ὁ Δικαιόπολις· «Οὐκέτι νεανίας εἶ, ὦ πάππα, ἀλλὰ γέρων· διὰ τοῦτο οὐ <input type="text" id="gap22" class="wide-input"> σοι κωμάζειν.»</p>
+            <p>11. Ἐπεὶ ὅ τε Δικαιόπολις καὶ οἱ ἄλλοι εἰς τὰς πύλας ἀφικνοῦνται, πάντες <input type="text" id="gap23" class="wide-input"> (= ἐπὶ τῇ γῇ) καθεύδουσιν.</p>
+        </div>
+        
+        <div class="word-list">
+            <ul>
+                <li>βότρυς</li>
+                <li>γέρων</li>
+                <li>δαίς</li>
+                <li>δῆμος</li>
+                <li>θυσία</li>
+                <li>ἱερεῖον</li>
+                <li>ἱερεύς</li>
+                <li>κανοῦν</li>
+                <li>κῆρυξ</li>
+                <li>μέτοικος</li>
+                <li>σκάφιον</li>
+                <li>ὑπηρέτης</li>
+                <li>ἄριστος</li>
+                <li>ἕτοιμος</li>
+                <li>τελευταῖος</li>
+                <li>αὐξανω</li>
+                <li>διαιρέω</li>
+                <li>εὐφημέω</li>
+                <li>κατατέμνω</li>
+                <li>κηρύττω</li>
+                <li>κωμάζω</li>
+                <li>προσήκει</li>
+                <li>τέρπομαι</li>
+                <li>ἐκποδών</li>
+                <li>χαμαί</li>
+            </ul>
+        </div>
     </div>
 
     <p class="result" id="result"></p>
 
     <script>
         const answers = [
-            "ων", "ουσα", "ουσαι", "ῶσαι", "οντες", 
-            "οντας", "οντας", "ῶντες", "οῦντες", "ῶν", 
-            "ων", "ουσαν", "ουσαν", "ον", "ὄν", 
-            "ὄντες", "ῶντες", "οντες", "οὖσαν"
+            "κῆρυξ", "ἐκποδὼν",
+            "κανᾶ", "βοτρύων", "μέτοικοι", "σκάφια",
+            "ἄριστοι", "ὑπηρέται", "ἱερεῖα",
+            "τελευταῖοι",
+            "δῆμον",
+            "κηρύττει", "Εὐφημεῖτε",
+            "ἱερεὺς", "θυσίαν", "αὔξανε",
+            "ἕτοιμοι", "κατατέμνουσιν", "διαιροῦσι",
+            "δαιτί", "κωμάζουσιν",
+            "προσήκει",
+            "χαμαὶ"
         ];
         
         // Функция для удаления диакритики
@@ -168,11 +211,6 @@
         window.onload = () => {
             answers.forEach((_, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
-                
-                // Проверка при загрузке (если есть введенные данные)
-                if (inputElement.value.trim() !== '') {
-                    checkSingleAnswer(i);
-                }
                 
                 // Обработчик ввода для немедленной проверки
                 inputElement.addEventListener('input', () => {
