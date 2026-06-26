@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enchiridion. Глава XXI — перевод с итальянского на русский</title>
+  <style>
+    :root {
+      --bg: #faf8f3;
+      --paper: #fffdf8;
+      --ink: #24211d;
+      --muted: #665f57;
+      --line: #d9d1c4;
+      --accent: #5f4b2d;
+      --accent-bg: #f1eadf;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 42px 24px 72px;
+    }
+    header {
+      margin-bottom: 34px;
+      padding-bottom: 22px;
+      border-bottom: 2px solid var(--line);
+    }
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0 0 8px;
+      color: var(--accent);
+    }
+    h2 {
+      margin-top: 42px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--accent);
+      font-size: 1.45rem;
+    }
+    h3 {
+      margin-top: 28px;
+      color: var(--accent);
+      font-size: 1.18rem;
+    }
+    h4 { margin: 18px 0 8px; color: var(--accent); }
+    .subtitle, .source-note { color: var(--muted); font-size: 0.98rem; }
+    .page {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+      padding: 24px 28px;
+      margin: 28px 0;
+    }
+    .page-num {
+      float: right;
+      color: var(--muted);
+      font-size: .9rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 10px;
+      background: #fff;
+    }
+    .toc {
+      background: var(--accent-bg);
+      border: 1px solid var(--line);
+      padding: 14px 18px;
+      margin: 22px 0 30px;
+    }
+    .toc a { color: var(--accent); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .note, aside {
+      background: var(--accent-bg);
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      margin: 16px 0;
+      color: #332b20;
+    }
+    .example {
+      margin: 14px 0;
+      padding: 12px 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .greek {
+      font-family: "Times New Roman", "Noto Serif", Georgia, serif;
+      font-size: 1.05em;
+      letter-spacing: .01em;
+    }
+    .latin { font-style: italic; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0 22px;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+    th {
+      background: var(--accent-bg);
+      color: var(--accent);
+      text-align: left;
+    }
+    caption {
+      caption-side: top;
+      text-align: left;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .paradigm {
+      white-space: nowrap;
+      line-height: 1.75;
+    }
+    .small { font-size: .94rem; color: var(--muted); }
+    @media (max-width: 760px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+      .container { padding: 24px 14px 44px; }
+      .page { padding: 18px 16px; }
+      table { font-size: .95rem; }
+    }
+  </style>
+</head>
+<body>
+<main class="container">
+  <header>
+    <h1>Enchiridion. Глава XXI</h1>
+    <p class="subtitle">Перевод с итальянского на русский. Греческие формы и примеры сохранены; итальянские пояснения и переводы переданы по-русски.</p>
+  </header>
+
+  <nav class="toc">
+    <strong>Содержание:</strong>
+    <ol>
+      <li><a href="#subjunctive">Конъюнктив: значение и формы</a></li>
+      <li><a href="#present">Конъюнктив настоящего времени</a></li>
+      <li><a href="#mi-verbs">Конъюнктив глаголов на -μι</a></li>
+      <li><a href="#aorist">Конъюнктив аориста</a></li>
+      <li><a href="#uses">Некоторые употребления конъюнктива</a></li>
+      <li><a href="#hiemi">Глагол ἵημι</a></li>
+    </ol>
+  </nav>
+
+  <section class="page" id="subjunctive">
+    <span class="page-num">с. 177</span>
+    <h2>Enchiridion</h2>
+    <p>Дикеополь и Филипп, придя в Элевсин, слышат хор, доносящийся издалека со Священной дороги; тогда Дикеополь так увещевает сына: <span class="greek">Ἔλθωμεν</span>, «пойдём», <span class="greek">καὶ ἀκούωμεν</span>, «и послушаем!» Итак, оба подходят ближе, <span class="greek">ἵνα σαφέστερον ἀκούωσιν</span>, «чтобы слышать лучше»; когда же они замечают, что это процессия великих мистерий, Дикеополь говорит, что им тоже следует принять в ней участие: <span class="greek">ὅπως τιμῶμεν τὴν θεὰν καὶ δηλῶμεν ὅτι πιστοὶ καὶ εὐχάριστοί ἐσμεν</span>, «чтобы почтить богиню и показать, что мы верны и благодарны». Глагольные формы, выделенные курсивом в исходном тексте, требуют некоторого внимания.</p>
+
+    <p>До сих пор в ваших чтениях вам встречались главным образом глагольные формы изъявительного или повелительного наклонения, а также инфинитивы и причастия — именные формы глагола. В этой главе, напротив, вы столкнулись с некоторым числом примеров глаголов в сослагательном наклонении, то есть в греческом конъюнктиве.</p>
+
+    <p>О значениях этого греческого наклонения, нового для вас — хотя конъюнктив есть также в итальянском и латинском, — мы уже кое-что сказали на с. XIII и вскоре снова к нему вернёмся. А пока рассмотрим следующие примеры: они показывают некоторые типичные употребления конъюнктива.</p>
+
+    <div class="example"><strong>a)</strong> <span class="greek">Σπεύδωμεν πρὸς τὴν πόλιν</span> = «Поспешим к городу» / «Двинемся скорее к городу» — увещевательный конъюнктив.</div>
+    <div class="example"><strong>b)</strong> <span class="greek">Σπεύδομεν τούτου ἕνεκα, ἵνα ἐν τῇ ἐκκλησίᾳ τῶν ῥητόρων ἀκούωμεν</span> = «Мы спешим по этой причине, чтобы слушать ораторов в народном собрании» — придаточное цели.</div>
+    <div class="example"><strong>c)</strong> <span class="greek">Πότερον πόλεμον ποιησώμεθα πρὸς τοὺς Πελοποννησίους ἢ εἰρήνην σώσωμεν;</span> = «Должны ли мы начать войну с пелопоннесцами или сохранить мир?» / «Начнём войну… или сохраним…?» / «Начать войну… или сохранить…?» — сомнительный, или делиберативный, конъюнктив.</div>
+
+    <aside>
+      <strong>Конъюнктив.</strong> Некоторые значения конъюнктива:<br>
+      a) увещевательное: <span class="greek">σπεύδωμεν</span>;<br>
+      b) целевое: <span class="greek">ἵνα ἀκούωμεν</span>;<br>
+      c) сомнительное: <span class="greek">πόλεμον ποιησώμεθα</span>.
+    </aside>
+
+    <p>Но к употреблениям и значениям конъюнктива, как мы сказали, мы ещё вернёмся.</p>
+    <p>Теперь обратите внимание в предыдущих фразах на глагольные формы, выделенные курсивом: все они стоят в сослагательном наклонении.</p>
+  </section>
+
+  <section class="page" id="present">
+    <span class="page-num">с. 178</span>
+    <h2>Конъюнктив: формы</h2>
+    <aside>
+      <strong>Модальный признак конъюнктива:</strong> долгие соединительные гласные <span class="greek">-ω-</span> и <span class="greek">-η-</span>.
+    </aside>
+    <p>Возьмите, например, формы первого лица множественного числа: все они содержат омегу. Более того, <span class="greek">σπεύδωμεν</span> из первой фразы, будучи конъюнктивом, отличается от <span class="greek">σπεύδομεν</span> из второй фразы, где стоит изъявительное наклонение, только тем, что в первой форме есть <span class="greek">ω</span>, а во второй — <span class="greek">ο</span>. Действительно, в конъюнктиве соединительные гласные всегда долгие: вместо <span class="greek">-ο-</span> и <span class="greek">-ε-</span> выступают <span class="greek">-ω-</span> и <span class="greek">-η-</span>. Этот модальный признак обычно позволит вам с первого взгляда распознавать формы данного наклонения.</p>
+
+    <table>
+      <caption>Окончания конъюнктива</caption>
+      <thead><tr><th>Актив</th><th>Медиопассив</th></tr></thead>
+      <tbody class="greek paradigm">
+        <tr><td>-ω / -ωμεν</td><td>-ωμαι / -ώμεθα</td></tr>
+        <tr><td>-ῃς / -ητε</td><td>-ῃ / -ησθε</td></tr>
+        <tr><td>-ῃ / -ωσι(ν)</td><td>-ηται / -ωνται</td></tr>
+      </tbody>
+    </table>
+
+    <p>Спряжение конъюнктива не представляет особых трудностей, если помнить то, что мы только что сказали о его модальном признаке.</p>
+    <p>Итак, вот конъюнктив настоящего времени действительного залога глагола <span class="greek">λύω</span>: <span class="greek">λύω, λύῃς, λύῃ, λύωμεν, λύητε, λύωσι(ν)</span>.</p>
+
+    <table>
+      <caption>Конъюнктив настоящего времени, актив: <span class="greek">λύω</span></caption>
+      <tbody class="greek paradigm">
+        <tr><td>λύω</td><td>λύωμεν</td></tr>
+        <tr><td>λύῃς</td><td>λύητε</td></tr>
+        <tr><td>λύῃ</td><td>λύωσι(ν)</td></tr>
+      </tbody>
+    </table>
+
+    <p>В стяжённых глаголах применяются правила стяжения; мы советуем вам повторить их: они приведены в справочной грамматике в конце первого тома, на с. 439–440. Добавим здесь, что <span class="greek">ο + ῃ &gt; οῖ</span>: <span class="greek">δηλόῃς &gt; δηλοῖς</span>, <span class="greek">δηλόῃ &gt; δηλοῖ</span>. Ударение всегда циркумфлексное, потому что до стяжения оно падало на первую гласную.</p>
+
+    <table>
+      <caption>Стяжённые глаголы: актив</caption>
+      <thead><tr><th><span class="greek">φιλέω</span></th><th><span class="greek">τιμάω</span></th><th><span class="greek">δηλόω</span></th></tr></thead>
+      <tbody class="greek paradigm">
+        <tr><td>φιλέω &gt; φιλῶ</td><td>τιμάω &gt; τιμῶ</td><td>δηλόω &gt; δηλῶ</td></tr>
+        <tr><td>φιλέῃς &gt; φιλῇς</td><td>τιμάῃς &gt; τιμᾷς</td><td>δηλόῃς &gt; δηλοῖς</td></tr>
+        <tr><td>φιλέῃ &gt; φιλῇ</td><td>τιμάῃ &gt; τιμᾷ</td><td>δηλόῃ &gt; δηλοῖ</td></tr>
+        <tr><td>φιλέωμεν &gt; φιλῶμεν</td><td>τιμάωμεν &gt; τιμῶμεν</td><td>δηλόωμεν &gt; δηλῶμεν</td></tr>
+        <tr><td>φιλέητε &gt; φιλῆτε</td><td>τιμάητε &gt; τιμᾶτε</td><td>δηλόητε &gt; δηλῶτε</td></tr>
+        <tr><td>φιλέωσι(ν) &gt; φιλῶσι(ν)</td><td>τιμάωσι(ν) &gt; τιμῶσι(ν)</td><td>δηλόωσι(ν) &gt; δηλῶσι(ν)</td></tr>
+      </tbody>
+    </table>
+
+    <p>С практической точки зрения: как вы легко можете заметить, конъюнктив стяжённых глаголов на <span class="greek">-α-</span> совпадает с изъявительным наклонением и отличается от него только по контексту; в единственном числе совпадают также изъявительное наклонение и конъюнктив глаголов на <span class="greek">-ο-</span>; наконец, окончания конъюнктива стяжённых глаголов на <span class="greek">-ε-</span> отличаются от окончаний конъюнктива нестяжённых глаголов на <span class="greek">-ω</span> только ударением.</p>
+
+    <p>Конъюнктив настоящего времени медиопассивного залога глаголов на <span class="greek">-ω</span> таков: <span class="greek">λύωμαι, λύῃ</span> (&lt; <span class="greek">*λύησαι</span>), <span class="greek">λύηται, λυώμεθα, λύησθε, λύωνται</span>.</p>
+
+    <table>
+      <caption>Конъюнктив настоящего времени, медиопассив</caption>
+      <thead><tr><th><span class="greek">λύω</span></th><th><span class="greek">φιλέω</span></th><th><span class="greek">τιμάω</span></th><th><span class="greek">δηλόω</span></th></tr></thead>
+      <tbody class="greek paradigm">
+        <tr><td>λύωμαι</td><td>φιλῶμαι</td><td>τιμῶμαι</td><td>δηλῶμαι</td></tr>
+        <tr><td>λύῃ</td><td>φιλῇ</td><td>τιμᾷ</td><td>δηλοῖ</td></tr>
+        <tr><td>λύηται</td><td>φιλῆται</td><td>τιμᾶται</td><td>δηλῶται</td></tr>
+        <tr><td>λυώμεθα</td><td>φιλώμεθα</td><td>τιμώμεθα</td><td>δηλώμεθα</td></tr>
+        <tr><td>λύησθε</td><td>φιλῆσθε</td><td>τιμᾶσθε</td><td>δηλῶσθε</td></tr>
+        <tr><td>λύωνται</td><td>φιλῶνται</td><td>τιμῶνται</td><td>δηλῶνται</td></tr>
+      </tbody>
+    </table>
+
+    <p>Для <span class="greek">φιλέω</span>, <span class="greek">τιμάω</span> и <span class="greek">δηλόω</span> мы даём только стяжённые формы; в качестве упражнения выпишите сами нестяжённые формы, от которых они происходят, и посмотрите, как здесь применяются правила стяжения.</p>
+  </section>
+
+  <section class="page" id="mi-verbs">
+    <span class="page-num">с. 179–180</span>
+    <h2>Конъюнктив глаголов на <span class="greek">-μι</span></h2>
+    <p>Помните, однако, что во всём настоящем времени и имперфекте глаголов на <span class="greek">-ε-</span>, <span class="greek">-α-</span> и <span class="greek">-ο-</span> аттический диалект употребляет стяжённые формы, тогда как нестяжённые часто встречаются у Гомера.</p>
+
+    <p>Конъюнктив глагола <span class="greek">εἰμί</span> происходит от <span class="greek">*ἐσ-ω, *ἐσ-ῃς</span> и т. д., где <span class="greek">ἐσ-</span>, как вы знаете, является основой; затем происходит выпадение интервокального <span class="greek">-σ-</span> и стяжение. Как практическое правило запомните: он совпадает с активными окончаниями конъюнктива, имеет тонкое придыхание и циркумфлексное ударение: <span class="greek">ὦ</span> (&lt; <span class="greek">*ἐσ-ω</span>), <span class="greek">ᾖς, ᾖ, ὦμεν, ἦτε, ὦσι(ν)</span>.</p>
+
+    <table>
+      <caption>Глаголы на <span class="greek">-μι</span></caption>
+      <thead><tr><th>Глагол</th><th>Формы конъюнктива</th></tr></thead>
+      <tbody class="greek paradigm">
+        <tr><td>εἰμί, «быть»</td><td>ὦ, ᾖς, ᾖ, ὦμεν, ἦτε, ὦσι(ν)</td></tr>
+        <tr><td>εἶμι, «пойду / иду»</td><td>ἴω, ἴῃς, ἴῃ, ἴωμεν, ἴητε, ἴωσι(ν)</td></tr>
+        <tr><td>δύναμαι, основа δυν-</td><td>δύνωμαι, δύνῃ, δύνηται и т. д.</td></tr>
+        <tr><td>ἐπίσταμαι, основа ἐπιστ-</td><td>ἐπίστωμαι, ἐπίστῃ, ἐπίστηται и т. д.</td></tr>
+        <tr><td>κεῖμαι</td><td>κέηται, «чтобы он лежал»</td></tr>
+      </tbody>
+    </table>
+
+    <p>В <span class="greek">εἶμι</span> окончания присоединяются к глагольной основе редуцированной ступени <span class="greek">ἰ-</span>: <span class="greek">ἴω</span>, «чтобы я пошёл», <span class="greek">ἴῃς, ἴῃ, ἴωμεν, ἴητε, ἴωσι(ν)</span>. В <span class="greek">δύναμαι</span> и <span class="greek">ἐπίσταμαι</span> они присоединяются к основам <span class="greek">δυνα-</span>, <span class="greek">ἐπιστα-</span>, но без конечной гласной, то есть к <span class="greek">δυν-</span> и <span class="greek">ἐπιστ-</span>: <span class="greek">δύνωμαι, δύνῃ, δύνηται</span> и т. д.; <span class="greek">ἐπίστωμαι, ἐπίστῃ, ἐπίστηται</span> и т. д. Форма <span class="greek">κέηται</span>, единственная форма конъюнктива от <span class="greek">κεῖμαι</span>, засвидетельствованная у простого глагола, происходит от основы <span class="greek">κει-</span>: &lt; <span class="greek">*κει-η-ται</span>, с выпадением <span class="greek">-ι-</span>.</p>
+
+    <p>Конъюнктив <span class="greek">δίδωμι</span>, <span class="greek">τίθημι</span> и <span class="greek">ἵστημι</span> стяжённый: это результат столкновения конечного <span class="greek">-ω-</span> или <span class="greek">-η-</span> долгой ступени основы настоящего времени (<span class="greek">δι-δω-, τι-θη-, ἱ-στη-</span>) с окончаниями. Посмотрите на стяжения в таблицах ниже.</p>
+
+    <div class="three-col">
+      <table>
+        <caption><span class="greek">δίδωμι</span></caption>
+        <thead><tr><th>Актив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>διδῶ (&lt; *δι-δω-ω)</td></tr>
+          <tr><td>διδῷς (&lt; *δι-δω-ῃς)</td></tr>
+          <tr><td>διδῷ (&lt; *δι-δω-ῃ)</td></tr>
+          <tr><td>διδῶμεν (&lt; *δι-δω-ωμεν)</td></tr>
+          <tr><td>διδῶτε (&lt; *δι-δω-ητε)</td></tr>
+          <tr><td>διδῶσι(ν) (&lt; *δι-δω-ωσι)</td></tr>
+        </tbody>
+        <thead><tr><th>Медиопассив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>διδῶμαι</td></tr><tr><td>διδῷ</td></tr><tr><td>διδῶται</td></tr><tr><td>διδώμεθα</td></tr><tr><td>διδῶσθε</td></tr><tr><td>διδῶνται</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <caption><span class="greek">τίθημι</span></caption>
+        <thead><tr><th>Актив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>τιθῶ</td></tr><tr><td>τιθῇς</td></tr><tr><td>τιθῇ</td></tr><tr><td>τιθῶμεν</td></tr><tr><td>τιθῆτε</td></tr><tr><td>τιθῶσι(ν)</td></tr>
+        </tbody>
+        <thead><tr><th>Медиопассив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>τιθῶμαι</td></tr><tr><td>τιθῇ</td></tr><tr><td>τιθῆται</td></tr><tr><td>τιθώμεθα</td></tr><tr><td>τιθῆσθε</td></tr><tr><td>τιθῶνται</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <caption><span class="greek">ἵστημι</span></caption>
+        <thead><tr><th>Актив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>ἱστῶ</td></tr><tr><td>ἱστῇς</td></tr><tr><td>ἱστῇ</td></tr><tr><td>ἱστῶμεν</td></tr><tr><td>ἱστῆτε</td></tr><tr><td>ἱστῶσι(ν)</td></tr>
+        </tbody>
+        <thead><tr><th>Медиопассив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>ἱστῶμαι</td></tr><tr><td>ἱστῇ</td></tr><tr><td>ἱστῆται</td></tr><tr><td>ἱστώμεθα</td></tr><tr><td>ἱστῆσθε</td></tr><tr><td>ἱστῶνται</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Практически говоря, как можно видеть в таблицах, конъюнктив <span class="greek">δίδωμι</span> имеет <span class="greek">ω</span> во всех формах: <span class="greek">-ω, -ῷς, -ῷ, -ῶμεν, -ῶτε, -ῶσι(ν)</span>. У <span class="greek">τίθημι</span> и <span class="greek">ἵστημι</span>, напротив, окончания совпадают, если не считать ударения, с окончаниями глаголов на <span class="greek">-ω</span>.</p>
+
+    <p>Как видите, конъюнктив всегда имеет долгие соединительные гласные <span class="greek">-ω-</span> и <span class="greek">-η-</span> также у глаголов на <span class="greek">-μι</span>, у которых их по большей части нет; это наблюдение относится не только к настоящему времени, но и ко всему спряжению. Окончания у глаголов на <span class="greek">-μι</span> те же, что и у глаголов на <span class="greek">-ω</span>.</p>
+  </section>
+
+  <section class="page" id="aorist">
+    <span class="page-num">с. 180–181</span>
+    <h2>Конъюнктив аориста: актив и медий</h2>
+    <p>Конъюнктив аориста активного и среднего залога, естественно, образуется от основы аориста без приращения; к ней присоединяются те же окончания, что и в конъюнктиве настоящего времени.</p>
+
+    <table>
+      <caption>Основные типы аориста</caption>
+      <thead><tr><th>Тип</th><th>Актив</th><th>Медий</th></tr></thead>
+      <tbody class="greek paradigm">
+        <tr><td>Первый сигматический аорист (<span>λύω, ἔλυσα</span>)</td><td>λύσω, λύσῃς, λύσῃ, λύσωμεν, λύσητε, λύσωσι(ν)</td><td>λύσωμαι, λύσῃ, λύσηται, λυσώμεθα, λύσησθε, λύσωνται</td></tr>
+        <tr><td>Первый асигматический аорист (<span>αἴρω, ἦρα</span>)</td><td>ἄρω, ἄρῃς, ἄρῃ, ἄρωμεν, ἄρητε, ἄρωσι(ν)</td><td>ἄρωμαι, ἄρῃ, ἄρηται, ἀρώμεθα, ἄρησθε, ἄρωνται</td></tr>
+        <tr><td>Второй аорист (<span>λείπω, ἔλιπον</span>)</td><td>λίπω, λίπῃς, λίπῃ, λίπωμεν, λίπητε, λίπωσι(ν)</td><td>λίπωμαι, λίπῃ, λίπηται, λιπώμεθα, λίπησθε, λίπωνται</td></tr>
+      </tbody>
+    </table>
+
+    <p>В первых сигматических аористах, например у <span class="greek">λύω</span> с аористом <span class="greek">ἔλυσα</span>, суффикс здесь не <span class="greek">-σα-</span>, а только <span class="greek">-σ-</span>. Впрочем, <span class="greek">α</span> отсутствует и в других формах аориста, например в <span class="greek">ἔλυσε</span> и <span class="greek">λῦσον</span>.</p>
+
+    <p>В первых асигматических аористах, то есть в аористах глагольных основ на плавный или носовой согласный, например <span class="greek">αἴρω, ἦρα</span>, основа — <span class="greek">ἀρ-</span>, а не <span class="greek">ἀρα-</span>. Во вторых аористах, например <span class="greek">λείπω, ἔλιπον</span>, берётся основа <span class="greek">λιπ-</span>.</p>
+
+    <p>Что касается <span class="greek">δίδωμι</span> и <span class="greek">τίθημι</span>, то и в аористе они имеют стяжённый конъюнктив. Его образование совпадает с образованием прочих не-каппатических форм аориста этих двух глаголов, за исключением наличия долгих соединительных гласных — повторим, это постоянный признак данного наклонения — и долгой ступени глагольной основы: <span class="greek">δω-</span>, <span class="greek">θη-</span>.</p>
+
+    <table>
+      <caption>Аорист <span class="greek">δίδωμι</span> и <span class="greek">τίθημι</span></caption>
+      <thead><tr><th><span class="greek">δίδωμι</span></th><th><span class="greek">τίθημι</span></th></tr></thead>
+      <tbody class="greek paradigm">
+        <tr><td>δῶ (&lt; *δω-ω), δῷς, δῷ, δῶμεν, δῶτε, δῶσι(ν)</td><td>θῶ (&lt; *θη-ω), θῇς, θῇ, θῶμεν, θῆτε, θῶσι(ν)</td></tr>
+        <tr><td>δῶμαι (&lt; *δω-ωμαι), δῷ, δῶται и т. д.</td><td>θῶμαι (&lt; *θη-ωμαι), θῇ, θῆται и т. д.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Практически, как вы можете видеть в таблицах, конъюнктив аориста <span class="greek">δίδωμι</span> и <span class="greek">τίθημι</span> совпадает с конъюнктивом настоящего времени без редупликации <span class="greek">δι-</span> и <span class="greek">τι-</span>.</p>
+
+    <p>Совершенно аналогично образуется и склоняется конъюнктив — тоже стяжённый — других третьих аористов, которые вы знаете: от <span class="greek">ἔβην</span> (<span class="greek">βαίνω</span>, глагольная основа долгой ступени <span class="greek">βη-</span>): <span class="greek">βῶ</span> (&lt; <span class="greek">*βη-ω</span>), <span class="greek">βῇς, βῇ, βῶμεν, βῆτε, βῶσι(ν)</span>; подобным образом от <span class="greek">ἔστην</span> (<span class="greek">ἵστημι</span>, основа долгой ступени <span class="greek">στη-</span>): <span class="greek">στῶ</span> (&lt; <span class="greek">*στη-ω</span>), <span class="greek">στῇς</span> и т. д.; от <span class="greek">ἔγνων</span> (<span class="greek">γιγνώσκω</span>, основа долгой ступени <span class="greek">γνω-</span>): <span class="greek">γνῶ</span> (&lt; <span class="greek">*γνω-ω</span>), <span class="greek">γνῷς, γνῷ, γνῶμεν, γνῶτε, γνῶσι(ν)</span>.</p>
+
+    <p><strong>Будущее время не имеет конъюнктива.</strong></p>
+  </section>
+
+  <section class="page" id="uses">
+    <span class="page-num">с. 181–182</span>
+    <h2>Конъюнктив: некоторые употребления</h2>
+    <p>Если изъявительное наклонение выражает объективную констатацию факта («мы бежим»), то с помощью конъюнктива выражается субъективная установка говорящего: это может быть выражение воли («побежим, ребята!»), сомнения («или это Франческо?»), цели («я замолкаю, чтобы ты отдохнул») и т. д.</p>
+
+    <h3>a) Увещевательный конъюнктив</h3>
+    <p>Конъюнктив, обычно в первом лице множественного числа, прежде всего часто употребляется для выражения побуждения, как в первом примере на с. 177: увещевательный конъюнктив, как в итальянском и латинском. Отрицание — <span class="greek">μή</span>.</p>
+    <div class="example"><span class="greek">Ἀνδρείως μαχώμεθα!</span> = «Будем сражаться мужественно!» = <span class="latin">Strenue pugnemus!</span></div>
+    <div class="example"><span class="greek">Μὴ τοιοῦτο ποιήσωμεν!</span> = «Не будем совершать такого поступка!»</div>
+
+    <p>Помните, что различие между конъюнктивом настоящего времени и конъюнктивом аориста касается вида, а не времени: настоящее употребляется, когда действие мыслится как имеющее некоторую длительность, как в первом примере и также в примере на с. 177; аорист — когда отвлекаются от всякого представления о длительности, как во второй фразе. Разумеется, это относится и к другим употреблениям конъюнктива.</p>
+
+    <h3>b) Запретительный конъюнктив</h3>
+    <p>Конъюнктив аориста с предшествующим <span class="greek">μή</span> служит для выражения запрета — запретительный конъюнктив. Сравните в латинском <span class="latin">ne</span> с перфектным конъюнктивом.</p>
+    <div class="example"><span class="greek">Μὴ τοῦτο ποιήσῃς</span> = «Не делай этого!» = <span class="latin">Ne istud feceris!</span></div>
+    <p>Отрицательное приказание выражается также с помощью <span class="greek">μή</span> и повелительного наклонения: <span class="greek">Μὴ φοβοῦ!</span> = «Не бойся!»</p>
+
+    <h3>c) Сомнительный, или делиберативный, конъюнктив</h3>
+    <p>Конъюнктив употребляется также в первых лицах в вопросах, которые выражают неуверенность относительно того, что следует делать: это сомнительный, или делиберативный, конъюнктив, как в латинском. Таков третий пример на с. 177, а также следующие:</p>
+    <div class="example"><span class="greek">Τί ποιῶμεν;</span> = «Что делать?» / «Что нам делать?» / «Что будем делать?» = <span class="latin">Quid agamus?</span></div>
+    <div class="example"><span class="greek">Πότερον μένωμεν ἢ οἴκαδε ἐπανίωμεν;</span> = «Оставаться или возвращаться домой?» / «Останемся или вернёмся домой?»</div>
+    <p>Последний вопрос, как и вопрос на с. 177, является разделительным: он состоит из двух членов, вводимых соответственно <span class="greek">πότερον</span> и <span class="greek">ἤ</span>, что соответствует латинскому <span class="latin">utrum… an…</span>.</p>
+
+    <h3>d) Конъюнктив в придаточных цели</h3>
+    <p>Конъюнктив с союзами <span class="greek">ἵνα</span>, <span class="greek">ὅπως</span> или <span class="greek">ὡς</span> — проклитическим — образует придаточное предложение цели. Отрицательные целевые предложения вводятся <span class="greek">ἵνα μή</span>, <span class="greek">ὅπως μή</span>, <span class="greek">ὡς μή</span> или просто <span class="greek">μή</span>.</p>
+    <div class="example"><span class="greek">Ἀνδρείως μαχώμεθα ἵνα τὴν πατρίδα σώσωμεν</span> = «Будем мужественно сражаться, чтобы спасти родину» = <span class="latin">Strenue pugnemus ut patriam servemus</span>.</div>
+    <div class="example"><span class="greek">Σπεύδουσιν ὅπως μὴ ὀψὲ ἀφίκωνται</span> = «Они спешат, чтобы не прийти поздно» = <span class="latin">Properant ne sero perveniant</span>.</div>
+
+    <h3>e) Конъюнктив в условных предложениях</h3>
+    <p>Наконец, конъюнктив встречается также в некоторых типах условных предложений:</p>
+    <div class="example"><span class="greek">Εἰρήνη δ' ἔσται, ἐὰν τοὺς Ἕλληνας αὐτονόμους ἀφῆτε</span> = «И будет мир, если вы оставите греков свободными» / «если вы позволите грекам быть автономными».</div>
+    <p>Но об этом и о других употреблениях конъюнктива в придаточных предложениях мы поговорим подробнее далее. Пока отметьте здесь <span class="greek">ἐάν</span> (= <span class="greek">εἰ + ἄν</span>).</p>
+
+    <aside>
+      <strong>Кратко:</strong><br>
+      a) увещевательный: <span class="greek">μαχώμεθα!</span><br>
+      b) запретительный: <span class="greek">Μὴ τοῦτο ποιήσῃς!</span><br>
+      c) сомнительный: <span class="greek">Τί ποιῶμεν;</span><br>
+      d) в придаточных цели: <span class="greek">ἵνα, ὅπως, ὡς</span>; отрицательные: <span class="greek">ἵνα μή, ὅπως μή, ὡς μή, μή</span><br>
+      e) в условных предложениях: <span class="greek">ἐὰν ἀφῆτε</span>.
+    </aside>
+  </section>
+
+  <section class="page" id="hiemi">
+    <span class="page-num">с. 183</span>
+    <h2>Глагол <span class="greek">ἵημι</span>, «посылаю»</h2>
+    <p>Жрецы <span class="greek">ἀφιᾶσι</span>, «позволяют», чтобы были посвящены также те, кто не является аттиками; но в древности они <span class="greek">οὐκ ἀφίεσαν</span>, «не позволяли»; более того, они <span class="greek">ἀφεῖσαν</span>, «не позволили», даже Гераклу, так что, чтобы удовлетворить его желание, они установили малые мистерии, праздновавшиеся в Афинах весной. Посвящённый, оставив всё человеческое — <span class="greek">ἀφεὶς τὰ ἀνθρώπινα</span>, — становится близким к богам и обеспечивает себе жизнь после смерти.</p>
+
+    <p>Обратите внимание на глагольные формы, выделенные курсивом в исходном тексте: они принадлежат другому важному глаголу второго спряжения — <span class="greek">ἵημι</span>, «посылаю».</p>
+    <p>Вместе с <span class="greek">δίδωμι</span>, <span class="greek">τίθημι</span> и <span class="greek">ἵστημι</span> глагол <span class="greek">ἵημι</span> образует небольшую группу из четырёх часто употребительных глаголов на <span class="greek">-μι</span>. Их спряжение отличается прежде всего двумя чертами:</p>
+    <ol>
+      <li>глагольная основа имеет количественное чередование: <span class="greek">δω-/δο-, θη-/θε-, στη-/στα-</span>, а для <span class="greek">ἵημι</span> — <span class="greek">ἡ-/ἑ-</span>;</li>
+      <li>основа настоящего времени имеет редупликацию настоящего: <span class="greek">δίδωμι</span>, <span class="greek">τίθημι</span> (&lt; <span class="greek">*θι-θη-</span>), <span class="greek">ἵστημι</span> (&lt; <span class="greek">*σι-στη-</span>). Глагол <span class="greek">ἵημι</span> также, несомненно, содержит редупликацию настоящего, хотя в этом глаголе она не проявляется с такой же ясностью, как в остальных: этимология <span class="greek">ἵημι</span> вообще неясна. Практически, однако, основа настоящего здесь образуется прибавлением <span class="greek">ἱ-</span> перед глагольной основой: <span class="greek">ἱ-η-/ἱ-ε-</span>, например <span class="greek">ἵημι</span>, «посылаю», <span class="greek">ἵεμεν</span>, «посылаем».</li>
+    </ol>
+
+    <p>Теперь начнём с парадигмы нашего глагола: <span class="greek">ἵημι</span>, будущее <span class="greek">ἥσω</span>, аорист — каппатический — <span class="greek">ἧκα</span>, перфект <span class="greek">εἷκα</span>, <span class="greek">εἷμαι</span>, пассивный аорист <span class="greek">εἵθην</span>.</p>
+
+    <p>Что касается значения, в активном залоге <span class="greek">ἵημι</span> значит «привожу в движение», а значит также «посылаю, отпускаю, мечу» и т. п.; в среднем залоге — «сам прихожу в движение», а отсюда «спешу, бросаюсь, устремляюсь» и т. д.</p>
+
+    <p>От этого глагола особенно часто употребляются сложные формы; более того, многие его формы встречаются только в составе приставочных глаголов. Запомните в особенности <span class="greek">ἀφίημι</span>: «высылаю, отсылаю», а также «мечу, освобождаю / оправдываю кого-либо от обвинения, позволяю кому-либо сделать что-либо, пренебрегаю» и т. п.; в среднем залоге — «удаляюсь от, оставляю» с родительным падежом.</p>
+
+    <aside>
+      <strong><span class="greek">ἵημι</span>:</strong> глагольная основа с чередованием <span class="greek">ἡ-/ἑ-</span>; основа настоящего <span class="greek">ἱ-η-/ἱ-ε-</span>.
+    </aside>
+  </section>
+
+  <section class="page">
+    <span class="page-num">с. 184</span>
+    <h2><span class="greek">ἵημι</span>: активная форма</h2>
+    <div class="two-col">
+      <table>
+        <caption>Настоящее время</caption>
+        <thead><tr><th>Изъявительное</th><th>Конъюнктив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>ἵημι</td><td>ἱῶ (&lt; *ἱ-η-ω)</td></tr>
+          <tr><td>ἵης</td><td>ἱῇς (&lt; *ἱ-η-ῃς)</td></tr>
+          <tr><td>ἵησι(ν)</td><td>ἱῇ</td></tr>
+          <tr><td>ἵεμεν</td><td>ἱῶμεν</td></tr>
+          <tr><td>ἵετε</td><td>ἱῆτε</td></tr>
+          <tr><td>ἱᾶσι(ν) (&lt; *ἱ-ε-ασι)</td><td>ἱῶσι(ν)</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <caption>Прочие формы настоящего</caption>
+        <tbody class="greek paradigm">
+          <tr><th>Повелительное</th><td>ἵει (&lt; *ἱ-ε-ε), ἵετε</td></tr>
+          <tr><th>Инфинитив</th><td>ἱέναι</td></tr>
+          <tr><th>Причастие</th><td>ἱείς, ἱεῖσα, ἱέν; род. ἱέντος, ἱείσης, ἱέντος и т. д.</td></tr>
+          <tr><th>Имперфект</th><td>ἵην, ἵεις, ἵει, ἵεμεν, ἵετε, ἵεσαν</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <aside><strong>Важность густого придыхания:</strong> <span class="greek">ἱέναι</span> — «посылать»; <span class="greek">ἰέναι</span> — «идти».</aside>
+
+    <table>
+      <caption>Аорист активного залога</caption>
+      <thead><tr><th>Изъявительное</th><th>Конъюнктив</th><th>Прочие формы</th></tr></thead>
+      <tbody class="greek paradigm">
+        <tr><td>ἧκα, ἧκας, ἧκε(ν)<br>εἷμεν, εἷτε, εἷσαν</td><td>ὧ, ᾗς, ᾗ<br>ὧμεν, ἧτε, ὧσι(ν)</td><td>повелит.: ἕς, ἕτε<br>инфинитив: εἷναι (&lt; *ἑ-εναι, как θεῖναι &lt; *θε-εναι)<br>причастие: εἷς, εἷσα, ἕν; род. ἑντός, εἵσης, ἑντός и т. д.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Внимательно рассмотрите, с помощью преподавателя, значение форм <span class="greek">ἵημι</span> и <span class="greek">ἀφίημι</span> в следующих фразах, затем переведите эти фразы:</p>
+    <ol class="greek">
+      <li>Τίς σε ἐμοὶ ἧκε;</li>
+      <li>Ὁ Φίλιππος ἑαυτὸν ἀπὸ τοῦ τείχους ἵησιν.</li>
+      <li>Ὁ Δικαιόπολις οἴκαδε ἵεται (= σπεύδει).</li>
+      <li>Ὁ Ζεὺς κεραυνὸν ἀφῆκεν.</li>
+      <li>Οὐ δεῖ τούτους τοὺς κλέπτας ἀφεῖναι.</li>
+      <li>Εἰρήνη ἔσται, ἐὰν τοὺς Ἕλληνας αὐτονόμους (εἶναι) ἀφῆτε.</li>
+      <li>Διὰ τί τὰ τῆς πόλεως ἀφίετε, ὦ πολῖται;</li>
+      <li>Μηδέποτε ἀφίεσο τῶν φίλων, ὦ παῖ.</li>
+    </ol>
+
+    <p>Обратите внимание в таблицах, что распределение двух ступеней чередования глагольной основы — долгой ступени <span class="greek">ἡ-</span> и краткой ступени <span class="greek">ἑ-</span> — в разных формах такое же, какое наблюдается в спряжении <span class="greek">τίθημι</span>. Особенно отметьте первое лицо единственного числа активного имперфекта: <span class="greek">ἵην</span>, как <span class="greek">ἐτίθην</span>.</p>
+
+    <p>В третьем лице множественного числа изъявительного наклонения обратите внимание на стяжение <span class="greek">-εα-</span> в <span class="greek">-α-</span>, а не в <span class="greek">-η-</span>. Конъюнктив и здесь стяжённый. Заметьте также, что инфинитив <span class="greek">ἱέναι</span> отличается от инфинитива <span class="greek">εἶμι</span> — <span class="greek">ἰέναι</span> — только густым придыханием и долгим количеством начального <span class="greek">ι</span>.</p>
+
+    <p>Обратите внимание, что первое и второе лица множественного числа одинаковы в имперфекте и настоящем времени: <span class="greek">ἵεμεν</span> — «мы посылаем» и «мы посылали»; <span class="greek">ἵετε</span> — «вы посылаете» и «вы посылали».</p>
+
+    <p>Как у <span class="greek">τίθημι</span> (<span class="greek">ἔθηκα</span>) и <span class="greek">δίδωμι</span> (<span class="greek">ἔδωκα</span>), аорист <span class="greek">ἵημι</span> является каппатическим только в единственном числе активного изъявительного наклонения, тогда как остальные формы, включая весь средний залог, принадлежат к третьему аористу.</p>
+
+    <p>Три лица множественного числа изъявительного наклонения начинаются с <span class="greek">εἱ-</span>: например, <span class="greek">εἷμεν</span> происходит от <span class="greek">*ἐ-ἑ-μεν</span> — сравните <span class="greek">ἔθεμεν</span>. Основа <span class="greek">ἑ-</span> — это, записанная иначе, краткая ступень глагольной основы; густое придыхание, как вы знаете, представляет начальное придыхание. Затем придыхание переместилось к началу слова, а две соседние гласные стянулись: <span class="greek">*ἑεμεν &gt; εἷμεν</span>. Так же образуются две другие формы, а также весь индикатив среднего аориста: <span class="greek">εἵμην &lt; *ἐ-ἑ-μην</span> и т. д.</p>
+  </section>
+
+  <section class="page">
+    <span class="page-num">с. 185</span>
+    <h2><span class="greek">ἵημι</span>: медиопассивная и средняя формы</h2>
+    <p>Конъюнктив стяжённый, как в аористе <span class="greek">τίθημι</span> и <span class="greek">δίδωμι</span>, а также в настоящем времени всех четырёх глаголов этой группы; отметьте и здесь долгую ступень глагольной основы.</p>
+    <p>Заметьте далее, что конъюнктив и инфинитив отличаются от соответствующих форм настоящего времени глагола <span class="greek">εἰμί</span> только густым придыханием: <span class="greek">ὧμεν</span> — «чтобы мы посылали», <span class="greek">ὦμεν</span> — «чтобы мы были»; <span class="greek">εἷναι</span> — «посылать», <span class="greek">εἶναι</span> — «быть» и т. д.</p>
+    <p>Ниже приведены остальные формы <span class="greek">ἵημι</span>.</p>
+
+    <div class="two-col">
+      <table>
+        <caption><span class="greek">ἵημι</span>: медиопассив, настоящее время</caption>
+        <thead><tr><th>Изъявительное</th><th>Конъюнктив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>ἵεμαι</td><td>ἱῶμαι (&lt; *ἱ-η-ωμαι)</td></tr>
+          <tr><td>ἵεσαι</td><td>ἱῇ</td></tr>
+          <tr><td>ἵεται</td><td>ἱῆται</td></tr>
+          <tr><td>ἱέμεθα</td><td>ἱώμεθα</td></tr>
+          <tr><td>ἵεσθε</td><td>ἱῆσθε</td></tr>
+          <tr><td>ἵενται</td><td>ἱῶνται</td></tr>
+        </tbody>
+        <tbody class="greek paradigm">
+          <tr><th>Повелительное</th><td>ἵεσο, ἵεσθε</td></tr>
+          <tr><th>Инфинитив</th><td>ἵεσθαι</td></tr>
+          <tr><th>Причастие</th><td>ἱέμενος, -η, -ον</td></tr>
+          <tr><th>Имперфект</th><td>ἱέμην, ἵεσο, ἵετο, ἱέμεθα, ἵεσθε, ἵεντο</td></tr>
+        </tbody>
+      </table>
+
+      <table>
+        <caption><span class="greek">ἵημι</span>: средняя форма, аорист</caption>
+        <thead><tr><th>Изъявительное</th><th>Конъюнктив</th></tr></thead>
+        <tbody class="greek paradigm">
+          <tr><td>εἵμην</td><td>ὧμαι (&lt; *ἑ-ωμαι)</td></tr>
+          <tr><td>εἷσο</td><td>ᾗ</td></tr>
+          <tr><td>εἷτο</td><td>ἧται</td></tr>
+          <tr><td>εἵμεθα</td><td>ὥμεθα</td></tr>
+          <tr><td>εἷσθε</td><td>ἧσθε</td></tr>
+          <tr><td>εἷντο</td><td>ὧνται</td></tr>
+        </tbody>
+        <tbody class="greek paradigm">
+          <tr><th>Повелительное</th><td>οὗ (&lt; *ἕ-σο), ἕσθε</td></tr>
+          <tr><th>Инфинитив</th><td>ἕσθαι</td></tr>
+          <tr><th>Причастие</th><td>ἕμενος, -η, -ον</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <aside>
+      <strong>Снова о важности густого придыхания:</strong><br>
+      <span class="greek">ὧμεν</span> — «чтобы мы посылали»; <span class="greek">ὦμεν</span> — «чтобы мы были»;<br>
+      <span class="greek">εἷναι</span> — «посылать»; <span class="greek">εἶναι</span> — «быть».
+    </aside>
+    <p>Будущее время <span class="greek">ἵημι</span> образуется регулярно: <span class="greek">ἥσω, ἥσομαι</span>.</p>
+  </section>
+</main>
+</body>
+</html>
