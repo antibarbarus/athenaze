@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 2.4</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 42px;
+      align-items: start;
+    }
+
+    .block p {
+      margin: 12px 0;
+      font-size: 20px;
+      white-space: nowrap;
+    }
+
+    input[type="text"] {
+      font-family: 'Fira Mono', monospace;
+      font-size: 18px;
+      padding: 5px 7px;
+      width: 72px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+      text-align: center;
+    }
+
+    .wide {
+      width: 92px !important;
+    }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 22px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 900px) {
+      .exercise-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 2.4</h1>
+  <h2>Дополните выражения, добавив недостающие окончания или артикли</h2>
+
+  <div class="instructions">
+    Впишите только недостающую часть слова или артикль.
+  </div>
+
+  <div class="exercise-grid">
+
+    <div class="block">
+      <p>ὦ ἀργὲ δούλ<input type="text" id="gap1"></p>
+
+      <p>
+        <input type="text" id="gap2" class="wide">
+        ἀργοῦ δούλ<input type="text" id="gap3">
+      </p>
+
+      <p>
+        τὸν ἀργ<input type="text" id="gap4">
+        δούλ<input type="text" id="gap5">
+      </p>
+
+      <p>
+        <input type="text" id="gap6" class="wide">
+        ἀργὸς δούλ<input type="text" id="gap7">
+      </p>
+
+      <p>
+        τῷ ἀργ<input type="text" id="gap8">
+        δούλ<input type="text" id="gap9">
+      </p>
+    </div>
+
+    <div class="block">
+      <p>
+        ὦ καλ<input type="text" id="gap10">
+        δένδρ<input type="text" id="gap11">
+      </p>
+
+      <p>
+        τὸ καλ<input type="text" id="gap12">
+        δένδρ<input type="text" id="gap13"> βλέπω
+      </p>
+
+      <p>
+        τοῦ καλ<input type="text" id="gap14">
+        δένδρ<input type="text" id="gap15">
+      </p>
+
+      <p>
+        τὸ δένδρ<input type="text" id="gap16">
+        καλ<input type="text" id="gap17"> ἐστίν
+      </p>
+
+      <p>
+        <input type="text" id="gap18" class="wide">
+        καλ<input type="text" id="gap19">
+        δένδρῳ
+      </p>
+    </div>
+
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <script>
+    const answers = [
+      ["ε"],
+      ["τοῦ"],
+      ["ου"],
+      ["ὸν", "ον"],
+      ["ον"],
+      ["ὁ"],
+      ["ος"],
+      ["ῷ", "ω"],
+      ["ῳ", "ω"],
+
+      ["ὸν", "ον"],
+      ["ον"],
+      ["ὸν", "ον"],
+      ["ον"],
+      ["οῦ", "ου"],
+      ["ου"],
+      ["ον"],
+      ["ὸν", "ον"],
+      ["τῷ"],
+      ["ῷ", "ω"]
+    ];
+
+    const removeDiacritics = (str) => {
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    };
+
+    const setStyles = (element, status) => {
+      element.classList.remove('correct', 'almost-correct', 'incorrect');
+      if (status === 'correct') {
+        element.classList.add('correct');
+      } else if (status === 'almost-correct') {
+        element.classList.add('almost-correct');
+      } else if (status === 'incorrect') {
+        element.classList.add('incorrect');
+      }
+    };
+
+    const checkSingleAnswer = (index) => {
+      const input = document.getElementById(`gap${index + 1}`);
+      const user = input.value.trim();
+      const accepted = answers[index];
+
+      if (user === '') {
+        setStyles(input, '');
+        return;
+      }
+
+      if (accepted.includes(user)) {
+        setStyles(input, 'correct');
+        return;
+      }
+
+      const normalizedUser = removeDiacritics(user.toLowerCase());
+      const near = accepted.some(ans =>
+        removeDiacritics(ans.toLowerCase()) === normalizedUser
+      );
+
+      setStyles(input, near ? 'almost-correct' : 'incorrect');
+    };
+
+    const updateResults = () => {
+      let correct = 0;
+      let almostCorrect = 0;
+
+      answers.forEach((accepted, i) => {
+        const input = document.getElementById(`gap${i + 1}`);
+        const user = input.value.trim();
+
+        if (accepted.includes(user)) {
+          correct++;
+        } else if (user !== '') {
+          const normalizedUser = removeDiacritics(user.toLowerCase());
+          if (accepted.some(ans =>
+            removeDiacritics(ans.toLowerCase()) === normalizedUser
+          )) {
+            almostCorrect++;
+          }
+        }
+      });
+
+      const result = document.getElementById('result');
+
+      if (correct === answers.length) {
+        result.textContent = 'Все ответы правильные! Отличная работа!';
+        result.style.backgroundColor = 'lightgreen';
+      } else if (almostCorrect > 0) {
+        result.textContent =
+          `${correct} из ${answers.length} ответов правильны, ` +
+          `${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+        result.style.backgroundColor = '';
+      } else {
+        result.textContent = `${correct} из ${answers.length} ответов правильны.`;
+        result.style.backgroundColor = '';
+      }
+    };
+
+    window.onload = () => {
+      answers.forEach((_, i) => {
+        const input = document.getElementById(`gap${i + 1}`);
+        input.addEventListener('input', () => {
+          checkSingleAnswer(i);
+          updateResults();
+        });
+      });
+
+      updateResults();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 2.3</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      table-layout: fixed;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f6f6f6;
+      text-align: left;
+      font-size: 22px;
+      font-weight: normal;
+    }
+
+    .subject {
+      font-size: 20px;
+      white-space: nowrap;
+    }
+
+    .entry {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      font-family: 'Fira Mono', monospace;
+      font-size: 18px;
+      padding: 7px 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+    }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 850px) {
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 820px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 2.3</h1>
+  <h2>Согласуйте глаголы с подлежащими</h2>
+
+  <div class="instructions">
+    Впишите правильную форму глагола настоящего времени.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>βλέπω</th>
+          <th>φιλέω</th>
+          <th>εἰμι</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="entry">
+              <span class="subject">σύ</span>
+              <input type="text" id="gap1" spellcheck="false">
+            </div>
+          </td>
+          <td>
+            <div class="entry">
+              <span class="subject">ὁ δοῦλος</span>
+              <input type="text" id="gap4" spellcheck="false">
+            </div>
+          </td>
+          <td>
+            <div class="entry">
+              <span class="subject">ἐγώ</span>
+              <input type="text" id="gap7" spellcheck="false">
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="entry">
+              <span class="subject">ἐγώ</span>
+              <input type="text" id="gap2" spellcheck="false">
+            </div>
+          </td>
+          <td>
+            <div class="entry">
+              <span class="subject">σύ</span>
+              <input type="text" id="gap5" spellcheck="false">
+            </div>
+          </td>
+          <td>
+            <div class="entry">
+              <span class="subject">ὁ δοῦλος</span>
+              <input type="text" id="gap8" spellcheck="false">
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="entry">
+              <span class="subject">ὁ δοῦλος</span>
+              <input type="text" id="gap3" spellcheck="false">
+            </div>
+          </td>
+          <td>
+            <div class="entry">
+              <span class="subject">ἐγώ</span>
+              <input type="text" id="gap6" spellcheck="false">
+            </div>
+          </td>
+          <td>
+            <div class="entry">
+              <span class="subject">σύ</span>
+              <input type="text" id="gap9" spellcheck="false">
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <script>
+    const answers = [
+      ["βλέπεις"],
+      ["βλέπω"],
+      ["βλέπει"],
+      ["φιλεῖ"],
+      ["φιλεῖς"],
+      ["φιλῶ"],
+      ["εἰμι"],
+      ["ἐστίν", "ἐστιν", "ἐστί", "ἐστι"],
+      ["εἶ"]
+    ];
+
+    const removeDiacritics = (str) => {
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    };
+
+    const setStyles = (element, status) => {
+      element.classList.remove('correct', 'almost-correct', 'incorrect');
+      if (status === 'correct') {
+        element.classList.add('correct');
+      } else if (status === 'almost-correct') {
+        element.classList.add('almost-correct');
+      } else if (status === 'incorrect') {
+        element.classList.add('incorrect');
+      }
+    };
+
+    const checkSingleAnswer = (index) => {
+      const input = document.getElementById(`gap${index + 1}`);
+      const user = input.value.trim();
+      const accepted = answers[index];
+
+      if (user === '') {
+        setStyles(input, '');
+        return;
+      }
+
+      if (accepted.includes(user)) {
+        setStyles(input, 'correct');
+        return;
+      }
+
+      const normalizedUser = removeDiacritics(user.toLowerCase());
+      const near = accepted.some(ans =>
+        removeDiacritics(ans.toLowerCase()) === normalizedUser
+      );
+
+      setStyles(input, near ? 'almost-correct' : 'incorrect');
+    };
+
+    const updateResults = () => {
+      let correct = 0;
+      let almostCorrect = 0;
+
+      answers.forEach((accepted, i) => {
+        const input = document.getElementById(`gap${i + 1}`);
+        const user = input.value.trim();
+
+        if (accepted.includes(user)) {
+          correct++;
+        } else if (user !== '') {
+          const normalizedUser = removeDiacritics(user.toLowerCase());
+          if (accepted.some(ans =>
+            removeDiacritics(ans.toLowerCase()) === normalizedUser
+          )) {
+            almostCorrect++;
+          }
+        }
+      });
+
+      const result = document.getElementById('result');
+
+      if (correct === answers.length) {
+        result.textContent = 'Все ответы правильные! Отличная работа!';
+        result.style.backgroundColor = 'lightgreen';
+      } else if (almostCorrect > 0) {
+        result.textContent =
+          `${correct} из ${answers.length} ответов правильны, ` +
+          `${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+        result.style.backgroundColor = '';
+      } else {
+        result.textContent = `${correct} из ${answers.length} ответов правильны.`;
+        result.style.backgroundColor = '';
+      }
+    };
+
+    window.onload = () => {
+      answers.forEach((_, i) => {
+        const input = document.getElementById(`gap${i + 1}`);
+        input.addEventListener('input', () => {
+          checkSingleAnswer(i);
+          updateResults();
+        });
+      });
+
+      updateResults();
+    };
+  </script>
+</body>
+</html>
