@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 3.14b</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 900px;
+    }
+
+    a { color: inherit; }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .exercise {
+      max-width: 720px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 24px;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .left-word {
+      font-size: 21px;
+    }
+
+    select {
+      font-family: 'Fira Mono', monospace;
+      font-size: 18px;
+      padding: 7px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      transition: background-color 0.3s;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .correct { background-color: lightgreen; }
+    .incorrect { background-color: lightcoral; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      padding: 7px 12px;
+      margin-top: 8px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eeeeee;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .explanation.visible {
+      display: block;
+    }
+
+    .explanation p {
+      margin: 6px 0;
+    }
+
+    @media (max-width: 650px) {
+      .row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      select {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 3.14b</h1>
+  <h2>Синонимы</h2>
+
+  <div class="instructions">
+    Подберите к каждому слову из левой колонки слово или выражение из правой колонки
+    с приблизительно тем же значением.
+  </div>
+
+  <div class="exercise">
+
+    <div class="row">
+      <div class="left-word">σκαιός</div>
+      <select id="q1">
+        <option value="">— выберите —</option>
+        <option>αὐτουργός</option>
+        <option>ἀνόητος</option>
+        <option>προσβαίνω</option>
+        <option>λέγει</option>
+        <option>βαδίζω</option>
+        <option>μάλα σπεύδω</option>
+        <option>ὄπισθεν βαδίζω</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="left-word">φησί(ν)</div>
+      <select id="q2">
+        <option value="">— выберите —</option>
+        <option>αὐτουργός</option>
+        <option>ἀνόητος</option>
+        <option>προσβαίνω</option>
+        <option>λέγει</option>
+        <option>βαδίζω</option>
+        <option>μάλα σπεύδω</option>
+        <option>ὄπισθεν βαδίζω</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="left-word">γεωργός</div>
+      <select id="q3">
+        <option value="">— выберите —</option>
+        <option>αὐτουργός</option>
+        <option>ἀνόητος</option>
+        <option>προσβαίνω</option>
+        <option>λέγει</option>
+        <option>βαδίζω</option>
+        <option>μάλα σπεύδω</option>
+        <option>ὄπισθεν βαδίζω</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="left-word">βαίνω</div>
+      <select id="q4">
+        <option value="">— выберите —</option>
+        <option>αὐτουργός</option>
+        <option>ἀνόητος</option>
+        <option>προσβαίνω</option>
+        <option>λέγει</option>
+        <option>βαδίζω</option>
+        <option>μάλα σπεύδω</option>
+        <option>ὄπισθεν βαδίζω</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="left-word">προσχωρέω</div>
+      <select id="q5">
+        <option value="">— выберите —</option>
+        <option>αὐτουργός</option>
+        <option>ἀνόητος</option>
+        <option>προσβαίνω</option>
+        <option>λέγει</option>
+        <option>βαδίζω</option>
+        <option>μάλα σπεύδω</option>
+        <option>ὄπισθεν βαδίζω</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="left-word">τρέχω</div>
+      <select id="q6">
+        <option value="">— выберите —</option>
+        <option>αὐτουργός</option>
+        <option>ἀνόητος</option>
+        <option>προσβαίνω</option>
+        <option>λέγει</option>
+        <option>βαδίζω</option>
+        <option>μάλα σπεύδω</option>
+        <option>ὄπισθεν βαδίζω</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="left-word">ἀκολουθέω</div>
+      <select id="q7">
+        <option value="">— выберите —</option>
+        <option>αὐτουργός</option>
+        <option>ἀνόητος</option>
+        <option>προσβαίνω</option>
+        <option>λέγει</option>
+        <option>βαδίζω</option>
+        <option>μάλα σπεύδω</option>
+        <option>ὄπισθεν βαδίζω</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div>
+    <button type="button" onclick="checkAll()">Проверить</button>
+    <button type="button" onclick="resetAll()">Сбросить</button>
+    <button type="button" onclick="toggleExplanation(event)">Показать пары</button>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="explanation" id="explanation">
+    <p>σκαιός — ἀνόητος</p>
+    <p>φησί(ν) — λέγει</p>
+    <p>γεωργός — αὐτουργός</p>
+    <p>βαίνω — βαδίζω</p>
+    <p>προσχωρέω — προσβαίνω</p>
+    <p>τρέχω — μάλα σπεύδω</p>
+    <p>ἀκολουθέω — ὄπισθεν βαδίζω</p>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "ἀνόητος",
+      q2: "λέγει",
+      q3: "αὐτουργός",
+      q4: "βαδίζω",
+      q5: "προσβαίνω",
+      q6: "μάλα σπεύδω",
+      q7: "ὄπισθεν βαδίζω"
+    };
+
+    Object.keys(answers).forEach(id => {
+      const select = document.getElementById(id);
+      select.addEventListener("change", () => {
+        select.classList.remove("correct", "incorrect");
+        if (!select.value) return;
+        select.classList.add(select.value === answers[id] ? "correct" : "incorrect");
+        updateResult();
+      });
+    });
+
+    function updateResult() {
+      let correct = 0;
+      Object.keys(answers).forEach(id => {
+        if (document.getElementById(id).value === answers[id]) correct++;
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === Object.keys(answers).length) {
+        result.textContent = "Все ответы правильные! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else {
+        result.textContent = `${correct} из ${Object.keys(answers).length} ответов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function checkAll() {
+      Object.keys(answers).forEach(id => {
+        const select = document.getElementById(id);
+        select.classList.remove("correct", "incorrect");
+        if (!select.value) return;
+        select.classList.add(select.value === answers[id] ? "correct" : "incorrect");
+      });
+      updateResult();
+    }
+
+    function resetAll() {
+      Object.keys(answers).forEach(id => {
+        const select = document.getElementById(id);
+        select.value = "";
+        select.classList.remove("correct", "incorrect");
+      });
+
+      const result = document.getElementById("result");
+      result.textContent = "";
+      result.style.backgroundColor = "";
+
+      document.getElementById("explanation").classList.remove("visible");
+    }
+
+    function toggleExplanation(event) {
+      const box = document.getElementById("explanation");
+      box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        box.classList.contains("visible")
+          ? "Скрыть пары"
+          : "Показать пары";
+    }
+  </script>
+</body>
+</html>

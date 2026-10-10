@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 3.12</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 950px;
+    }
+
+    a { color: inherit; }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .series {
+      margin: 18px 0;
+      font-size: 21px;
+      line-height: 1.9;
+    }
+
+    .word {
+      display: inline-block;
+      padding: 2px 5px;
+      margin: 0 2px;
+      border-radius: 3px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .word:hover {
+      background: #f3f3f3;
+    }
+
+    .selected {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    .correct {
+      background-color: lightgreen;
+    }
+
+    .incorrect {
+      background-color: lightcoral;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      padding: 7px 12px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eeeeee;
+    }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .explanation.visible {
+      display: block;
+    }
+
+    .explanation p {
+      margin: 7px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 3.12</h1>
+  <h2>Найдите лишнее слово</h2>
+
+  <div class="instructions">
+    В каждой группе из четырёх слов одно не подходит к остальным. Нажмите на него.
+  </div>
+
+  <div class="series" data-series="1">
+    <strong>1.</strong>
+    <span class="word" data-correct="false">βαίνω</span>,
+    <span class="word" data-correct="false">ἅπτω</span>,
+    <span class="word" data-correct="true">οὕτω</span>,
+    <span class="word" data-correct="false">μένω</span>.
+  </div>
+
+  <div class="series" data-series="2">
+    <strong>2.</strong>
+    <span class="word" data-correct="false">σπεῖρε</span>,
+    <span class="word" data-correct="true">δοῦλε</span>,
+    <span class="word" data-correct="false">πῖπτε</span>,
+    <span class="word" data-correct="false">φέρε</span>.
+  </div>
+
+  <div class="series" data-series="3">
+    <strong>3.</strong>
+    <span class="word" data-correct="false">σάκκος</span>,
+    <span class="word" data-correct="false">οἶκος</span>,
+    <span class="word" data-correct="false">φόβος</span>,
+    <span class="word" data-correct="true">τέλος</span>.
+  </div>
+
+  <div class="series" data-series="4">
+    <strong>4.</strong>
+    <span class="word" data-correct="true">οὐδέ</span>,
+    <span class="word" data-correct="false">υἱέ</span>,
+    <span class="word" data-correct="false">αὐτουργέ</span>,
+    <span class="word" data-correct="false">γεωργέ</span>.
+  </div>
+
+  <div>
+    <button type="button" onclick="checkAnswers()">Проверить</button>
+    <button type="button" onclick="resetExercise()">Сбросить</button>
+    <button type="button" onclick="toggleExplanation()">Показать объяснение</button>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="explanation" id="explanation">
+    <p><strong>1. οὕτω</strong> — наречие; остальные слова — глаголы.</p>
+    <p><strong>2. δοῦλε</strong> — звательная форма существительного; остальные слова — формы императива.</p>
+    <p><strong>3. τέλος</strong> — существительное среднего рода; остальные — существительные мужского рода.</p>
+    <p><strong>4. οὐδέ</strong> — частица/союз; остальные — формы vocativus.</p>
+  </div>
+
+  <script>
+    const series = Array.from(document.querySelectorAll('.series'));
+
+    series.forEach(group => {
+      const words = Array.from(group.querySelectorAll('.word'));
+
+      words.forEach(word => {
+        word.addEventListener('click', () => {
+          words.forEach(w => w.classList.remove('selected', 'correct', 'incorrect'));
+          word.classList.add('selected');
+
+          document.getElementById('result').textContent = '';
+          document.getElementById('result').style.backgroundColor = '';
+        });
+      });
+    });
+
+    function checkAnswers() {
+      let correct = 0;
+
+      series.forEach(group => {
+        const selected = group.querySelector('.word.selected');
+
+        group.querySelectorAll('.word').forEach(w => {
+          w.classList.remove('correct', 'incorrect');
+        });
+
+        if (!selected) return;
+
+        if (selected.dataset.correct === 'true') {
+          selected.classList.add('correct');
+          correct++;
+        } else {
+          selected.classList.add('incorrect');
+        }
+      });
+
+      const result = document.getElementById('result');
+
+      if (correct === series.length) {
+        result.textContent = 'Все ответы правильные! Отличная работа!';
+        result.style.backgroundColor = 'lightgreen';
+      } else {
+        result.textContent = `${correct} из ${series.length} ответов правильны.`;
+        result.style.backgroundColor = '';
+      }
+    }
+
+    function resetExercise() {
+      document.querySelectorAll('.word').forEach(word => {
+        word.classList.remove('selected', 'correct', 'incorrect');
+      });
+
+      const result = document.getElementById('result');
+      result.textContent = '';
+      result.style.backgroundColor = '';
+
+      document.getElementById('explanation').classList.remove('visible');
+    }
+
+    function toggleExplanation() {
+      const box = document.getElementById('explanation');
+      box.classList.toggle('visible');
+      event.currentTarget.textContent =
+        box.classList.contains('visible')
+          ? 'Скрыть объяснение'
+          : 'Показать объяснение';
+    }
+  </script>
+</body>
+</html>

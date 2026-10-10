@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 3.13</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 950px;
+    }
+
+    a { color: inherit; }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .item {
+      margin: 14px 0;
+      font-size: 21px;
+      line-height: 1.8;
+    }
+
+    .choice {
+      display: inline-block;
+      padding: 2px 5px;
+      margin: 0 1px;
+      border-radius: 3px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .choice:hover {
+      background: #f3f3f3;
+    }
+
+    .selected {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    .correct {
+      background-color: lightgreen;
+    }
+
+    .incorrect {
+      background-color: lightcoral;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      padding: 7px 12px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eeeeee;
+    }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .explanation.visible {
+      display: block;
+    }
+
+    .explanation p {
+      margin: 7px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 3.13</h1>
+  <h2>Выберите прилагательное, правильно согласованное с существительным</h2>
+
+  <div class="instructions">
+    В каждом пункте только одна из трёх форм прилагательного согласована правильно.
+    Нажмите на неё.
+  </div>
+
+  <div class="item" data-item="1">
+    <strong>1.</strong> τοῦ (
+    <span class="choice" data-correct="false">ἀργούς</span>,
+    <span class="choice" data-correct="false">ἀργοί</span>,
+    <span class="choice" data-correct="true">ἀργοῦ</span>
+    ) δούλου
+  </div>
+
+  <div class="item" data-item="2">
+    <strong>2.</strong> οἱ (
+    <span class="choice" data-correct="true">ὡραῖοι</span>,
+    <span class="choice" data-correct="false">ὡραίῳ</span>,
+    <span class="choice" data-correct="false">ὡραίοις</span>
+    ) καρποί
+  </div>
+
+  <div class="item" data-item="3">
+    <strong>3.</strong> τῷ (
+    <span class="choice" data-correct="false">ἱκανοί</span>,
+    <span class="choice" data-correct="true">ἱκανῷ</span>,
+    <span class="choice" data-correct="false">ἱκανοῖς</span>
+    ) δείπνῳ
+  </div>
+
+  <div class="item" data-item="4">
+    <strong>4.</strong> τὸ (
+    <span class="choice" data-correct="false">καλός</span>,
+    <span class="choice" data-correct="false">καλούς</span>,
+    <span class="choice" data-correct="true">καλόν</span>
+    ) δένδρον
+  </div>
+
+  <div class="item" data-item="5">
+    <strong>5.</strong> τὸν (
+    <span class="choice" data-correct="false">κακός</span>,
+    <span class="choice" data-correct="false">κακέ</span>,
+    <span class="choice" data-correct="true">κακόν</span>
+    ) υἱόν
+  </div>
+
+  <div class="item" data-item="6">
+    <strong>6.</strong> ὁ (
+    <span class="choice" data-correct="true">χαλεπός</span>,
+    <span class="choice" data-correct="false">χαλεποί</span>,
+    <span class="choice" data-correct="false">χαλεπόν</span>
+    ) ἄροτος
+  </div>
+
+  <div>
+    <button type="button" onclick="checkAnswers()">Проверить</button>
+    <button type="button" onclick="resetExercise()">Сбросить</button>
+    <button type="button" onclick="toggleExplanation(event)">Показать объяснение</button>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="explanation" id="explanation">
+    <p><strong>1. ἀργοῦ</strong> — gen. sg. masc., согласуется с δούλου.</p>
+    <p><strong>2. ὡραῖοι</strong> — nom. pl. masc., согласуется с καρποί.</p>
+    <p><strong>3. ἱκανῷ</strong> — dat. sg. neut., согласуется с δείπνῳ.</p>
+    <p><strong>4. καλόν</strong> — nom./acc. sg. neut.; здесь acc. sg., согласуется с δένδρον.</p>
+    <p><strong>5. κακόν</strong> — acc. sg. masc., согласуется с υἱόν.</p>
+    <p><strong>6. χαλεπός</strong> — nom. sg. masc., согласуется с ἄροτος.</p>
+  </div>
+
+  <script>
+    const items = Array.from(document.querySelectorAll('.item'));
+
+    items.forEach(item => {
+      const choices = Array.from(item.querySelectorAll('.choice'));
+
+      choices.forEach(choice => {
+        choice.addEventListener('click', () => {
+          choices.forEach(c => c.classList.remove('selected', 'correct', 'incorrect'));
+          choice.classList.add('selected');
+
+          const result = document.getElementById('result');
+          result.textContent = '';
+          result.style.backgroundColor = '';
+        });
+      });
+    });
+
+    function checkAnswers() {
+      let correct = 0;
+
+      items.forEach(item => {
+        const selected = item.querySelector('.choice.selected');
+
+        item.querySelectorAll('.choice').forEach(c => {
+          c.classList.remove('correct', 'incorrect');
+        });
+
+        if (!selected) return;
+
+        if (selected.dataset.correct === 'true') {
+          selected.classList.add('correct');
+          correct++;
+        } else {
+          selected.classList.add('incorrect');
+        }
+      });
+
+      const result = document.getElementById('result');
+
+      if (correct === items.length) {
+        result.textContent = 'Все ответы правильные! Отличная работа!';
+        result.style.backgroundColor = 'lightgreen';
+      } else {
+        result.textContent = `${correct} из ${items.length} ответов правильны.`;
+        result.style.backgroundColor = '';
+      }
+    }
+
+    function resetExercise() {
+      document.querySelectorAll('.choice').forEach(choice => {
+        choice.classList.remove('selected', 'correct', 'incorrect');
+      });
+
+      const result = document.getElementById('result');
+      result.textContent = '';
+      result.style.backgroundColor = '';
+
+      document.getElementById('explanation').classList.remove('visible');
+    }
+
+    function toggleExplanation(event) {
+      const box = document.getElementById('explanation');
+      box.classList.toggle('visible');
+      event.currentTarget.textContent =
+        box.classList.contains('visible')
+          ? 'Скрыть объяснение'
+          : 'Показать объяснение';
+    }
+  </script>
+</body>
+</html>

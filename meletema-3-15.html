@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 3.15</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 900px;
+    }
+
+    a { color: inherit; }
+
+    h1 { margin-bottom: 8px; }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .exercise {
+      max-width: 720px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 190px 250px 60px;
+      gap: 14px;
+      align-items: center;
+      margin: 11px 0;
+    }
+
+    .clue {
+      font-size: 18px;
+    }
+
+    input[type="text"] {
+      font-family: 'Fira Mono', monospace;
+      font-size: 18px;
+      padding: 7px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: background-color 0.3s;
+    }
+
+    .secret-cell {
+      width: 42px;
+      height: 42px;
+      border: 1px solid #bbb;
+      background: #e7e7e7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+
+    .correct { background-color: lightgreen !important; }
+    .almost-correct { background-color: gold !important; }
+    .incorrect { background-color: lightcoral !important; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .animal {
+      margin-top: 22px;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      background: #fafafa;
+      font-size: 20px;
+    }
+
+    .animal-word {
+      letter-spacing: 0.18em;
+      font-weight: bold;
+      font-size: 24px;
+      margin-left: 8px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      padding: 7px 12px;
+      margin-top: 10px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .secret-cell {
+        margin-top: -4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 3.15</h1>
+  <h2>Переведите слова на греческий и прочитайте название животного</h2>
+
+  <div class="instructions">
+    Впишите рядом с каждым русским словом его греческий эквивалент.
+    Если ответ верен, в выделенной клетке появится буква. Из этих букв сложится название животного.
+  </div>
+
+  <div class="exercise">
+    <div class="row">
+      <div class="clue">1. страдаю</div>
+      <input type="text" id="q1" spellcheck="false">
+      <div class="secret-cell" id="s1"></div>
+    </div>
+
+    <div class="row">
+      <div class="clue">2. ленивый</div>
+      <input type="text" id="q2" spellcheck="false">
+      <div class="secret-cell" id="s2"></div>
+    </div>
+
+    <div class="row">
+      <div class="clue">3. труд</div>
+      <input type="text" id="q3" spellcheck="false">
+      <div class="secret-cell" id="s3"></div>
+    </div>
+
+    <div class="row">
+      <div class="clue">4. жизнь</div>
+      <input type="text" id="q4" spellcheck="false">
+      <div class="secret-cell" id="s4"></div>
+    </div>
+
+    <div class="row">
+      <div class="clue">5. плод</div>
+      <input type="text" id="q5" spellcheck="false">
+      <div class="secret-cell" id="s5"></div>
+    </div>
+
+    <div class="row">
+      <div class="clue">6. падаю</div>
+      <input type="text" id="q6" spellcheck="false">
+      <div class="secret-cell" id="s6"></div>
+    </div>
+
+    <div class="row">
+      <div class="clue">7. страх</div>
+      <input type="text" id="q7" spellcheck="false">
+      <div class="secret-cell" id="s7"></div>
+    </div>
+
+    <div class="row">
+      <div class="clue">8. да</div>
+      <input type="text" id="q8" spellcheck="false">
+      <div class="secret-cell" id="s8"></div>
+    </div>
+  </div>
+
+  <div>
+    <button type="button" onclick="checkAll()">Проверить</button>
+    <button type="button" onclick="resetAll()">Сбросить</button>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="animal">
+    Название животного:
+    <span class="animal-word" id="animalWord">________</span>
+  </div>
+
+  <div class="note">
+    Жёлтый цвет означает, что слово набрано правильно, но есть отличие в ударении, придыхании или регистре.
+  </div>
+
+  <script>
+    const data = [
+      { answer: "πάσχω", letter: "π" },
+      { answer: "ἀργός", letter: "ρ" },
+      { answer: "πόνος", letter: "ο" },
+      { answer: "βίος", letter: "β" },
+      { answer: "καρπός", letter: "α" },
+      { answer: "πίπτω", letter: "τ" },
+      { answer: "φόβος", letter: "ο" },
+      { answer: "ναί", letter: "ν" }
+    ];
+
+    const removeDiacritics = (str) =>
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    const normalize = (str) => str.trim().toLowerCase();
+
+    function checkOne(i) {
+      const input = document.getElementById(`q${i + 1}`);
+      const secret = document.getElementById(`s${i + 1}`);
+      const user = normalize(input.value);
+      const correct = normalize(data[i].answer);
+
+      input.classList.remove("correct", "almost-correct", "incorrect");
+      secret.textContent = "";
+
+      if (!user) return;
+
+      if (user === correct) {
+        input.classList.add("correct");
+        secret.textContent = data[i].letter;
+      } else if (removeDiacritics(user) === removeDiacritics(correct)) {
+        input.classList.add("almost-correct");
+        secret.textContent = data[i].letter;
+      } else {
+        input.classList.add("incorrect");
+      }
+    }
+
+    function updateResult() {
+      let correct = 0;
+      let almost = 0;
+      let animal = "";
+
+      data.forEach((item, i) => {
+        const user = normalize(document.getElementById(`q${i + 1}`).value);
+        const answer = normalize(item.answer);
+
+        if (user === answer) {
+          correct++;
+          animal += item.letter;
+        } else if (user && removeDiacritics(user) === removeDiacritics(answer)) {
+          almost++;
+          animal += item.letter;
+        } else {
+          animal += "_";
+        }
+      });
+
+      document.getElementById("animalWord").textContent = animal;
+
+      const result = document.getElementById("result");
+      if (correct === data.length) {
+        result.textContent = "Все ответы правильные! Получилось слово πρόβατον.";
+        result.style.backgroundColor = "lightgreen";
+      } else if (almost > 0) {
+        result.textContent =
+          `${correct} из ${data.length} ответов правильны, ${almost} почти правильны.`;
+        result.style.backgroundColor = "";
+      } else {
+        result.textContent = `${correct} из ${data.length} ответов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function checkAll() {
+      data.forEach((_, i) => checkOne(i));
+      updateResult();
+    }
+
+    function resetAll() {
+      data.forEach((_, i) => {
+        const input = document.getElementById(`q${i + 1}`);
+        input.value = "";
+        input.classList.remove("correct", "almost-correct", "incorrect");
+        document.getElementById(`s${i + 1}`).textContent = "";
+      });
+
+      document.getElementById("animalWord").textContent = "________";
+      document.getElementById("result").textContent = "";
+      document.getElementById("result").style.backgroundColor = "";
+    }
+
+    window.onload = () => {
+      data.forEach((_, i) => {
+        const input = document.getElementById(`q${i + 1}`);
+        input.addEventListener("input", () => {
+          checkOne(i);
+          updateResult();
+        });
+      });
+    };
+  </script>
+</body>
+</html>

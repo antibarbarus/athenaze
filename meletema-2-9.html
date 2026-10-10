@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 2.9</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1000px;
+    }
+
+    a { color: inherit; }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .question {
+      margin-bottom: 26px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .question-text {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      line-height: 1.5;
+      padding: 9px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 7px 10px;
+      margin-top: 8px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eeeeee;
+    }
+
+    .model-answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+      font-size: 17px;
+    }
+
+    .model-answer.visible {
+      display: block;
+    }
+
+    .controls {
+      margin: 22px 0;
+    }
+
+    .small-note {
+      font-size: 14px;
+      color: #555;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 2.9</h1>
+  <h2>Ответьте письменно по-гречески на вопросы полным предложением</h2>
+
+  <div class="instructions">
+    Постарайтесь кратко пересказать прочитанное. Сначала напишите собственный ответ,
+    затем нажмите «Показать образец ответа» и сравните его со своим.
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>1.</strong> Кто такой Дикеополь? Что он делает, когда работает?
+    </div>
+    <textarea id="answer1" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(1, event)">Показать образец ответа</button>
+    <div class="model-answer" id="model1">
+      Ὁ Δικαιόπολις αὐτουργός ἐστιν. Ἐν τῷ ἀγρῷ πονεῖ, τοὺς βοῦς ἐλαύνει καὶ τὸν ἀγρὸν ἀροτρεύει.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>2.</strong> Кто такой Ксанфий? Что он делает?
+    </div>
+    <textarea id="answer2" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(2, event)">Показать образец ответа</button>
+    <div class="model-answer" id="model2">
+      Ὁ Ξανθίας δοῦλός ἐστιν, ἰσχυρὸς μὲν ἄνθρωπος, ἀργὸς δέ. Τὸ ἄροτρον φέρει, ἀλλὰ πολλάκις καθίζει καὶ καθεύδει.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>3.</strong> Что Дикеополь говорит рабу?
+    </div>
+    <textarea id="answer3" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(3, event)">Показать образец ответа</button>
+    <div class="model-answer" id="model3">
+      Λέγει· «Μὴ καθεῦδε, ὦ Ξανθία, ἀλλὰ σπεῦδε καὶ πόνει. Λάμβανε τὸ ἄροτρον καὶ φέρε αὐτὸ πρὸς τὸν ἀγρόν.»
+    </div>
+  </div>
+
+  <div class="controls">
+    <button type="button" onclick="showAll()">Показать все ответы</button>
+    <button type="button" onclick="hideAll()">Скрыть все ответы</button>
+    <button type="button" onclick="clearAll()">Очистить поля</button>
+
+    <div class="small-note">
+      Это упражнение проверяется по образцу: возможны и другие правильные формулировки,
+      если они соответствуют содержанию главы и грамматически верны.
+    </div>
+  </div>
+
+  <script>
+    function toggleAnswer(n, event) {
+      const block = document.getElementById(`model${n}`);
+      const button = event.currentTarget;
+      const visible = block.classList.toggle('visible');
+      button.textContent = visible ? 'Скрыть образец ответа' : 'Показать образец ответа';
+    }
+
+    function showAll() {
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`model${i}`).classList.add('visible');
+      }
+      document.querySelectorAll('.question button').forEach(btn => {
+        btn.textContent = 'Скрыть образец ответа';
+      });
+    }
+
+    function hideAll() {
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`model${i}`).classList.remove('visible');
+      }
+      document.querySelectorAll('.question button').forEach(btn => {
+        btn.textContent = 'Показать образец ответа';
+      });
+    }
+
+    function clearAll() {
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`answer${i}`).value = '';
+      }
+    }
+  </script>
+</body>
+</html>

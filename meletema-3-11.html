@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 3.11</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1150px;
+    }
+
+    a { color: inherit; }
+
+    h1 { margin-bottom: 8px; }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .exercise-container {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    .exercise-text {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .word-list {
+      flex: 0 0 150px;
+      border-left: 1px solid #ccc;
+      padding-left: 20px;
+      font-size: 18px;
+    }
+
+    .word-list ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .word-list li {
+      margin-bottom: 6px;
+    }
+
+    p.item {
+      margin: 0 0 16px 0;
+      font-size: 18px;
+    }
+
+    input[type="text"] {
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      padding: 5px 7px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .prep {
+      width: 78px;
+    }
+
+    .ending {
+      width: 58px;
+    }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .exercise-container {
+        flex-direction: column;
+      }
+
+      .word-list {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #ccc;
+        padding-left: 0;
+        padding-top: 12px;
+      }
+
+      .word-list ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 3.11</h1>
+  <h2>Заполните пропуски предлогами, подходящими по смыслу, и соответствующими окончаниями артиклей и имён</h2>
+
+  <div class="exercise-container">
+    <div class="exercise-text">
+
+      <p class="item">
+        1. Οἱ γεωργοὶ πονοῦσιν
+        <input class="prep" type="text" id="gap1" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap2" spellcheck="false">
+        ἀγρ-<input class="ending" type="text" id="gap3" spellcheck="false">. (pl.)
+      </p>
+
+      <p class="item">
+        2. Ὁ δοῦλος καθίζει
+        <input class="prep" type="text" id="gap4" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap5" spellcheck="false">
+        δένδρ-<input class="ending" type="text" id="gap6" spellcheck="false">. (sg.)
+      </p>
+
+      <p class="item">
+        3. Ὁ αὐτουργὸς βαδίζει
+        <input class="prep" type="text" id="gap7" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap8" spellcheck="false">
+        οἶκ-<input class="ending" type="text" id="gap9" spellcheck="false">. (sg.)
+      </p>
+
+      <p class="item">
+        4. Ὁ δοῦλος τὰς ἐλαίας φέρει
+        <input class="prep" type="text" id="gap10" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap11" spellcheck="false">
+        σάκκ-<input class="ending" type="text" id="gap12" spellcheck="false">. (sg.)
+      </p>
+
+      <p class="item">
+        5. Ὁ Δικαιόπολις ἄγει τὸν υἱὸν
+        <input class="prep" type="text" id="gap13" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap14" spellcheck="false">
+        δένδρ-<input class="ending" type="text" id="gap15" spellcheck="false">. (sg.)
+      </p>
+
+      <p class="item">
+        6. Ὁ δοῦλος ἐκβαίνει
+        <input class="prep" type="text" id="gap16" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap17" spellcheck="false">
+        οἴκ-<input class="ending" type="text" id="gap18" spellcheck="false">. (sg.)
+      </p>
+
+      <p class="item">
+        7. Ὁ ἥλιος καταδύνει· ὁ γεωργὸς ἄγει τοὺς βοῦς
+        <input class="prep" type="text" id="gap19" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap20" spellcheck="false">
+        ἀγρ-<input class="ending" type="text" id="gap21" spellcheck="false">. (pl.)
+      </p>
+
+      <p class="item">
+        8. Οἱ καρποί εἰσιν
+        <input class="prep" type="text" id="gap22" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap23" spellcheck="false">
+        δένδρ-<input class="ending" type="text" id="gap24" spellcheck="false">. (pl.)
+      </p>
+
+      <p class="item">
+        9. Ὁ Φίλιππος ἀναβαίνει
+        <input class="prep" type="text" id="gap25" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap26" spellcheck="false">
+        δένδρ-<input class="ending" type="text" id="gap27" spellcheck="false">. (pl.)
+      </p>
+
+      <p class="item">
+        10. Ὁ δοῦλος καθεύδει
+        <input class="prep" type="text" id="gap28" spellcheck="false">
+        τ-<input class="ending" type="text" id="gap29" spellcheck="false">
+        δεῖπν-<input class="ending" type="text" id="gap30" spellcheck="false">. (sg.)
+      </p>
+
+    </div>
+
+    <div class="word-list">
+      <ul>
+        <li>ἀπό</li>
+        <li>εἰς</li>
+        <li>ἐκ</li>
+        <li>ἐν</li>
+        <li>ἐπί (2)</li>
+        <li>μετά</li>
+        <li>πρός</li>
+        <li>ὑπό (2)</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    В заданиях 5 и 8 принимаются оба варианта, указанные в ключе.
+  </div>
+
+  <script>
+    const answers = [
+      ["ἐν"], ["οῖς"], ["οῖς"],
+      ["ὑπό", "ὑπὸ"], ["ῷ"], ["ῳ"],
+      ["πρός", "πρὸς"], ["ὸν"], ["ον"],
+      ["εἰς"], ["ὸν"], ["ον"],
+      ["ὑπό", "ὑπὸ", "ἐπί", "ἐπὶ"], ["ὸ"], ["ον"],
+      ["ἐκ"], ["οῦ"], ["ου"],
+      ["ἀπό", "ἀπὸ"], ["ῶν"], ["ῶν"],
+      ["ἐπί", "ἐπὶ", "ὑπό", "ὑπὸ"], ["οῖς"], ["οις"],
+      ["ἐπί", "ἐπὶ"], ["ὰ"], ["α"],
+      ["μετά", "μετὰ"], ["ὸ"], ["ον"]
+    ];
+
+    const removeDiacritics = (str) =>
+      str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    const setStyles = (element, status) => {
+      element.classList.remove('correct', 'almost-correct', 'incorrect');
+      if (status) element.classList.add(status);
+    };
+
+    const checkSingleAnswer = (index) => {
+      const input = document.getElementById(`gap${index + 1}`);
+      const user = input.value.trim();
+      const accepted = answers[index];
+
+      if (!user) {
+        setStyles(input, '');
+        return;
+      }
+
+      if (accepted.includes(user)) {
+        setStyles(input, 'correct');
+        return;
+      }
+
+      const plain = removeDiacritics(user.toLowerCase());
+      const near = accepted.some(ans =>
+        removeDiacritics(ans.toLowerCase()) === plain
+      );
+
+      setStyles(input, near ? 'almost-correct' : 'incorrect');
+    };
+
+    const updateResults = () => {
+      let correct = 0;
+      let almost = 0;
+
+      answers.forEach((accepted, i) => {
+        const input = document.getElementById(`gap${i + 1}`);
+        const user = input.value.trim();
+
+        if (accepted.includes(user)) {
+          correct++;
+        } else if (user) {
+          const plain = removeDiacritics(user.toLowerCase());
+          if (accepted.some(ans =>
+            removeDiacritics(ans.toLowerCase()) === plain
+          )) {
+            almost++;
+          }
+        }
+      });
+
+      const result = document.getElementById('result');
+
+      if (correct === answers.length) {
+        result.textContent = 'Все ответы правильные! Отличная работа!';
+        result.style.backgroundColor = 'lightgreen';
+      } else if (almost > 0) {
+        result.textContent =
+          `${correct} из ${answers.length} ответов правильны, ` +
+          `${almost} почти правильны (ошибка в диакритике или регистре).`;
+        result.style.backgroundColor = '';
+      } else {
+        result.textContent = `${correct} из ${answers.length} ответов правильны.`;
+        result.style.backgroundColor = '';
+      }
+    };
+
+    window.onload = () => {
+      answers.forEach((_, i) => {
+        const input = document.getElementById(`gap${i + 1}`);
+        input.addEventListener('input', () => {
+          checkSingleAnswer(i);
+          updateResults();
+        });
+      });
+      updateResults();
+    };
+  </script>
+</body>
+</html>
