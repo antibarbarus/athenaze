@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Как печатать по-древнегречески</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+
+    h1 { margin-bottom: 8px; }
+
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    h3 {
+      margin-top: 22px;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .lead {
+      margin-bottom: 24px;
+    }
+
+    .note, .tip {
+      padding: 10px 12px;
+      border-left: 4px solid #aaa;
+      background: #f5f5f5;
+      margin: 14px 0;
+    }
+
+    .important {
+      padding: 10px 12px;
+      border-left: 4px solid #888;
+      background: #fafafa;
+      margin: 14px 0;
+      font-weight: bold;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 14px 0 22px 0;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f6f6;
+    }
+
+    .greek {
+      font-size: 18px;
+    }
+
+    code, kbd {
+      font-family: 'Fira Mono', monospace;
+      background: #f2f2f2;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 1px 4px;
+    }
+
+    .steps {
+      margin-top: 8px;
+    }
+
+    .steps li {
+      margin-bottom: 8px;
+    }
+
+    .keyboard-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(90px, 1fr));
+      gap: 8px;
+      margin: 14px 0 22px 0;
+    }
+
+    .key {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      text-align: center;
+      background: #fafafa;
+    }
+
+    .key .latin {
+      color: #555;
+      font-size: 13px;
+    }
+
+    .key .greek {
+      display: block;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 95px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 18px;
+      line-height: 1.5;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .examples {
+      line-height: 2;
+      font-size: 18px;
+    }
+
+    .checklist li {
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 800px) {
+      .keyboard-grid {
+        grid-template-columns: repeat(3, minmax(90px, 1fr));
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Как печатать по-древнегречески</h1>
+
+  <p class="lead">
+    Для древнегреческого лучше всего использовать <strong>поли-тоническую греческую раскладку</strong>
+    (<span class="greek">Greek Polytonic</span>). Она позволяет вводить не только буквы,
+    но и придыхания, три вида ударения, подписную йоту и диэрезис.
+  </p>
+
+  <div class="important">
+    Главное правило: сначала включите Greek Polytonic, а затем набирайте греческий текст обычной клавиатурой.
+    Диакритические знаки вводятся с помощью так называемых «мёртвых клавиш».
+  </div>
+
+  <h2>1. macOS</h2>
+
+  <ol class="steps">
+    <li>Откройте <strong>System Settings → Keyboard</strong>.</li>
+    <li>В разделе <strong>Text Input</strong> нажмите <strong>Edit…</strong>.</li>
+    <li>Нажмите <strong>+</strong> и найдите <strong>Greek</strong>.</li>
+    <li>Добавьте раскладку <strong>Greek Polytonic</strong>.</li>
+    <li>Переключайтесь между языками через меню ввода или сочетанием <kbd>Control</kbd> + <kbd>Space</kbd>.</li>
+  </ol>
+
+  <div class="tip">
+    Полезно включить <strong>Keyboard Viewer</strong>. Он показывает, какие символы появятся при нажатии
+    обычных клавиш, <kbd>Shift</kbd> и <kbd>Option</kbd>. Это самый надёжный способ быстро освоить
+    диакритику именно на вашей физической клавиатуре.
+  </div>
+
+  <h2>2. Windows</h2>
+
+  <ol class="steps">
+    <li>Откройте <strong>Settings → Time &amp; language → Language &amp; region</strong>.</li>
+    <li>Добавьте язык <strong>Greek</strong>, если его ещё нет.</li>
+    <li>Откройте параметры греческого языка и добавьте клавиатуру <strong>Greek Polytonic</strong>.</li>
+    <li>Переключайтесь между раскладками сочетанием <kbd>Win</kbd> + <kbd>Space</kbd>.</li>
+  </ol>
+
+  <div class="tip">
+    Если вы не помните расположение диакритик, откройте экранную клавиатуру Windows.
+    На полифонической раскладке акценты и придыхания работают как «мёртвые клавиши»:
+    сначала вводится знак, затем гласная.
+  </div>
+
+  <h2>3. Где находятся греческие буквы</h2>
+
+  <p>
+    Стандартная греческая раскладка близка к латинской QWERTY. Вот самые важные соответствия:
+  </p>
+
+  <div class="keyboard-grid">
+    <div class="key"><span class="latin">A</span><span class="greek">α</span></div>
+    <div class="key"><span class="latin">B</span><span class="greek">β</span></div>
+    <div class="key"><span class="latin">G</span><span class="greek">γ</span></div>
+    <div class="key"><span class="latin">D</span><span class="greek">δ</span></div>
+    <div class="key"><span class="latin">E</span><span class="greek">ε</span></div>
+    <div class="key"><span class="latin">Z</span><span class="greek">ζ</span></div>
+
+    <div class="key"><span class="latin">H</span><span class="greek">η</span></div>
+    <div class="key"><span class="latin">U</span><span class="greek">θ</span></div>
+    <div class="key"><span class="latin">I</span><span class="greek">ι</span></div>
+    <div class="key"><span class="latin">K</span><span class="greek">κ</span></div>
+    <div class="key"><span class="latin">L</span><span class="greek">λ</span></div>
+    <div class="key"><span class="latin">M</span><span class="greek">μ</span></div>
+
+    <div class="key"><span class="latin">N</span><span class="greek">ν</span></div>
+    <div class="key"><span class="latin">J</span><span class="greek">ξ</span></div>
+    <div class="key"><span class="latin">O</span><span class="greek">ο</span></div>
+    <div class="key"><span class="latin">P</span><span class="greek">π</span></div>
+    <div class="key"><span class="latin">R</span><span class="greek">ρ</span></div>
+    <div class="key"><span class="latin">S</span><span class="greek">σ</span></div>
+
+    <div class="key"><span class="latin">W</span><span class="greek">ς</span></div>
+    <div class="key"><span class="latin">T</span><span class="greek">τ</span></div>
+    <div class="key"><span class="latin">Y</span><span class="greek">υ</span></div>
+    <div class="key"><span class="latin">F</span><span class="greek">φ</span></div>
+    <div class="key"><span class="latin">X</span><span class="greek">χ</span></div>
+    <div class="key"><span class="latin">C</span><span class="greek">ψ</span></div>
+
+    <div class="key"><span class="latin">V</span><span class="greek">ω</span></div>
+  </div>
+
+  <h2>4. Какие диакритики нужны</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Знак</th>
+        <th>Пример</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>острое ударение — ὀξεῖα</td>
+        <td>´</td>
+        <td class="greek">ά, έ, ή, ί, ό, ύ, ώ</td>
+      </tr>
+      <tr>
+        <td>тяжёлое ударение — βαρεῖα</td>
+        <td>`</td>
+        <td class="greek">ὰ, ὲ, ὴ, ὶ, ὸ, ὺ, ὼ</td>
+      </tr>
+      <tr>
+        <td>облечённое — περισπωμένη</td>
+        <td>῀ / ^</td>
+        <td class="greek">ᾶ, ῆ, ῖ, ῦ, ῶ</td>
+      </tr>
+      <tr>
+        <td>тонкое придыхание — ψιλή</td>
+        <td>᾿</td>
+        <td class="greek">ἀ, ἐ, ἰ, ὀ, ὐ, ὠ</td>
+      </tr>
+      <tr>
+        <td>густое придыхание — δασεῖα</td>
+        <td>῾</td>
+        <td class="greek">ἁ, ἑ, ἱ, ὁ, ὑ, ὡ</td>
+      </tr>
+      <tr>
+        <td>подписная йота — ὑπογεγραμμένη</td>
+        <td>ͅ</td>
+        <td class="greek">ᾳ, ῃ, ῳ</td>
+      </tr>
+      <tr>
+        <td>диэрезис — διαίρεσις</td>
+        <td>¨</td>
+        <td class="greek">ϊ, ϋ</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <h2>5. Сочетания клавиш для диакритики</h2>
+
+  <p>
+    Ниже указаны клавиши для стандартной раскладки <strong>Greek Polytonic</strong>
+    на клавиатуре с расположением знаков как у US/QWERTY. Сначала нажмите клавишу
+    диакритики, затем гласную.
+  </p>
+
+  <h3>macOS: Greek – Polytonic</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Диакритика</th>
+        <th>Клавиша</th>
+        <th>Пример</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>острое ударение</td>
+        <td><kbd>;</kbd> + гласная</td>
+        <td><kbd>;</kbd> + <kbd>a</kbd> → <span class="greek">ά</span></td>
+      </tr>
+      <tr>
+        <td>тяжёлое ударение</td>
+        <td><kbd>]</kbd> + гласная</td>
+        <td><kbd>]</kbd> + <kbd>a</kbd> → <span class="greek">ὰ</span></td>
+      </tr>
+      <tr>
+        <td>облечённое ударение</td>
+        <td><kbd>[</kbd> + гласная</td>
+        <td><kbd>[</kbd> + <kbd>a</kbd> → <span class="greek">ᾶ</span></td>
+      </tr>
+      <tr>
+        <td>тонкое придыхание</td>
+        <td><kbd>'</kbd> + гласная</td>
+        <td><kbd>'</kbd> + <kbd>a</kbd> → <span class="greek">ἀ</span></td>
+      </tr>
+      <tr>
+        <td>густое придыхание</td>
+        <td><kbd>Shift</kbd> + <kbd>'</kbd>, затем гласная</td>
+        <td><kbd>"</kbd> + <kbd>a</kbd> → <span class="greek">ἁ</span></td>
+      </tr>
+      <tr>
+        <td>подписная йота</td>
+        <td><kbd>Shift</kbd> + <kbd>[</kbd>, затем α / η / ω</td>
+        <td><kbd>{</kbd> + <kbd>a</kbd> → <span class="greek">ᾳ</span></td>
+      </tr>
+      <tr>
+        <td>диэрезис</td>
+        <td><kbd>Shift</kbd> + <kbd>;</kbd>, затем ι / υ</td>
+        <td><kbd>:</kbd> + <kbd>i</kbd> → <span class="greek">ϊ</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tip">
+    На Mac диакритики удобно <strong>комбинировать последовательно</strong>.
+    Например: <kbd>'</kbd> + <kbd>;</kbd> + <kbd>a</kbd> → <span class="greek">ἄ</span>;
+    <kbd>Shift</kbd>+<kbd>'</kbd> + <kbd>[</kbd> + <kbd>h</kbd> →
+    <span class="greek">ἧ</span>; <kbd>'</kbd> + <kbd>[</kbd> +
+    <kbd>Shift</kbd>+<kbd>[</kbd> + <kbd>v</kbd> →
+    <span class="greek">ᾧ</span>. Порядок нескольких мёртвых клавиш обычно несущественен:
+    главное нажать их <em>до</em> гласной.
+  </div>
+
+  <h3>Windows: Greek Polytonic</h3>
+
+  <p>
+    В стандартной раскладке Windows для простых знаков используются те же удобные
+    клавиши, но для некоторых сочетаний «придыхание + ударение» предусмотрена
+    отдельная мёртвая клавиша.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Диакритика</th>
+        <th>Клавиша</th>
+        <th>Пример</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>острое ударение</td>
+        <td><kbd>;</kbd> + гласная</td>
+        <td><kbd>;</kbd> + <kbd>a</kbd> → <span class="greek">ά</span></td>
+      </tr>
+      <tr>
+        <td>тяжёлое ударение</td>
+        <td><kbd>]</kbd> + гласная</td>
+        <td><kbd>]</kbd> + <kbd>a</kbd> → <span class="greek">ὰ</span></td>
+      </tr>
+      <tr>
+        <td>облечённое ударение</td>
+        <td><kbd>[</kbd> + гласная</td>
+        <td><kbd>[</kbd> + <kbd>a</kbd> → <span class="greek">ᾶ</span></td>
+      </tr>
+      <tr>
+        <td>тонкое придыхание</td>
+        <td><kbd>'</kbd> + гласная</td>
+        <td><kbd>'</kbd> + <kbd>a</kbd> → <span class="greek">ἀ</span></td>
+      </tr>
+      <tr>
+        <td>густое придыхание</td>
+        <td><kbd>Shift</kbd> + <kbd>'</kbd>, затем гласная</td>
+        <td><kbd>"</kbd> + <kbd>a</kbd> → <span class="greek">ἁ</span></td>
+      </tr>
+      <tr>
+        <td>подписная йота</td>
+        <td><kbd>Shift</kbd> + <kbd>[</kbd>, затем α / η / ω</td>
+        <td><kbd>{</kbd> + <kbd>a</kbd> → <span class="greek">ᾳ</span></td>
+      </tr>
+      <tr>
+        <td>диэрезис</td>
+        <td><kbd>Shift</kbd> + <kbd>;</kbd>, затем ι / υ</td>
+        <td><kbd>:</kbd> + <kbd>i</kbd> → <span class="greek">ϊ</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Windows: придыхание + ударение одной клавишей</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Комбинация</th>
+        <th>Клавиша перед гласной</th>
+        <th>Пример с α</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>тонкое + острое</td>
+        <td><kbd>/</kbd></td>
+        <td class="greek">ἄ</td>
+      </tr>
+      <tr>
+        <td>густое + острое</td>
+        <td><kbd>Shift</kbd> + <kbd>/</kbd> (= <kbd>?</kbd>)</td>
+        <td class="greek">ἅ</td>
+      </tr>
+      <tr>
+        <td>тонкое + тяжёлое</td>
+        <td><kbd>\\</kbd></td>
+        <td class="greek">ἂ</td>
+      </tr>
+      <tr>
+        <td>густое + тяжёлое</td>
+        <td><kbd>Shift</kbd> + <kbd>\\</kbd> (= <kbd>|</kbd>)</td>
+        <td class="greek">ἃ</td>
+      </tr>
+      <tr>
+        <td>тонкое + облечённое</td>
+        <td><kbd>=</kbd></td>
+        <td class="greek">ἆ</td>
+      </tr>
+      <tr>
+        <td>густое + облечённое</td>
+        <td><kbd>Shift</kbd> + <kbd>=</kbd> (= <kbd>+</kbd>)</td>
+        <td class="greek">ἇ</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <details>
+    <summary><strong>Windows: сочетания с подписной йотой</strong></summary>
+    <p>
+      Эти комбинации нужны реже, но полезны при наборе форм вроде
+      <span class="greek">ᾄ, ᾂ, ᾆ, ᾅ, ᾃ, ᾇ</span>.
+      Нажмите указанную комбинацию, затем α, η или ω.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Знаки</th>
+          <th>Клавиши</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>острое + подписная йота</td><td><kbd>AltGr</kbd> + <kbd>;</kbd></td></tr>
+        <tr><td>тяжёлое + подписная йота</td><td><kbd>AltGr</kbd> + <kbd>]</kbd></td></tr>
+        <tr><td>облечённое + подписная йота</td><td><kbd>AltGr</kbd> + <kbd>[</kbd></td></tr>
+        <tr><td>тонкое + подписная йота</td><td><kbd>AltGr</kbd> + <kbd>'</kbd></td></tr>
+        <tr><td>густое + подписная йота</td><td><kbd>Shift</kbd> + <kbd>AltGr</kbd> + <kbd>'</kbd></td></tr>
+        <tr><td>тонкое + острое + подписная йота</td><td><kbd>AltGr</kbd> + <kbd>/</kbd></td></tr>
+        <tr><td>густое + острое + подписная йота</td><td><kbd>Shift</kbd> + <kbd>AltGr</kbd> + <kbd>/</kbd></td></tr>
+        <tr><td>тонкое + тяжёлое + подписная йота</td><td><kbd>AltGr</kbd> + <kbd>\\</kbd></td></tr>
+        <tr><td>густое + тяжёлое + подписная йота</td><td><kbd>Shift</kbd> + <kbd>AltGr</kbd> + <kbd>\\</kbd></td></tr>
+        <tr><td>тонкое + облечённое + подписная йота</td><td><kbd>AltGr</kbd> + <kbd>=</kbd></td></tr>
+        <tr><td>густое + облечённое + подписная йота</td><td><kbd>Shift</kbd> + <kbd>AltGr</kbd> + <kbd>=</kbd></td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <div class="note">
+    <strong>Важно:</strong> обозначения выше относятся к физическим позициям клавиш
+    стандартной US/QWERTY-клавиатуры. На ISO-клавиатурах и некоторых национальных
+    физических раскладках подписи на клавишах могут отличаться. Если сочетание не
+    срабатывает, откройте Keyboard Viewer на Mac или экранную клавиатуру Windows.
+  </div>
+
+  <h2>6. Как набирать букву с несколькими знаками</h2>
+
+  <p>
+    В полифонической раскладке несколько диакритик можно соединять на одной гласной.
+    На Mac их особенно удобно набирать по отдельности перед буквой; в Windows для
+    многих частых комбинаций предусмотрены отдельные мёртвые клавиши.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Нужно получить</th>
+        <th>Из чего состоит</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="greek">ἄ</td>
+        <td>тонкое придыхание + острое ударение + α</td>
+      </tr>
+      <tr>
+        <td class="greek">ἧ</td>
+        <td>густое придыхание + облечённое ударение + η</td>
+      </tr>
+      <tr>
+        <td class="greek">ᾧ</td>
+        <td>тонкое придыхание + облечённое ударение + подписная йота + ω</td>
+      </tr>
+      <tr>
+        <td class="greek">ῥ</td>
+        <td>густое придыхание + ρ</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>7. Пунктуация</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Знак</th>
+        <th>Значение</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="greek">.</td>
+        <td>точка</td>
+      </tr>
+      <tr>
+        <td class="greek">,</td>
+        <td>запятая</td>
+      </tr>
+      <tr>
+        <td class="greek">·</td>
+        <td>ἄνω τελεία — примерно соответствует двоеточию или точке с запятой</td>
+      </tr>
+      <tr>
+        <td class="greek">;</td>
+        <td>греческий вопросительный знак</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>8. Несколько примеров</h2>
+
+  <div class="examples">
+    <div>λόγος</div>
+    <div>ἄνθρωπος</div>
+    <div>ἡ ψυχή</div>
+    <div>τῷ ἀνθρώπῳ</div>
+    <div>οἱ ἄνθρωποι</div>
+    <div>τί ἐστιν;</div>
+    <div>φιλοσοφία ἐστὶ μελέτη θανάτου.</div>
+  </div>
+
+  <h2>9. Попробуйте здесь</h2>
+
+  <p>Переключитесь на Greek Polytonic и напечатайте несколько слов:</p>
+
+  <textarea spellcheck="false" placeholder="Например: ὁ ἄνθρωπος, τῆς ψυχῆς, τί ἐστιν;"></textarea>
+
+  <h2>10. Если что-то не получается</h2>
+
+  <ul class="checklist">
+    <li>Проверьте, что выбрана именно <strong>Greek Polytonic</strong>, а не обычная Greek.</li>
+    <li>Откройте Keyboard Viewer / экранную клавиатуру и найдите нужный знак визуально.</li>
+    <li>Если знак появляется отдельно от буквы, попробуйте сначала диакритику, затем гласную.</li>
+    <li>Используйте Unicode-шрифт. Современные браузеры, Word, Pages и Google Docs обычно подходят без дополнительной настройки.</li>
+    <li>Не заменяйте греческий вопросительный знак <span class="greek">;</span> латинским <strong>?</strong>.</li>
+  </ul>
+</body>
+</html>
