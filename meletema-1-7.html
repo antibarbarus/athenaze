@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 1.7</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1000px;
+    }
+
+    a { color: inherit; }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .exercise {
+      font-size: 22px;
+      line-height: 2.2;
+      margin: 20px 0;
+    }
+
+    .word {
+      display: inline-block;
+      margin: 0 4px 4px 0;
+      padding: 2px 4px;
+      border-radius: 3px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .word:hover {
+      background: #f3f3f3;
+    }
+
+    .single {
+      text-decoration-line: underline;
+      text-decoration-style: solid;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+    }
+
+    .double {
+      text-decoration-line: underline;
+      text-decoration-style: double;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+    }
+
+    .correct {
+      background-color: lightgreen;
+    }
+
+    .incorrect {
+      background-color: lightcoral;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      padding: 7px 12px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eeeeee;
+    }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 1.7</h1>
+  <h2>Подчеркните один раз неконтрактные глаголы и два раза контрактные</h2>
+
+  <div class="instructions">
+    Нажимайте на слово: 1 раз — одно подчёркивание, 2 раза — двойное, 3-й раз — убрать подчёркивание.
+  </div>
+
+  <div class="exercise" id="exercise">
+    <span class="word" data-answer="2">φιλεῖ</span>,
+    <span class="word" data-answer="1">φλέγει</span>,
+    <span class="word" data-answer="1">βαδίζει</span>,
+    <span class="word" data-answer="1">ἡσυχάζει</span>,
+    <span class="word" data-answer="2">πονεῖ</span>,
+    <span class="word" data-answer="1">κάμνει</span>,
+    <br>
+    <span class="word" data-answer="1">στενάζει</span>,
+    <span class="word" data-answer="2">γεωργεῖ</span>,
+    <span class="word" data-answer="1">χαίρει</span>,
+    <span class="word" data-answer="1">φέρει</span>,
+    <span class="word" data-answer="2">οἰκεῖ</span>.
+  </div>
+
+  <div>
+    <button type="button" onclick="checkAnswers()">Проверить</button>
+    <button type="button" onclick="resetExercise()">Сбросить</button>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    Одно подчёркивание = неконтрактный глагол; двойное подчёркивание = контрактный глагол.
+  </div>
+
+  <script>
+    const words = Array.from(document.querySelectorAll('.word'));
+
+    words.forEach(word => {
+      word.dataset.state = "0";
+
+      word.addEventListener('click', () => {
+        let state = Number(word.dataset.state);
+        state = (state + 1) % 3;
+        word.dataset.state = String(state);
+
+        word.classList.remove('single', 'double', 'correct', 'incorrect');
+
+        if (state === 1) word.classList.add('single');
+        if (state === 2) word.classList.add('double');
+
+        document.getElementById('result').textContent = '';
+        document.getElementById('result').style.backgroundColor = '';
+      });
+    });
+
+    function checkAnswers() {
+      let correct = 0;
+
+      words.forEach(word => {
+        const state = Number(word.dataset.state);
+        const answer = Number(word.dataset.answer);
+
+        word.classList.remove('correct', 'incorrect');
+
+        if (state === answer) {
+          word.classList.add('correct');
+          correct++;
+        } else {
+          word.classList.add('incorrect');
+        }
+      });
+
+      const result = document.getElementById('result');
+
+      if (correct === words.length) {
+        result.textContent = 'Все ответы правильные! Отличная работа!';
+        result.style.backgroundColor = 'lightgreen';
+      } else {
+        result.textContent = `${correct} из ${words.length} ответов правильны.`;
+        result.style.backgroundColor = '';
+      }
+    }
+
+    function resetExercise() {
+      words.forEach(word => {
+        word.dataset.state = "0";
+        word.classList.remove('single', 'double', 'correct', 'incorrect');
+      });
+
+      const result = document.getElementById('result');
+      result.textContent = '';
+      result.style.backgroundColor = '';
+    }
+  </script>
+</body>
+</html>
