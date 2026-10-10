@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 17.5</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .instructions {
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .question {
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .question-text {
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 70px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 9px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 7px 10px;
+      margin-top: 8px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eeeeee;
+    }
+
+    .model-answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .model-answer.visible {
+      display: block;
+    }
+
+    .controls {
+      margin: 22px 0;
+      padding-top: 4px;
+    }
+
+    .small-note {
+      font-size: 14px;
+      color: #555;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 17.5</h1>
+  <h2>Ответьте письменно по-гречески на следующие вопросы полным предложением</h2>
+
+  <p class="instructions">
+    Сначала напишите собственный ответ. Затем нажмите «Показать образец ответа» и сравните его со своим.
+    Формулировка может отличаться, если смысл и грамматика правильны.
+  </p>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>1.</strong> Τί δεῖ τόν τε Δικαιόπολιν καὶ τὸν υἱὸν ποιῆσαι ἐκ τῆς νεὼς ἐκβάντας;
+    </div>
+    <textarea id="answer1" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(1)">Показать образец ответа</button>
+    <div class="model-answer" id="model1">
+      Δεῖ αὐτοὺς οἰνοπώλιον ζητῆσαι καὶ δεῖπνον ἑλέσθαι.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>2.</strong> Τί ἐποίουν ἐν τῷ οἰνοπωλίῳ καθήμενοι;
+    </div>
+    <textarea id="answer2" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(2)">Показать образец ответа</button>
+    <div class="model-answer" id="model2">
+      Καθήμενοι ἐν τῷ οἰνοπωλίῳ οἶνον ἔπινον καὶ τοῖς παροῦσι διελέγοντο.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>3.</strong> Διὰ τί ἡ γυνὴ εἰς τὴν Ἐπίδαυρον ἐπορεύετο;
+    </div>
+    <textarea id="answer3" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(3)">Показать образец ответа</button>
+    <div class="model-answer" id="model3">
+      Ἐπειδὴ ἐνόσει τὴν γαστέρα καὶ οἱ ἰατροὶ οὐδὲν ἐδύναντο ὠφελεῖν αὐτήν, ἐκέλευον αὐτὴν παρὰ τὸν Ἀσκληπιὸν ἰέναι.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>4.</strong> Τί ἡ γυνὴ τὸν Δικαιόπολιν ἤρετο;
+    </div>
+    <textarea id="answer4" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(4)">Показать образец ответа</button>
+    <div class="model-answer" id="model4">
+      Ἤρετο πότε ἀποπλεύσεται ἡ ναῦς καὶ πότερον τήμερον εἰς τὴν Ἐπίδαυρον ἀφίξονται ἢ οὔ.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>5.</strong> Τί ὁ Δικαιόπολις ἀπεκρίνατο αὐτῇ;
+    </div>
+    <textarea id="answer5" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(5)">Показать образец ответа</button>
+    <div class="model-answer" id="model5">
+      Ἀπεκρίνατο ὅτι οὐκ οἶδεν, ἀλλ᾽ ἴσως ἀφίξονται πρὸ τῆς νυκτὸς ἢ καὶ πρότερον.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>6.</strong> Διὰ τί ὁ ναύκληρος ἐκέλευσεν αὐτοὺς εὐθὺς εἰσβῆναι;
+    </div>
+    <textarea id="answer6" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(6)">Показать образец ответа</button>
+    <div class="model-answer" id="model6">
+      Ὅτι εὐθὺς ὁρμήσονται καὶ δεῖ πρὸ τῆς νυκτὸς εἰς τὴν Ἐπίδαυρον ἀφικέσθαι.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>7.</strong> Πότε εἰς τὴν Ἐπίδαυρον ἀφίξονται;
+    </div>
+    <textarea id="answer7" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(7)">Показать образец ответа</button>
+    <div class="model-answer" id="model7">
+      Οὐρίου ἀνέμου τυχόντες, πρὸς ἑσπέραν ἀφίξονται.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>8.</strong> Τί οἱ ναῦται ἐποίησαν βουλόμενοι ἐκ τοῦ λιμένος ἐκπλεῦσαι;
+    </div>
+    <textarea id="answer8" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(8)">Показать образец ответа</button>
+    <div class="model-answer" id="model8">
+      Τὴν ναῦν ἔλυσαν, πρὸς τὴν θάλατταν προήρεσαν καὶ τὰ ἱστία ἦραν.
+    </div>
+  </div>
+
+  <div class="controls">
+    <button type="button" onclick="showAll()">Показать все ответы</button>
+    <button type="button" onclick="hideAll()">Скрыть все ответы</button>
+    <button type="button" onclick="clearAll()">Очистить поля</button>
+    <div class="small-note">
+      Для этого упражнения используется самопроверка: у вопросов возможны несколько равноценных правильных формулировок.
+    </div>
+  </div>
+
+  <script>
+    function toggleAnswer(n) {
+      const block = document.getElementById(`model${n}`);
+      const button = event.currentTarget;
+      const visible = block.classList.toggle('visible');
+      button.textContent = visible ? 'Скрыть образец ответа' : 'Показать образец ответа';
+    }
+
+    function showAll() {
+      for (let i = 1; i <= 8; i++) {
+        document.getElementById(`model${i}`).classList.add('visible');
+      }
+      document.querySelectorAll('.question button').forEach(btn => {
+        btn.textContent = 'Скрыть образец ответа';
+      });
+    }
+
+    function hideAll() {
+      for (let i = 1; i <= 8; i++) {
+        document.getElementById(`model${i}`).classList.remove('visible');
+      }
+      document.querySelectorAll('.question button').forEach(btn => {
+        btn.textContent = 'Показать образец ответа';
+      });
+    }
+
+    function clearAll() {
+      for (let i = 1; i <= 8; i++) {
+        document.getElementById(`answer${i}`).value = '';
+      }
+    }
+  </script>
+</body>
+</html>

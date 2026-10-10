@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μελέτημα 17.2</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+    <style>
+        body {
+            margin: 20px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        input[type="text"] {
+            font-family: 'Fira Mono', monospace;
+            padding: 5px;
+            font-size: 16px;
+            width: 125px;
+            transition: background-color 0.3s;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin: 0 2px;
+        }
+
+        .wide { width: 150px !important; }
+
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .correct { background-color: lightgreen; }
+        .almost-correct { background-color: gold; }
+        .incorrect { background-color: lightcoral; }
+
+        .exercise-text {
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .lemma {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <p><a href="meletemata.html">&lt; назад</a></p>
+    <h1>Μελέτημα 17.2</h1>
+    <h2>Заполните пропуски</h2>
+
+    <div class="instructions"></div>
+
+    <div class="exercise-text">
+        <p>1. Ὅ τε Δικαιόπολις καὶ ὁ Φίλιππος εἰς τὸν λιμένα <input type="text" id="gap1"> <span class="lemma">(ἀφικνέομαι)</span>, καὶ ἐκ τῆς νεὼς <input type="text" id="gap2"> <span class="lemma">(ἐκβαίνω)</span> ἐζήτησαν οἰνοπώλιόν τι.</p>
+
+        <p>2. Εὑρόντες αὐτὸ δεῖπνον <input type="text" id="gap3"> <span class="lemma">(αἱρέω)</span>.</p>
+
+        <p>3. Ἐκεῖ <input type="text" id="gap4" class="wide"> <span class="lemma">(καθῆμαι)</span> οἶνον ἔπινον καὶ τοῖς <input type="text" id="gap5"> <span class="lemma">(πάρειμι)</span> <input type="text" id="gap6"> <span class="lemma">(διαλέγομαι)</span>.</p>
+
+        <p>4. Ἐκεῖ <input type="text" id="gap7"> <span class="lemma">(μανθάνω)</span> ὅτι γυναῖκά τινα τὴν γαστέρα <input type="text" id="gap8"> <span class="lemma">(νοσέω)</span> μέλλει εἰς τὴν Ἐπίδαυρον <input type="text" id="gap9" class="wide"> <span class="lemma">(πορεύομαι)</span>.</p>
+
+        <p>5. Ἐπεὶ <input type="text" id="gap10"> <span class="lemma">(ἀκούω)</span> τοῦ ναυκλήρου <input type="text" id="gap11"> <span class="lemma">(καλέω)</span>, <input type="text" id="gap12"> <span class="lemma">(ἀνίστημι)</span> καὶ εἰς τὴν ναῦν ἔσπευσαν.</p>
+
+        <p>6. Ἐπεὶ ὁ ναύκληρος αὐτοὺς <input type="text" id="gap13"> <span class="lemma">(ὁράω)</span>, <input type="text" id="gap14"> <span class="lemma">(βοάω)</span> καὶ ἐκέλευσεν αὐτοὺς <input type="text" id="gap15"> <span class="lemma">(εἰσβαίνω, αορ.)</span> εἰς τὸ πλοῖον βουλόμενος αὐτίκα <input type="text" id="gap16"> <span class="lemma">(ἀποπλέω, αορ.)</span> καὶ πρὸ τῆς νυκτὸς <input type="text" id="gap17"> <span class="lemma">(ἀφικνέομαι, αορ.)</span>.</p>
+
+        <p>7. Ἐπεὶ πρῶτον <input type="text" id="gap18"> <span class="lemma">(εἰσβαίνω)</span>, οἱ ναῦται τὸ πλοῖον <input type="text" id="gap19"> <span class="lemma">(λύω)</span> καὶ πρὸς τὴν θάλατταν <input type="text" id="gap20"> <span class="lemma">(προερέσσω)</span> τὰ ἱστία <input type="text" id="gap21"> <span class="lemma">(αἴρω)</span>.</p>
+
+        <p>8. Ὁ δ᾽ ἄνεμος οὔριος <input type="text" id="gap22"> <span class="lemma">(πνέω)</span> διὰ τῶν κυμάτων <input type="text" id="gap23"> <span class="lemma">(ἐλαύνω, αορ.)</span> τὸ πλοῖον ταχέως <input type="text" id="gap24"> <span class="lemma">(πλέω)</span>.</p>
+    </div>
+
+    <p class="result" id="result"></p>
+
+    <script>
+        // Для некоторых форм допускается несколько вариантов из предоставленного ключа.
+        const answers = [
+            ["ἀφίκοντο"],
+            ["ἐξέβησαν"],
+            ["εἶλον"],
+            ["καθήσαμενοι", "καθήμενοι"],
+            ["παροῦσι"],
+            ["διελέγοντο"],
+            ["ἔμαθον"],
+            ["νοσοῦσα"],
+            ["πορεύεσθαι"],
+            ["ἤκουσαν", "ἥκουσαν"],
+            ["καλοῦντος"],
+            ["ἀνέστησαν"],
+            ["εἶδεν"],
+            ["ἐβόησε"],
+            ["εἰσβῆναι"],
+            ["ἀποπλεῦσαι"],
+            ["ἀφικέσθαι"],
+            ["εἰσέβησαν"],
+            ["ἔλυσαν"],
+            ["προήρεσσον"],
+            ["ἄραντες"],
+            ["πνέων"],
+            ["ἔλασεν"],
+            ["πλέον"]
+        ];
+
+        const removeDiacritics = (str) => {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        };
+
+        const setStyles = (element, status) => {
+            element.classList.remove('correct', 'almost-correct', 'incorrect');
+            if (status === 'correct') {
+                element.classList.add('correct');
+            } else if (status === 'almost-correct') {
+                element.classList.add('almost-correct');
+            } else if (status === 'incorrect') {
+                element.classList.add('incorrect');
+            }
+        };
+
+        const exactMatch = (userAnswer, acceptedAnswers) =>
+            acceptedAnswers.some(answer => userAnswer === answer);
+
+        const nearMatch = (userAnswer, acceptedAnswers) => {
+            const normalizedUser = removeDiacritics(userAnswer.toLowerCase());
+            return acceptedAnswers.some(answer =>
+                normalizedUser === removeDiacritics(answer.toLowerCase())
+            );
+        };
+
+        const checkSingleAnswer = (index) => {
+            const inputElement = document.getElementById(`gap${index + 1}`);
+            const userAnswer = inputElement.value.trim();
+            const acceptedAnswers = answers[index];
+
+            if (userAnswer === '') {
+                setStyles(inputElement, '');
+            } else if (exactMatch(userAnswer, acceptedAnswers)) {
+                setStyles(inputElement, 'correct');
+            } else if (nearMatch(userAnswer, acceptedAnswers)) {
+                setStyles(inputElement, 'almost-correct');
+            } else {
+                setStyles(inputElement, 'incorrect');
+            }
+        };
+
+        const updateResults = () => {
+            let correct = 0;
+            let almostCorrect = 0;
+
+            answers.forEach((acceptedAnswers, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+                const userAnswer = inputElement.value.trim();
+
+                if (exactMatch(userAnswer, acceptedAnswers)) {
+                    correct++;
+                } else if (userAnswer !== '' && nearMatch(userAnswer, acceptedAnswers)) {
+                    almostCorrect++;
+                }
+            });
+
+            const resultElement = document.getElementById('result');
+            if (correct === answers.length) {
+                resultElement.textContent = 'Все ответы правильные! Отличная работа!';
+                resultElement.style.backgroundColor = 'lightgreen';
+            } else if (almostCorrect > 0) {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны, ${almostCorrect} почти правильны (ошибка в диакритике или регистре).`;
+                resultElement.style.backgroundColor = '';
+            } else {
+                resultElement.textContent = `${correct} из ${answers.length} ответов правильны.`;
+                resultElement.style.backgroundColor = '';
+            }
+        };
+
+        window.onload = () => {
+            answers.forEach((_, i) => {
+                const inputElement = document.getElementById(`gap${i + 1}`);
+
+                if (inputElement.value.trim() !== '') {
+                    checkSingleAnswer(i);
+                }
+
+                inputElement.addEventListener('input', () => {
+                    checkSingleAnswer(i);
+                    updateResults();
+                });
+            });
+
+            updateResults();
+        };
+    </script>
+</body>
+</html>

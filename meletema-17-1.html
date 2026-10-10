@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 17.1</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    h1 { margin-bottom: 8px; }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .note {
+      font-style: italic;
+      margin: 8px 0 22px 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 1050px;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f6f6;
+      text-align: center;
+      font-size: 17px;
+    }
+
+    .latin {
+      font-size: 13px;
+      font-weight: normal;
+      color: #555;
+    }
+
+    .example {
+      font-size: 13px;
+      font-weight: normal;
+      margin-top: 3px;
+      color: #555;
+    }
+
+    .slot {
+      margin-bottom: 8px;
+    }
+
+    input[type="text"] {
+      box-sizing: border-box;
+      width: 100%;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+    }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 17.1</h1>
+  <h2>Распределите все глагольные формы из текста по соответствующим колонкам, кроме форм настоящего времени</h2>
+  <p class="note">Обратите особое внимание на ударения и придыхания.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            παρατατικός
+            <div class="latin">imperfectum</div>
+          </th>
+          <th>
+            ἀόριστος Ι
+            <div class="example">λύω &gt; ἔλυσα</div>
+          </th>
+          <th>
+            ἀόριστος ΙΙ
+            <div class="example">λείπω &gt; ἔλιπον</div>
+          </th>
+          <th>
+            ἀόριστος ΙΙΙ
+            <div class="example">γιγνώσκω &gt; ἔγνων</div>
+          </th>
+          <th>
+            μέλλων
+            <div class="latin">futurum</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="col-imperfect"></td>
+          <td id="col-aor1"></td>
+          <td id="col-aor2"></td>
+          <td id="col-aor3"></td>
+          <td id="col-future"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <script>
+    const columns = {
+      imperfect: {
+        element: "col-imperfect",
+        answers: ["ἐκάθηντο", "ἔσπευδον", "ἔφη", "ἔτρεχεν"]
+      },
+      aor1: {
+        element: "col-aor1",
+        answers: ["ζητῆσαι", "βοήσας", "λύσαντες", "ἤρετο", "ἦραν", "ἔπλησεν", "προερέσαντες"]
+      },
+      aor2: {
+        element: "col-aor2",
+        answers: ["ἑλέσθαι", "εὑρόντες", "μαθοῦσα", "εἰπέ", "ἰδών", "ἀφικέσθαι", "τυχόντες"]
+      },
+      aor3: {
+        element: "col-aor3",
+        answers: ["ἐξέβη", "ἀναστάντες", "εἴσβητε", "εἰσέβησαν"]
+      },
+      future: {
+        element: "col-future",
+        answers: ["ἕψομαι", "ὠφελήσει", "ἀποπλεύσεται", "ἀφιξόμεθα", "γνωσόμεθα", "ἐπάνιμεν", "ὁρμησόμεθα", "πλευσόμεθα", "παρεσόμεθα", "λύσομεν"]
+      }
+    };
+
+    const removeDiacritics = (str) =>
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    const allInputs = [];
+
+    function setStyles(element, status) {
+      element.classList.remove("correct", "almost-correct", "incorrect");
+      if (status) element.classList.add(status);
+    }
+
+    function normalize(str) {
+      return str.trim().toLowerCase();
+    }
+
+    function createInputs() {
+      Object.entries(columns).forEach(([key, col]) => {
+        const container = document.getElementById(col.element);
+
+        col.answers.forEach((_, i) => {
+          const wrap = document.createElement("div");
+          wrap.className = "slot";
+
+          const input = document.createElement("input");
+          input.type = "text";
+          input.dataset.column = key;
+          input.id = `${key}-${i + 1}`;
+          input.autocomplete = "off";
+
+          wrap.appendChild(input);
+          container.appendChild(wrap);
+          allInputs.push(input);
+
+          input.addEventListener("input", updateAll);
+        });
+      });
+    }
+
+    function updateAll() {
+      let exactCount = 0;
+      let almostCount = 0;
+      const total = allInputs.length;
+
+      Object.entries(columns).forEach(([key, col]) => {
+        const inputs = allInputs.filter(inp => inp.dataset.column === key);
+        const usedExact = new Set();
+        const usedAlmost = new Set();
+
+        inputs.forEach(input => {
+          const raw = input.value.trim();
+          if (!raw) {
+            setStyles(input, "");
+            return;
+          }
+
+          const val = normalize(raw);
+
+          let exactIndex = col.answers.findIndex((ans, idx) =>
+            !usedExact.has(idx) && normalize(ans) === val
+          );
+
+          if (exactIndex !== -1) {
+            usedExact.add(exactIndex);
+            setStyles(input, "correct");
+            exactCount++;
+            return;
+          }
+
+          const plainVal = removeDiacritics(val);
+          let almostIndex = col.answers.findIndex((ans, idx) =>
+            !usedExact.has(idx) &&
+            !usedAlmost.has(idx) &&
+            removeDiacritics(normalize(ans)) === plainVal
+          );
+
+          if (almostIndex !== -1) {
+            usedAlmost.add(almostIndex);
+            setStyles(input, "almost-correct");
+            almostCount++;
+          } else {
+            setStyles(input, "incorrect");
+          }
+        });
+      });
+
+      const result = document.getElementById("result");
+
+      if (exactCount === total) {
+        result.textContent = "Все формы распределены правильно! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else if (almostCount > 0) {
+        result.textContent = `${exactCount} из ${total} форм введены точно, ${almostCount} почти правильно (ошибка в диакритике или регистре).`;
+        result.style.backgroundColor = "";
+      } else {
+        result.textContent = `${exactCount} из ${total} форм введены правильно.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    window.onload = () => {
+      createInputs();
+      updateAll();
+    };
+  </script>
+</body>
+</html>
