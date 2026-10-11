@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Μελέτημα 27.10</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{
+  margin:20px;
+  font-family:'Fira Mono',monospace;
+  font-size:16px;
+  line-height:1.7;
+  max-width:1100px
+}
+a{color:inherit}
+h1{margin-bottom:8px}
+h2{margin-top:0;font-size:20px;font-weight:normal}
+.instructions{margin-bottom:18px;font-style:italic}
+.item{
+  margin:18px 0;
+  font-size:19px;
+  line-height:2.35;
+}
+input[type=text]{
+  font-family:'Fira Mono',monospace;
+  font-size:19px;
+  line-height:1.35;
+  padding:3px 7px;
+  vertical-align:middle;
+  border:1px solid #ccc;
+  border-radius:4px;
+  box-sizing:border-box;
+  transition:background-color .25s;
+  text-align:center;
+  width:220px;
+}
+input.wide{width:275px}
+.lemma{
+  font-size:14px;
+  color:#666;
+  white-space:nowrap;
+  margin-left:5px;
+}
+.correct{background-color:lightgreen}
+.almost-correct{background-color:gold}
+.incorrect{background-color:lightcoral}
+.result{
+  margin-top:22px;
+  padding:10px;
+  font-weight:bold;
+  border-radius:5px;
+}
+button{
+  font-family:'Fira Mono',monospace;
+  font-size:14px;
+  padding:7px 10px;
+  margin-top:10px;
+  border:1px solid #bbb;
+  border-radius:4px;
+  background:#f7f7f7;
+  cursor:pointer;
+}
+button:hover{background:#eee}
+.small{color:#555;font-size:14px;margin-top:12px}
+</style>
+</head>
+<body>
+
+<p><a href="meletemata.html">&lt; назад</a></p>
+
+<h1>Μελέτημα 27.10</h1>
+<h2>Перфект и плюсквамперфект</h2>
+
+<div class="instructions">
+  Вставьте требуемую по смыслу форму перфекта или плюсквамперфекта.
+  Рядом с каждым полем указана словарная форма нужного глагола.
+</div>
+
+<div class="item">
+  <strong>1.</strong>
+  <input id="q1" type="text" spellcheck="false">
+  <span class="lemma">(ἀγγέλλω)</span>
+  (plusquamperf.) ἡ μάχη ἰσχυρὰ γενέσθαι.
+</div>
+
+<div class="item">
+  <strong>2.</strong>
+  Τὰ
+  <input id="q2" type="text" spellcheck="false">
+  <span class="lemma">(ἐπαγγέλλω)</span>
+  τὴν πόλιν εἰς πολὺν φόβον κατέστησεν.
+</div>
+
+<div class="item">
+  <strong>3.</strong>
+  Ὑμεῖς
+  <input id="q3" type="text" spellcheck="false">
+  <span class="lemma">(ἐπαγγέλλω)</span>
+  αὐτίκα ἀφίξεσθαι.
+</div>
+
+<div class="item">
+  <strong>4.</strong>
+  Ἐγὼ μὲν τότε αὐτοῖς
+  <input id="q4" type="text" spellcheck="false">
+  <span class="lemma">(φαίνω)</span>
+  σωτὴρ ἐκ πραγμάτων γενέσθαι· ὑμεῖς δ’ αἴτιοι
+  <input id="q5" type="text" spellcheck="false">
+  <span class="lemma">(φαίνω)</span>
+  τῆς δυστυχίας.
+</div>
+
+<div class="item">
+  <strong>5.</strong>
+  Ἔφη ὁ ἱερεὺς θαυμάσιόν τε καὶ θεῖόν τι
+  <input id="q6" type="text" spellcheck="false">
+  <span class="lemma">(φαίνω)</span>.
+</div>
+
+<div class="item">
+  <strong>6.</strong>
+  Ἐπεὶ τὰ ὄρη
+  <input class="wide" id="q7" type="text" spellcheck="false">
+  <span class="lemma">(φαίνω)</span>,
+  ἡ στρατιὰ ἔστη.
+</div>
+
+<div class="item">
+  <strong>7.</strong>
+  Οἱ μύσται εἰς τὸ τελεστήριον
+  <input id="q8" type="text" spellcheck="false">
+  <span class="lemma">(καθαίρω)</span>
+  εἰσέβησαν.
+</div>
+
+<div class="item">
+  <strong>8.</strong>
+  Ὑμεῖς μὲν, ὡς
+  <input id="q9" type="text" spellcheck="false">
+  <span class="lemma">(καθαίρω)</span>,
+  τελετῶν μετείχετε, σοὶ δέ, ὡς οὐ
+  <input id="q10" type="text" spellcheck="false">
+  <span class="lemma">(καθαίρω)</span>,
+  μετασχεῖν οὐκ ἐξῆν.
+</div>
+
+<div class="item">
+  <strong>9.</strong>
+  Ἡ ἱκέτις
+  <input id="q11" type="text" spellcheck="false">
+  <span class="lemma">(καθαίρω)</span>
+  ἐν τῷ ἱερῷ τὸ ἀνάθημα ἀνέθηκε.
+</div>
+
+<div class="item">
+  <strong>10.</strong>
+  Ὁ ἱεροφάντης τοὺς ἱκέτας ἐκώλυε μὴ εἰσέρχεσθαι,
+  εἰ μὴ
+  <input class="wide" id="q12" type="text" spellcheck="false">
+  <span class="lemma">(καθαίρω)</span>.
+</div>
+
+<p class="result" id="result"></p>
+
+<button type="button" onclick="clearAll()">Очистить</button>
+
+<div class="small">
+  Жёлтый цвет означает, что форма совпадает по буквам, но есть ошибка в диакритике или регистре.
+  В № 4b принимаются и perfectum, и plusquamperfectum; в № 10 — и optativus, и indicativus plusquamperfecti.
+</div>
+
+<script>
+const answers = [
+  ["ἤγγελτο"],
+  ["ἐπηγγελμένα"],
+  ["ἐπήγγελθε"],
+  ["ἐπεφάσμην"],
+  ["πέφανθε", "ἐπέφανθε"],
+  ["πεφάνθαι"],
+  ["ἐπέφαντο"],
+  ["κεκαθαρμένοι"],
+  ["ἐκεκάθαρθε"],
+  ["ἐκεκάθαρσο"],
+  ["κεκαθαρμένη"],
+  ["κεκαθαρμένοι εἶεν", "κεκαθαρμένοι ἦσαν"]
+];
+
+function norm(s){
+  return s.trim().replace(/\s+/g," ");
+}
+
+function strip(s){
+  return norm(s)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase();
+}
+
+function setStatus(el,status){
+  el.classList.remove("correct","almost-correct","incorrect");
+  if(status) el.classList.add(status);
+}
+
+function checkOne(i){
+  const el=document.getElementById(`q${i+1}`);
+  const user=norm(el.value);
+  const accepted=answers[i].map(norm);
+
+  if(!user){
+    setStatus(el,"");
+    return;
+  }
+
+  if(accepted.includes(user)){
+    setStatus(el,"correct");
+    return;
+  }
+
+  setStatus(
+    el,
+    accepted.some(a=>strip(a)===strip(user))
+      ? "almost-correct"
+      : "incorrect"
+  );
+}
+
+function updateResult(){
+  let correct=0;
+  let almost=0;
+
+  answers.forEach((_,i)=>{
+    const el=document.getElementById(`q${i+1}`);
+    if(el.classList.contains("correct")) correct++;
+    else if(el.classList.contains("almost-correct")) almost++;
+  });
+
+  const result=document.getElementById("result");
+
+  if(correct===answers.length){
+    result.textContent="Все ответы правильные! Отличная работа!";
+    result.style.backgroundColor="lightgreen";
+  } else if(almost>0){
+    result.textContent=`${correct} из ${answers.length} ответов правильны, ${almost} почти правильны (ошибка в диакритике или регистре).`;
+    result.style.backgroundColor="";
+  } else {
+    result.textContent=`${correct} из ${answers.length} ответов правильны.`;
+    result.style.backgroundColor="";
+  }
+}
+
+function clearAll(){
+  answers.forEach((_,i)=>{
+    const el=document.getElementById(`q${i+1}`);
+    el.value="";
+    setStatus(el,"");
+  });
+  updateResult();
+}
+
+window.onload=()=>{
+  answers.forEach((_,i)=>{
+    document.getElementById(`q${i+1}`).addEventListener("input",()=>{
+      checkOne(i);
+      updateResult();
+    });
+  });
+  updateResult();
+};
+</script>
+</body>
+</html>
