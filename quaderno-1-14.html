@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.14</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1050px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .note {
+      padding: 10px 12px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      margin: 14px 0 22px 0;
+    }
+
+    .item {
+      margin: 18px 0 26px 0;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .prompt {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      line-height: 1.5;
+      padding: 9px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 7px 10px;
+      margin-top: 8px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+      font-size: 18px;
+    }
+
+    .model.visible { display: block; }
+
+    .controls {
+      margin-top: 22px;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.14</h1>
+  <h2>Переведите предложения на древнегреческий язык</h2>
+
+  <div class="instructions">
+    Переведите каждое предложение, используя лексику и конструкции первой главы.
+  </div>
+
+  <div class="note">
+    Обратите внимание на положение частиц <strong>γάρ</strong> и <strong>δέ</strong>:
+    они являются постпозитивными и обычно занимают второе место в своей части предложения.
+  </div>
+
+  <div class="item">
+    <div class="prompt">
+      <strong>1.</strong> Солнце сильно палит, но Дикеополь работает.
+    </div>
+    <textarea id="q1" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(1, event)">Показать образец перевода</button>
+    <div class="model" id="m1">
+      Ὁ ἥλιος μάλα φλέγει, ἀλλὰ ὁ Δικαιόπολις πονεῖ.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="prompt">
+      <strong>2.</strong> Дикеополь жалуется: ведь труд всегда тяжёл.
+    </div>
+    <textarea id="q2" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(2, event)">Показать образец перевода</button>
+    <div class="model" id="m2">
+      Ὁ Δικαιόπολις στενάζει· ὁ γὰρ πόνος ἀεὶ χαλεπός ἐστιν.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="prompt">
+      <strong>3.</strong> Труд бесконечен, но поле даёт достаточно зерна.
+    </div>
+    <textarea id="q3" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(3, event)">Показать образец перевода</button>
+    <div class="model" id="m3">
+      Ὁ πόνος ἀπέραντός ἐστιν, ἀλλὰ ὁ ἀγρὸς ἱκανὸν σῖτον παρέχει.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="prompt">
+      <strong>4.</strong> Часто Дикеополь отдыхает: ведь он очень устал.
+    </div>
+    <textarea id="q4" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(4, event)">Показать образец перевода</button>
+    <div class="model" id="m4">
+      Πολλάκις ὁ Δικαιόπολις ἡσυχάζει· μάλα γὰρ κάμνει.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="prompt">
+      <strong>5.</strong> Но земледелец доволен: ведь он свободен.
+    </div>
+    <textarea id="q5" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(5, event)">Показать образец перевода</button>
+    <div class="model" id="m5">
+      Ὁ δὲ αὐτουργὸς χαίρει· ἐλεύθερος γάρ ἐστιν.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="prompt">
+      <strong>6.</strong> Наконец он больше не работает, а идёт к дому: ведь солнце заходит.
+    </div>
+    <textarea id="q6" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(6, event)">Показать образец перевода</button>
+    <div class="model" id="m6">
+      Τέλος δὲ οὐκέτι πονεῖ, ἀλλὰ πρὸς τὸν οἶκον βαδίζει· ὁ γὰρ ἥλιος καταδύνει.
+    </div>
+  </div>
+
+  <div class="controls">
+    <button type="button" onclick="showAll()">Показать все образцы</button>
+    <button type="button" onclick="hideAll()">Скрыть все образцы</button>
+    <button type="button" onclick="clearAll()">Очистить поля</button>
+  </div>
+
+  <script>
+    function toggleModel(n, event) {
+      const box = document.getElementById(`m${n}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть образец перевода" : "Показать образец перевода";
+    }
+
+    function showAll() {
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`m${i}`).classList.add("visible");
+      }
+      document.querySelectorAll(".item button").forEach(btn => {
+        btn.textContent = "Скрыть образец перевода";
+      });
+    }
+
+    function hideAll() {
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`m${i}`).classList.remove("visible");
+      }
+      document.querySelectorAll(".item button").forEach(btn => {
+        btn.textContent = "Показать образец перевода";
+      });
+    }
+
+    function clearAll() {
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`q${i}`).value = "";
+      }
+    }
+  </script>
+</body>
+</html>

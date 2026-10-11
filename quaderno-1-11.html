@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.11</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1050px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .item {
+      margin: 18px 0 24px 0;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .match-row {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .left {
+      font-size: 20px;
+    }
+
+    select {
+      width: 100%;
+      max-width: 420px;
+      box-sizing: border-box;
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      padding: 7px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      transition: background-color 0.3s;
+    }
+
+    .correct { background-color: lightgreen !important; }
+    .incorrect { background-color: lightcoral !important; }
+
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 8px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 6px 9px;
+      margin-top: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model {
+      display: none;
+      margin-top: 8px;
+      padding: 9px 11px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .model.visible { display: block; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    @media (max-width: 650px) {
+      .match-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.11</h1>
+  <h2>Соедините части предложений, затем переведите их</h2>
+
+  <div class="instructions">
+    Для каждого выражения слева выберите подходящее продолжение справа.
+    Затем переведите получившееся предложение на русский язык.
+  </div>
+
+  <div id="exercise"></div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    Продолжения можно использовать только по одному разу по смыслу.
+    Перевод проверяется по образцу вручную.
+  </div>
+
+  <script>
+    const endings = [
+      "ἱκανός ἐστιν.",
+      "ἀπέραντός ἐστιν.",
+      "χαλεπός ἐστιν.",
+      "σκάπτει τὸν ἀγρόν.",
+      "μέγας ἐστίν.",
+      "μάλα φλέγει."
+    ];
+
+    const items = [
+      {
+        left: "Ὁ ἥλιος",
+        correct: 5,
+        translation: "Солнце сильно палит."
+      },
+      {
+        left: "Ὁ βίος",
+        correct: 2,
+        translation: "Жизнь тяжела."
+      },
+      {
+        left: "Ὁ πόνος",
+        correct: 1,
+        translation: "Труд бесконечен."
+      },
+      {
+        left: "Ὁ σῖτος",
+        correct: 0,
+        translation: "Зерна достаточно."
+      },
+      {
+        left: "Ὁ αὐτουργός",
+        correct: 3,
+        translation: "Земледелец вскапывает поле."
+      },
+      {
+        left: "Ὁ λίθος",
+        correct: 4,
+        translation: "Камень большой."
+      }
+    ];
+
+    function build() {
+      const container = document.getElementById("exercise");
+
+      items.forEach((item, i) => {
+        const options = endings.map((ending, j) =>
+          `<option value="${j}">${ending}</option>`
+        ).join("");
+
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="match-row">
+            <div class="left"><strong>${i + 1}.</strong> ${item.left}</div>
+            <select id="s${i}">
+              <option value="">— выберите продолжение —</option>
+              ${options}
+            </select>
+          </div>
+
+          <textarea id="tr${i}" placeholder="Перевод на русский"></textarea>
+          <br>
+          <button type="button" onclick="toggleModel(${i}, event)">Показать образец перевода</button>
+          <div class="model" id="m${i}">${item.translation}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function checkOne(i) {
+      const select = document.getElementById(`s${i}`);
+      select.classList.remove("correct", "incorrect");
+
+      if (select.value === "") return;
+
+      select.classList.add(
+        Number(select.value) === items[i].correct ? "correct" : "incorrect"
+      );
+    }
+
+    function updateResult() {
+      let correct = 0;
+
+      items.forEach((item, i) => {
+        const select = document.getElementById(`s${i}`);
+        if (select.value !== "" && Number(select.value) === item.correct) {
+          correct++;
+        }
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === items.length) {
+        result.textContent = "Все пары составлены правильно! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else {
+        result.textContent = `${correct} из ${items.length} пар составлены правильно.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function toggleModel(i, event) {
+      const box = document.getElementById(`m${i}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть образец перевода" : "Показать образец перевода";
+    }
+
+    window.onload = () => {
+      build();
+
+      items.forEach((_, i) => {
+        document.getElementById(`s${i}`).addEventListener("change", () => {
+          checkOne(i);
+          updateResult();
+        });
+      });
+
+      updateResult();
+    };
+  </script>
+</body>
+</html>

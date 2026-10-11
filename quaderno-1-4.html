@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.4</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .examples, .note {
+      padding: 10px 12px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      margin: 14px 0 22px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 30px;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .word {
+      font-size: 20px;
+      white-space: nowrap;
+    }
+
+    .word u {
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 850px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .item { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.4</h1>
+  <h2>Разделите слова на слоги и определите дифтонги</h2>
+
+  <div class="instructions">
+    Впишите слово, разделив слоги дефисами. Если ответ правильный, в исходном слове
+    автоматически подчеркнутся дифтонги. Помните: не всякая последовательность двух
+    гласных является дифтонгом.
+  </div>
+
+  <div class="examples">
+    <strong>Примеры:</strong>
+    στενάζει → στε-νά-ζει;&nbsp;&nbsp;
+    βίος → βί-ος.
+  </div>
+
+  <div class="grid" id="exercise"></div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    В словах с подписной йотой сочетания <strong>ᾳ, ῃ, ῳ</strong> образуют один слог.
+    Жёлтый цвет означает, что слогоделение верно, но есть отличие только в диакритике или регистре.
+  </div>
+
+  <script>
+    const data = [
+      { word: "ἰσχυρός", answer: "ἰσ-χυ-ρός", display: "ἰσχυρός" },
+      { word: "αὐτόν", answer: "αὐ-τόν", display: "<u>αὐ</u>τόν" },
+      { word: "ὀλίγου", answer: "ὀ-λί-γου", display: "ὀλίγ<u>ου</u>" },
+      { word: "υἱός", answer: "υἱ-ός", display: "<u>υἱ</u>ός", gloss: "сын" },
+      { word: "ἥλιος", answer: "ἥ-λι-ος", display: "ἥλιος" },
+      { word: "ἐστίν", answer: "ἐ-στίν", display: "ἐστίν" },
+      { word: "γεωργεῖ", answer: "γε-ωρ-γεῖ", display: "γεωργ<u>εῖ</u>" },
+      { word: "Ἀθήναις", answer: "Ἀ-θή-ναις", display: "Ἀθήν<u>αις</u>" },
+      { word: "ἄοκνος", answer: "ἄ-ο-κνος", display: "ἄοκνος" },
+      { word: "οἰκεῖ", answer: "οἰ-κεῖ", display: "<u>οἰ</u>κ<u>εῖ</u>" },
+      { word: "μυῖα", answer: "μυῖ-α", display: "μ<u>υῖ</u>α", gloss: "муха" },
+      { word: "αἴρει", answer: "αἴ-ρει", display: "<u>αἴ</u>ρ<u>ει</u>" },
+      { word: "πονεῖ", answer: "πο-νεῖ", display: "πον<u>εῖ</u>" },
+      { word: "Ἀθηναῖος", answer: "Ἀ-θη-ναῖ-ος", display: "Ἀθην<u>αῖ</u>ος" },
+      { word: "οἴκῳ", answer: "οἴ-κῳ", display: "<u>οἴ</u>κ<u>ῳ</u>" },
+      { word: "οὖν", answer: "οὖν", display: "<u>οὖ</u>ν" },
+      { word: "Ζεῦ", answer: "Ζεῦ", display: "Ζ<u>εῦ</u>" },
+      { word: "θύρᾳ", answer: "θύ-ρᾳ", display: "θύρ<u>ᾳ</u>", gloss: "дверью / дверью (дат.)" },
+      { word: "ἀεί", answer: "ἀ-εί", display: "ἀ<u>εί</u>" },
+
+      { word: "ἑαυτόν", answer: "ἑ-αυ-τόν", display: "ἑ<u>αυ</u>τόν" },
+      { word: "οἶκος", answer: "οἶ-κος", display: "<u>οἶ</u>κος" },
+      { word: "εὑρίσκει", answer: "εὑ-ρί-σκει", display: "<u>εὑ</u>ρίσκ<u>ει</u>", gloss: "находит" },
+      { word: "ἐλεύθερος", answer: "ἐ-λεύ-θε-ρος", display: "ἐλ<u>εύ</u>θερος" },
+      { word: "καί", answer: "καί", display: "κ<u>αί</u>" },
+      { word: "δένδρῳ", answer: "δέν-δρῳ", display: "δένδρ<u>ῳ</u>" },
+      { word: "ᾄδω", answer: "ᾄ-δω", display: "<u>ᾄ</u>δω", gloss: "пою" },
+      { word: "χαλεπός", answer: "χα-λε-πός", display: "χαλεπός" },
+      { word: "τῷ", answer: "τῷ", display: "<u>τῷ</u>" },
+      { word: "χαίρει", answer: "χαί-ρει", display: "χ<u>αί</u>ρ<u>ει</u>" },
+      { word: "πολλάκις", answer: "πολ-λά-κις", display: "πολλάκις" },
+      { word: "αὐτουργός", answer: "αὐ-τουρ-γός", display: "<u>αὐ</u>τ<u>ου</u>ργός" },
+      { word: "ηὕρηκα", answer: "ηὕ-ρη-κα", display: "<u>ηὕ</u>ρηκα", gloss: "я нашёл" },
+      { word: "λύει", answer: "λύ-ει", display: "λύ<u>ει</u>" },
+      { word: "μικρός", answer: "μι-κρός", display: "μικρός" },
+      { word: "ᾖσα", answer: "ᾖ-σα", display: "<u>ᾖ</u>σα", gloss: "я пел" },
+      { word: "τῇ", answer: "τῇ", display: "<u>τῇ</u>", gloss: "к / для (артикль, dat. sg. fem.)" },
+      { word: "οἴμοι", answer: "οἴ-μοι", display: "<u>οἴ</u>μ<u>οι</u>", gloss: "увы!" }
+    ];
+
+    const strip = (s) =>
+      s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    const normalizeHyphens = (s) =>
+      s.trim().replace(/[‐‑‒–—−]/g, "-").replace(/\s*[-]\s*/g, "-");
+
+    function build() {
+      const container = document.getElementById("exercise");
+
+      data.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="word" id="word${i}">
+            ${item.word}${item.gloss ? ` <span style="font-size:13px;color:#666;">(${item.gloss})</span>` : ""}
+          </div>
+          <input type="text" id="q${i}" spellcheck="false" placeholder="слоги через дефис">
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function setStatus(el, status) {
+      el.classList.remove("correct", "almost-correct", "incorrect");
+      if (status) el.classList.add(status);
+    }
+
+    function checkOne(i) {
+      const input = document.getElementById(`q${i}`);
+      const word = document.getElementById(`word${i}`);
+      const user = normalizeHyphens(input.value);
+      const answer = data[i].answer;
+
+      if (!user) {
+        setStatus(input, "");
+        word.innerHTML = data[i].word +
+          (data[i].gloss ? ` <span style="font-size:13px;color:#666;">(${data[i].gloss})</span>` : "");
+        return;
+      }
+
+      if (user === answer) {
+        setStatus(input, "correct");
+        word.innerHTML = data[i].display +
+          (data[i].gloss ? ` <span style="font-size:13px;color:#666;">(${data[i].gloss})</span>` : "");
+        return;
+      }
+
+      if (strip(user) === strip(answer)) {
+        setStatus(input, "almost-correct");
+        word.innerHTML = data[i].display +
+          (data[i].gloss ? ` <span style="font-size:13px;color:#666;">(${data[i].gloss})</span>` : "");
+        return;
+      }
+
+      setStatus(input, "incorrect");
+      word.innerHTML = data[i].word +
+        (data[i].gloss ? ` <span style="font-size:13px;color:#666;">(${data[i].gloss})</span>` : "");
+    }
+
+    function updateResult() {
+      let correct = 0;
+      let almost = 0;
+
+      data.forEach((_, i) => {
+        const input = document.getElementById(`q${i}`);
+        if (input.classList.contains("correct")) correct++;
+        else if (input.classList.contains("almost-correct")) almost++;
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === data.length) {
+        result.textContent = "Все ответы правильные! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else if (almost > 0) {
+        result.textContent = `${correct} из ${data.length} ответов правильны, ${almost} почти правильны.`;
+        result.style.backgroundColor = "";
+      } else {
+        result.textContent = `${correct} из ${data.length} ответов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    window.onload = () => {
+      build();
+
+      data.forEach((_, i) => {
+        document.getElementById(`q${i}`).addEventListener("input", () => {
+          checkOne(i);
+          updateResult();
+        });
+      });
+
+      updateResult();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.2</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1000px;
+    }
+
+    a { color: inherit; }
+
+    h1 { margin-bottom: 8px; }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    h3 {
+      margin-top: 28px;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .instructions {
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .word-row {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 16px;
+      align-items: center;
+      margin: 10px 0;
+      max-width: 620px;
+    }
+
+    .source-word {
+      font-size: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      font-family: 'Fira Mono', monospace;
+      font-size: 18px;
+      padding: 7px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 78px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 9px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .question {
+      margin: 18px 0 22px 0;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .question-text {
+      margin-bottom: 8px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 7px 10px;
+      margin-top: 8px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model-answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .model-answer.visible {
+      display: block;
+    }
+
+    .translation-note {
+      padding: 10px 12px;
+      background: #fafafa;
+      border: 1px solid #ddd;
+      margin: 18px 0;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.2</h1>
+  <h2>Перепишите слова заглавными буквами</h2>
+
+  <div class="instructions">
+    В записи одними заглавными буквами ударения и придыхания не ставятся.
+    Йота, которая в строчной записи стоит под строкой, в заглавной записи пишется после гласной.
+  </div>
+
+  <div class="word-row">
+    <div class="source-word">ῥᾴθυμος</div>
+    <input type="text" id="q1" spellcheck="false">
+  </div>
+
+  <div class="word-row">
+    <div class="source-word">καρδίᾳ</div>
+    <input type="text" id="q2" spellcheck="false">
+  </div>
+
+  <div class="word-row">
+    <div class="source-word">ᾖσαν</div>
+    <input type="text" id="q3" spellcheck="false">
+  </div>
+
+  <div class="word-row">
+    <div class="source-word">ῥοπάλῳ</div>
+    <input type="text" id="q4" spellcheck="false">
+  </div>
+
+  <div class="word-row">
+    <div class="source-word">ἐπῳδῇ</div>
+    <input type="text" id="q5" spellcheck="false">
+  </div>
+
+  <div class="word-row">
+    <div class="source-word">ᾤκουν</div>
+    <input type="text" id="q6" spellcheck="false">
+  </div>
+
+  <div class="word-row">
+    <div class="source-word">δῃῶ</div>
+    <input type="text" id="q7" spellcheck="false">
+  </div>
+
+  <div class="word-row">
+    <div class="source-word">ᾍδης</div>
+    <input type="text" id="q8" spellcheck="false">
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="translation-note">
+    Значения слов, приведённые в сборнике:
+    <strong>ленивый; сердцу / в сердце; шли; дубиной; заклинанием;
+    я жил / они жили; разоряю; Аид</strong>.
+  </div>
+
+  <h3>Вопросы о правописании</h3>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>1.</strong> Когда йота в строчной записи пишется под строкой?
+    </div>
+    <textarea spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(1, event)">Показать справочный ответ</button>
+    <div class="model-answer" id="model1">
+      Йота пишется под долгими α, η и ω в так называемых долгих дифтонгах:
+      ᾳ, ῃ, ῳ.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>2.</strong> Долгий или краткий α в словах ῥᾴθυμος, καρδίᾳ, ᾍδης? Как это определить?
+    </div>
+    <textarea spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(2, event)">Показать справочный ответ</button>
+    <div class="model-answer" id="model2">
+      α долгий: под ним стоит подписная йота. Подписная йота употребляется с долгими
+      α, η и ω.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>3.</strong> Рассмотрите слова οἰκεῖ и ἀεί. Почему написания с неправильно
+      поставленными ударениями или придыханиями невозможны?
+    </div>
+    <textarea spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(3, event)">Показать справочный ответ</button>
+    <div class="model-answer" id="model3">
+      В дифтонге ударение и придыхание ставятся над второй буквой дифтонга.
+      Если две гласные относятся к разным слогам, знак ставится над той гласной,
+      к которой он действительно относится. Поэтому положение диакритик связано
+      со слогоделением и не является произвольным.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>4.</strong> ᾤκουν — форма imperfectum от οἰκέω. Почему в ᾤκουν йота
+      подписная, а в οἰκέω она пишется на строке?
+    </div>
+    <textarea spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleAnswer(4, event)">Показать справочный ответ</button>
+    <div class="model-answer" id="model4">
+      В imperfectum начальный дифтонг οι получает количественный аугмент:
+      οι → ῳ. После удлинения первая гласная становится ω, а историческая ι
+      сохраняется как подписная: ᾠ-. В praesentis οἰκέω сохраняется обычный дифтонг οι.
+    </div>
+  </div>
+
+  <div class="note">
+    Теоретические ответы даны как справочные; сам сборник в этом упражнении отсылает
+    к вводным страницам учебника о письме, дифтонгах и подписной йоте.
+  </div>
+
+  <script>
+    const answers = [
+      ["ΡΑΙΘΥΜΟΣ", "ΡΑΙΘῩΜΟΣ"],
+      ["ΚΑΡΔΙΑΙ"],
+      ["ΗΙΣΑΝ"],
+      ["ΡΟΠΑΛΩΙ"],
+      ["ΕΠΩΙΔΗΙ"],
+      ["ΩΙΚΟΥΝ"],
+      ["ΔΗΙΩ"],
+      ["ΑΙΔΗΣ"]
+    ];
+
+    const removeDiacritics = (str) =>
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    const setStatus = (el, status) => {
+      el.classList.remove("correct", "almost-correct", "incorrect");
+      if (status) el.classList.add(status);
+    };
+
+    function checkOne(i) {
+      const input = document.getElementById(`q${i + 1}`);
+      const user = input.value.trim();
+      const accepted = answers[i];
+
+      if (!user) {
+        setStatus(input, "");
+        return;
+      }
+
+      if (accepted.includes(user)) {
+        setStatus(input, "correct");
+        return;
+      }
+
+      const plain = removeDiacritics(user.toUpperCase());
+      const near = accepted.some(ans => removeDiacritics(ans) === plain);
+
+      setStatus(input, near ? "almost-correct" : "incorrect");
+    }
+
+    function updateResult() {
+      let correct = 0;
+      let almost = 0;
+
+      answers.forEach((accepted, i) => {
+        const input = document.getElementById(`q${i + 1}`);
+        const user = input.value.trim();
+
+        if (accepted.includes(user)) {
+          correct++;
+        } else if (user) {
+          const plain = removeDiacritics(user.toUpperCase());
+          if (accepted.some(ans => removeDiacritics(ans) === plain)) {
+            almost++;
+          }
+        }
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === answers.length) {
+        result.textContent = "Все формы записаны правильно!";
+        result.style.backgroundColor = "lightgreen";
+      } else if (almost > 0) {
+        result.textContent = `${correct} из ${answers.length} ответов правильны, ${almost} почти правильны.`;
+        result.style.backgroundColor = "";
+      } else {
+        result.textContent = `${correct} из ${answers.length} ответов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function toggleAnswer(n, event) {
+      const box = document.getElementById(`model${n}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть справочный ответ" : "Показать справочный ответ";
+    }
+
+    window.onload = () => {
+      answers.forEach((_, i) => {
+        const input = document.getElementById(`q${i + 1}`);
+        input.addEventListener("input", () => {
+          checkOne(i);
+          updateResult();
+        });
+      });
+      updateResult();
+    };
+  </script>
+</body>
+</html>

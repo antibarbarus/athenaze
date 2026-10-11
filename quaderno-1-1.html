@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.1</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+    h3 { margin-top: 28px; margin-bottom: 10px; font-size: 18px; }
+    .instructions { margin-bottom: 16px; font-style: italic; }
+    .word-bank {
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fafafa;
+      margin-bottom: 22px;
+      font-size: 18px;
+      line-height: 1.9;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 12px;
+      table-layout: fixed;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      vertical-align: middle;
+    }
+    th { background: #f6f6f6; text-align: left; }
+    th:first-child, td:first-child { width: 55px; text-align: center; }
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+    }
+    .greek-input { font-size: 18px !important; }
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .note { margin-top: 12px; color: #555; font-size: 14px; }
+    @media (max-width: 800px) {
+      .table-wrap { overflow-x: auto; }
+      table { min-width: 760px; }
+    }
+  </style>
+</head>
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.1</h1>
+  <h2>Расположите слова в алфавитном порядке и переведите их на русский язык</h2>
+
+  <div class="instructions">
+    Обратите внимание на ударения и придыхания. Затем перепишите те же слова заглавными буквами:
+    при письме одними заглавными ударения и придыхания не ставятся.
+  </div>
+
+  <div class="word-bank">
+    λίθος, χρόνος, στενάζει, γεωργεῖ, καί, ἐλεύθερος, τέλος, μάλα,
+    πόνος, αἴρει, φλέγει, ἱκανός, οἶκος, χαίρει, λέγει, πονεῖ
+  </div>
+
+  <h3>1. Алфавитный порядок и перевод</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Греческое слово</th>
+          <th>Перевод</th>
+        </tr>
+      </thead>
+      <tbody id="mainTable"></tbody>
+    </table>
+  </div>
+
+  <h3>2. Те же слова заглавными буквами</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Заглавными буквами</th>
+        </tr>
+      </thead>
+      <tbody id="upperTable"></tbody>
+    </table>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    Жёлтый цвет означает, что ответ совпадает по буквам, но есть ошибка в диакритике или регистре.
+    В переводах принимаются несколько близких вариантов.
+  </div>
+
+  <script>
+    const data = [
+      { word: "αἴρει", translations: ["поднимает", "поднимает вверх"], upper: "ΑΙΡΕΙ" },
+      { word: "γεωργεῖ", translations: ["возделывает", "обрабатывает землю", "обрабатывает", "земледельствует"], upper: "ΓΕΩΡΓΕΙ" },
+      { word: "ἐλεύθερος", translations: ["свободный", "свободен"], upper: "ΕΛΕΥΘΕΡΟΣ" },
+      { word: "ἱκανός", translations: ["достаточный", "достаточен"], upper: "ΙΚΑΝΟΣ" },
+      { word: "καί", translations: ["и", "также"], upper: "ΚΑΙ" },
+      { word: "λέγει", translations: ["говорит", "сказывает"], upper: "ΛΕΓΕΙ" },
+      { word: "λίθος", translations: ["камень"], upper: "ΛΙΘΟΣ" },
+      { word: "μάλα", translations: ["очень", "весьма"], upper: "ΜΑΛΑ" },
+      { word: "οἶκος", translations: ["дом"], upper: "ΟΙΚΟΣ" },
+      { word: "πονεῖ", translations: ["работает", "трудится"], upper: "ΠΟΝΕΙ" },
+      { word: "πόνος", translations: ["труд", "работа", "тяжёлый труд"], upper: "ΠΟΝΟΣ" },
+      { word: "στενάζει", translations: ["стонет", "вздыхает", "жалуется"], upper: "ΣΤΕΝΑΖΕΙ" },
+      { word: "τέλος", translations: ["наконец", "в конце", "под конец"], upper: "ΤΕΛΟΣ" },
+      { word: "φλέγει", translations: ["жжёт", "жжет", "палит", "обжигает"], upper: "ΦΛΕΓΕΙ" },
+      { word: "χαίρει", translations: ["радуется", "доволен"], upper: "ΧΑΙΡΕΙ" },
+      { word: "χρόνος", translations: ["время"], upper: "ΧΡΟΝΟΣ" }
+    ];
+
+    const removeDiacritics = (str) =>
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    const norm = (str) => str.trim().replace(/\s+/g, " ").toLowerCase();
+
+    function makeTables() {
+      const main = document.getElementById("mainTable");
+      const upper = document.getElementById("upperTable");
+
+      data.forEach((item, i) => {
+        main.insertAdjacentHTML("beforeend", `
+          <tr>
+            <td>${i + 1}</td>
+            <td><input class="greek-input" type="text" id="word${i}" spellcheck="false"></td>
+            <td><input type="text" id="tr${i}" spellcheck="false"></td>
+          </tr>
+        `);
+
+        upper.insertAdjacentHTML("beforeend", `
+          <tr>
+            <td>${i + 1}</td>
+            <td><input class="greek-input" type="text" id="up${i}" spellcheck="false"></td>
+          </tr>
+        `);
+      });
+    }
+
+    function setStatus(el, status) {
+      el.classList.remove("correct", "almost-correct", "incorrect");
+      if (status) el.classList.add(status);
+    }
+
+    function checkGreek(i) {
+      const el = document.getElementById(`word${i}`);
+      const user = el.value.trim();
+      const answer = data[i].word;
+      if (!user) return setStatus(el, "");
+      if (user === answer) return setStatus(el, "correct");
+      if (removeDiacritics(user.toLowerCase()) === removeDiacritics(answer.toLowerCase())) {
+        return setStatus(el, "almost-correct");
+      }
+      setStatus(el, "incorrect");
+    }
+
+    function checkTranslation(i) {
+      const el = document.getElementById(`tr${i}`);
+      const user = norm(el.value);
+      if (!user) return setStatus(el, "");
+      if (data[i].translations.some(x => norm(x) === user)) {
+        return setStatus(el, "correct");
+      }
+      setStatus(el, "incorrect");
+    }
+
+    function checkUpper(i) {
+      const el = document.getElementById(`up${i}`);
+      const user = el.value.trim();
+      const answer = data[i].upper;
+      if (!user) return setStatus(el, "");
+      if (user === answer) return setStatus(el, "correct");
+      if (removeDiacritics(user.toUpperCase()) === answer) {
+        return setStatus(el, "almost-correct");
+      }
+      setStatus(el, "incorrect");
+    }
+
+    function updateResult() {
+      let exact = 0;
+      let almost = 0;
+      const total = data.length * 3;
+
+      data.forEach((item, i) => {
+        const w = document.getElementById(`word${i}`);
+        const t = document.getElementById(`tr${i}`);
+        const u = document.getElementById(`up${i}`);
+
+        if (w.classList.contains("correct")) exact++;
+        else if (w.classList.contains("almost-correct")) almost++;
+
+        if (t.classList.contains("correct")) exact++;
+
+        if (u.classList.contains("correct")) exact++;
+        else if (u.classList.contains("almost-correct")) almost++;
+      });
+
+      const result = document.getElementById("result");
+      if (exact === total) {
+        result.textContent = "Все ответы правильные! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else if (almost > 0) {
+        result.textContent = `${exact} из ${total} ответов правильны, ${almost} почти правильны.`;
+        result.style.backgroundColor = "";
+      } else {
+        result.textContent = `${exact} из ${total} ответов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    window.onload = () => {
+      makeTables();
+      data.forEach((_, i) => {
+        document.getElementById(`word${i}`).addEventListener("input", () => {
+          checkGreek(i); updateResult();
+        });
+        document.getElementById(`tr${i}`).addEventListener("input", () => {
+          checkTranslation(i); updateResult();
+        });
+        document.getElementById(`up${i}`).addEventListener("input", () => {
+          checkUpper(i); updateResult();
+        });
+      });
+      updateResult();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.6</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .legend {
+      padding: 10px 12px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      margin-bottom: 24px;
+    }
+
+    .item {
+      margin: 18px 0 26px 0;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .sentence {
+      font-size: 20px;
+      line-height: 2.2;
+      margin-bottom: 8px;
+    }
+
+    .seg {
+      display: inline-block;
+      padding: 1px 4px;
+      margin: 0 1px;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .seg:hover { background: #f3f3f3; }
+
+    .subject {
+      text-decoration-line: underline;
+      text-decoration-style: solid;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+    }
+
+    .predicate {
+      text-decoration-line: underline;
+      text-decoration-style: double;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+    }
+
+    .object {
+      border: 2px solid currentColor;
+      border-radius: 999px;
+      padding: 0 8px;
+    }
+
+    .correct { background-color: lightgreen !important; }
+    .incorrect { background-color: lightcoral !important; }
+
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 8px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 6px 10px;
+      margin-top: 8px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model {
+      display: none;
+      margin-top: 8px;
+      padding: 9px 11px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .model.visible { display: block; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.6</h1>
+  <h2>Определите подлежащее, сказуемое и прямое дополнение, затем переведите предложения</h2>
+
+  <div class="instructions">
+    Нажимайте на части предложения, чтобы менять разметку.
+  </div>
+
+  <div class="legend">
+    <strong>1 клик</strong> — подлежащее (одно подчёркивание);
+    <strong>2 клика</strong> — сказуемое (двойное подчёркивание);
+    <strong>3 клика</strong> — прямое дополнение (обвести);
+    <strong>4-й клик</strong> — снять разметку.
+  </div>
+
+  <div id="exercise"></div>
+
+  <div>
+    <button type="button" onclick="checkAll()">Проверить разметку</button>
+    <button type="button" onclick="resetAll()">Сбросить разметку</button>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    В состав сказуемого в этом упражнении включены также именная часть составного сказуемого
+    и непосредственно относящееся к глаголу наречие, если они входят в сказуемую группу.
+  </div>
+
+  <script>
+    const items = [
+      {
+        parts: [
+          ["Ὁ δοῦλος", "subject"],
+          ["φέρει", "predicate"],
+          ["τὸν σῖτον", "object"],
+          ["ἐκ τοῦ ἀγροῦ", "none"]
+        ],
+        translation: "Раб несёт зерно с поля."
+      },
+      {
+        parts: [
+          ["Ἰσχυρός ἐστιν", "predicate"],
+          ["ὁ ἄνθρωπος", "subject"]
+        ],
+        translation: "Человек силён."
+      },
+      {
+        parts: [
+          ["Ὁ ἥλιος", "subject"],
+          ["μάλα φλέγει", "predicate"]
+        ],
+        translation: "Солнце сильно палит."
+      },
+      {
+        parts: [
+          ["Ὁ δοῦλος", "subject"],
+          ["οὐκ ἐλεύθερός ἐστιν", "predicate"]
+        ],
+        translation: "Раб не свободен."
+      },
+      {
+        parts: [
+          ["Ὁ ἥλιος", "subject"],
+          ["κατατρίβει", "predicate"],
+          ["τὸν δοῦλον", "object"]
+        ],
+        translation: "Солнце изнуряет раба."
+      },
+      {
+        parts: [
+          ["Χαλεπός ἐστιν", "predicate"],
+          ["ὁ πόνος", "subject"],
+          ["καὶ ἀπέραντος", "predicate"]
+        ],
+        translation: "Труд тяжёл и бесконечен."
+      },
+      {
+        parts: [
+          ["Ὁ αὐτουργός", "subject"],
+          ["τὸν ἀγρὸν", "object"],
+          ["σκάπτει", "predicate"]
+        ],
+        translation: "Земледелец вскапывает поле."
+      },
+      {
+        parts: [
+          ["Ὁ ἄνθρωπος", "subject"],
+          ["ἐν ταῖς Ἀθήναις", "none"],
+          ["οἰκεῖ", "predicate"]
+        ],
+        translation: "Человек живёт в Афинах."
+      },
+      {
+        parts: [
+          ["Ὁ δοῦλος", "subject"],
+          ["ἐπαίρει", "predicate"],
+          ["ἑαυτόν", "object"]
+        ],
+        translation: "Раб поднимается (букв. поднимает самого себя)."
+      },
+      {
+        parts: [
+          ["Ὁ αὐτουργός", "subject"],
+          ["πρὸς τὸν ἀγρὸν", "none"],
+          ["βαδίζει", "predicate"]
+        ],
+        translation: "Земледелец идёт к полю."
+      }
+    ];
+
+    const states = ["none", "subject", "predicate", "object"];
+
+    function build() {
+      const container = document.getElementById("exercise");
+
+      items.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+
+        const sentence = item.parts.map((p, j) =>
+          `<span class="seg" id="s${i}_${j}" data-item="${i}" data-part="${j}" data-state="none">${p[0]}</span>`
+        ).join(" ");
+
+        div.innerHTML = `
+          <div class="sentence"><strong>${i + 1}.</strong> ${sentence}.</div>
+          <textarea id="tr${i}" placeholder="Перевод на русский"></textarea>
+          <br>
+          <button type="button" onclick="toggleModel(${i}, event)">Показать образец перевода</button>
+          <div class="model" id="m${i}">${item.translation}</div>
+        `;
+
+        container.appendChild(div);
+      });
+
+      document.querySelectorAll(".seg").forEach(seg => {
+        seg.addEventListener("click", () => {
+          let idx = states.indexOf(seg.dataset.state);
+          idx = (idx + 1) % states.length;
+          seg.dataset.state = states[idx];
+          applyState(seg);
+          seg.classList.remove("correct", "incorrect");
+
+          const result = document.getElementById("result");
+          result.textContent = "";
+          result.style.backgroundColor = "";
+        });
+      });
+    }
+
+    function applyState(seg) {
+      seg.classList.remove("subject", "predicate", "object");
+      if (seg.dataset.state !== "none") seg.classList.add(seg.dataset.state);
+    }
+
+    function checkAll() {
+      let correct = 0;
+      let total = 0;
+
+      items.forEach((item, i) => {
+        item.parts.forEach((part, j) => {
+          total++;
+          const seg = document.getElementById(`s${i}_${j}`);
+          seg.classList.remove("correct", "incorrect");
+          if (seg.dataset.state === part[1]) {
+            seg.classList.add("correct");
+            correct++;
+          } else {
+            seg.classList.add("incorrect");
+          }
+        });
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === total) {
+        result.textContent = "Вся синтаксическая разметка выполнена правильно!";
+        result.style.backgroundColor = "lightgreen";
+      } else {
+        result.textContent = `${correct} из ${total} частей предложения размечены правильно.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function resetAll() {
+      document.querySelectorAll(".seg").forEach(seg => {
+        seg.dataset.state = "none";
+        seg.classList.remove("subject", "predicate", "object", "correct", "incorrect");
+      });
+
+      const result = document.getElementById("result");
+      result.textContent = "";
+      result.style.backgroundColor = "";
+    }
+
+    function toggleModel(i, event) {
+      const box = document.getElementById(`m${i}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть образец перевода" : "Показать образец перевода";
+    }
+
+    window.onload = build;
+  </script>
+</body>
+</html>

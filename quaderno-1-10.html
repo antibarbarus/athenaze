@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.10</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .item {
+      margin: 20px 0 28px 0;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .sentence {
+      font-size: 19px;
+      line-height: 1.9;
+      margin-bottom: 10px;
+    }
+
+    .options {
+      margin: 8px 0 12px 24px;
+    }
+
+    .option {
+      display: block;
+      margin: 6px 0;
+      padding: 4px 7px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .option.correct {
+      background-color: lightgreen;
+    }
+
+    .option.incorrect {
+      background-color: lightcoral;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 8px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 6px 9px;
+      margin-top: 8px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model {
+      display: none;
+      margin-top: 8px;
+      padding: 9px 11px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .model.visible { display: block; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.10</h1>
+  <h2>Выберите единственный вариант, подходящий по смыслу, затем переведите предложение</h2>
+
+  <div class="instructions">
+    В каждом предложении из трёх предложенных вариантов только один подходит по смыслу.
+    Отметьте его, затем переведите всё предложение на русский язык.
+  </div>
+
+  <div id="exercise"></div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    Выбор варианта проверяется автоматически. Для перевода возможны разные хорошие формулировки,
+    поэтому он сверяется с образцом вручную.
+  </div>
+
+  <script>
+    const items = [
+      {
+        before: "Ὁ οἶκος",
+        after: "ἐστιν.",
+        options: ["χαλεπός", "μικρός", "ἄοκνος"],
+        correct: 1,
+        translation: "Дом маленький."
+      },
+      {
+        before: "Ὁ ἥλιος τὸν δοῦλον",
+        after: "",
+        options: ["σκάπτει.", "οὐ φιλεῖ.", "μάλα κατατρίβει."],
+        correct: 2,
+        translation: "Солнце сильно изнуряет раба."
+      },
+      {
+        before: "Ὁ ἄνθρωπος",
+        after: "πρὸς τὸν ἀγρόν.",
+        options: ["βαδίζει", "φιλεῖ", "καταδύνει"],
+        correct: 0,
+        translation: "Человек идёт к полю."
+      },
+      {
+        before: "",
+        after: "ὁ ἥλιος καταδύνει.",
+        options: ["Πολλάκις", "Ἀεί", "Μάλα"],
+        correct: 1,
+        translation: "Солнце всегда заходит."
+      },
+      {
+        before: "Ὁ αὐτουργὸς οἰκεῖ",
+        after: "",
+        options: ["ἐν τῷ βίῳ.", "ἐν τῷ κλήρῳ.", "ἐν τῷ χρόνῳ."],
+        correct: 1,
+        translation: "Земледелец живёт на своём участке."
+      },
+      {
+        before: "Ὁ ἀγρὸς παρέχει",
+        after: "",
+        options: ["τὸν ἥλιον.", "τὸν ἄνθρωπον.", "τὸν σῖτον."],
+        correct: 2,
+        translation: "Поле даёт зерно."
+      },
+      {
+        before: "Ὁ αὐτουργὸς σκάπτει",
+        after: "",
+        options: ["τὸν ἀγρόν.", "τὸν πόνον.", "τὸν οἶκον."],
+        correct: 0,
+        translation: "Земледелец вскапывает поле."
+      },
+      {
+        before: "Ὁ αὐτουργὸς φέρει τὸν λίθον",
+        after: "",
+        options: ["πρὸς τὸν σῖτον.", "πρὸς τὸν βίον.", "πρὸς τὸ ἕρμα."],
+        correct: 2,
+        translation: "Земледелец несёт камень к каменной груде."
+      }
+    ];
+
+    function build() {
+      const container = document.getElementById("exercise");
+
+      items.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+
+        const options = item.options.map((opt, j) => `
+          <label class="option" id="o${i}_${j}">
+            <input type="radio" name="q${i}" value="${j}">
+            ${opt}
+          </label>
+        `).join("");
+
+        div.innerHTML = `
+          <div class="sentence">
+            <strong>${i + 1}.</strong>
+            ${item.before}
+            <span style="color:#777;">[выберите вариант]</span>
+            ${item.after}
+          </div>
+
+          <div class="options">${options}</div>
+
+          <textarea id="tr${i}" placeholder="Перевод на русский"></textarea>
+          <br>
+          <button type="button" onclick="toggleModel(${i}, event)">Показать образец перевода</button>
+          <div class="model" id="m${i}">${item.translation}</div>
+        `;
+
+        container.appendChild(div);
+      });
+    }
+
+    function checkItem(i) {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+
+      itemLabels(i).forEach(label => {
+        label.classList.remove("correct", "incorrect");
+      });
+
+      if (!selected) return;
+
+      const chosen = Number(selected.value);
+      const label = document.getElementById(`o${i}_${chosen}`);
+
+      if (chosen === items[i].correct) {
+        label.classList.add("correct");
+      } else {
+        label.classList.add("incorrect");
+      }
+    }
+
+    function itemLabels(i) {
+      return Array.from(document.querySelectorAll(`label[id^="o${i}_"]`));
+    }
+
+    function updateResult() {
+      let correct = 0;
+
+      items.forEach((item, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected && Number(selected.value) === item.correct) correct++;
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === items.length) {
+        result.textContent = "Все варианты выбраны правильно! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else {
+        result.textContent = `${correct} из ${items.length} вариантов выбраны правильно.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function toggleModel(i, event) {
+      const box = document.getElementById(`m${i}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть образец перевода" : "Показать образец перевода";
+    }
+
+    window.onload = () => {
+      build();
+
+      items.forEach((item, i) => {
+        document.querySelectorAll(`input[name="q${i}"]`).forEach(radio => {
+          radio.addEventListener("change", () => {
+            checkItem(i);
+            updateResult();
+          });
+        });
+      });
+
+      updateResult();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.5</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .item {
+      margin: 18px 0 24px 0;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .greek-line {
+      font-size: 19px;
+      line-height: 2.1;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"] {
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      padding: 5px 7px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .article { width: 70px; }
+    .ending { width: 62px; }
+
+    textarea {
+      width: 100%;
+      min-height: 58px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 8px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 6px 9px;
+      margin-top: 7px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model {
+      display: none;
+      margin-top: 8px;
+      padding: 9px 11px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .model.visible { display: block; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.5</h1>
+  <h2>Дополните предложения артиклями и окончаниями, затем переведите</h2>
+
+  <div class="instructions">
+    Впишите только недостающие артикли или окончания. Обратите внимание на ударения,
+    особенно перед энклитикой <span lang="el">ἐστι(ν)</span>.
+  </div>
+
+  <div id="exercise"></div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    Зелёный — точный ответ; жёлтый — правильные буквы, но ошибка в диакритике или регистре.
+    Перевод проверяется по образцу, поскольку возможны разные хорошие русские формулировки.
+  </div>
+
+  <script>
+    const items = [
+      {
+        html: `<input class="article" id="g1_1"> ἄνθρωπ-<input class="ending" id="g1_2"> ἄοκν-<input class="ending" id="g1_3"> ἐστιν.`,
+        answers: [["ὁ"], ["ος"], ["ος"]],
+        translation: "Человек трудолюбив (не ленив)."
+      },
+      {
+        html: `<input class="article" id="g2_1"> αὐτουργ-<input class="ending" id="g2_2"> αἴρ-<input class="ending" id="g2_3"> μέγαν λίθ-<input class="ending" id="g2_4">.`,
+        answers: [["ὁ"], ["ὸς", "ος"], ["ει"], ["ον"]],
+        translation: "Земледелец поднимает большой камень."
+      },
+      {
+        html: `Ἱκαν-<input class="ending" id="g3_1"> ἐστιν <input class="article" id="g3_2"> σῖτ-<input class="ending" id="g3_3">.`,
+        answers: [["ός", "ος"], ["ὁ"], ["ος"]],
+        translation: "Зерна достаточно."
+      },
+      {
+        html: `<input class="article" id="g4_1"> ἥλι-<input class="ending" id="g4_2"> μάλα φλέγ-<input class="ending" id="g4_3"> καὶ κατατρίβ-<input class="ending" id="g4_4"> <input class="article" id="g4_5"> αὐτουργ-<input class="ending" id="g4_6">.`,
+        answers: [["ὁ"], ["ος"], ["ει"], ["ει"], ["τὸν", "τον"], ["όν", "ον"]],
+        translation: "Солнце сильно палит и изнуряет земледельца."
+      },
+      {
+        html: `<input class="article" id="g5_1"> αὐτουργ-<input class="ending" id="g5_2"> <input class="article" id="g5_3"> ἀγρ-<input class="ending" id="g5_4"> φιλ-<input class="ending" id="g5_5">.`,
+        answers: [["ὁ"], ["ὸς", "ος"], ["τὸν", "τον"], ["ὸν", "ον"], ["εῖ", "ει"]],
+        translation: "Земледелец любит поле."
+      },
+      {
+        html: `Χαλεπ-<input class="ending" id="g6_1"> ἐστιν <input class="article" id="g6_2"> πόν-<input class="ending" id="g6_3"> καὶ μακρ-<input class="ending" id="g6_4">.`,
+        answers: [["ός", "ος"], ["ὁ"], ["ος"], ["ός", "ος"]],
+        translation: "Труд тяжёл и долог."
+      },
+      {
+        html: `<input class="article" id="g7_1"> Δικαιόπολις φέρ-<input class="ending" id="g7_2"> <input class="article" id="g7_3"> λίθ-<input class="ending" id="g7_4"> πρὸς τὸ ἕρμα.`,
+        answers: [["ὁ"], ["ει"], ["τὸν", "τον"], ["ον"]],
+        translation: "Дикеополь несёт камень к каменной груде."
+      },
+      {
+        html: `<input class="article" id="g8_1"> Δικαιόπολις πρὸς <input class="article" id="g8_2"> ἀγρ-<input class="ending" id="g8_3"> βαδίζ-<input class="ending" id="g8_4">.`,
+        answers: [["ὁ"], ["τὸν", "τον"], ["ὸν", "ον"], ["ει"]],
+        translation: "Дикеополь идёт к полю."
+      },
+      {
+        html: `Ἰσχυρ-<input class="ending" id="g9_1"> ἐστιν <input class="article" id="g9_2"> ἄνθρωπ-<input class="ending" id="g9_3">, καὶ καλ-<input class="ending" id="g9_4"> καὶ ἄοκν-<input class="ending" id="g9_5">.`,
+        answers: [["ός", "ος"], ["ὁ"], ["ος"], ["ὸς", "ος"], ["ος"]],
+        translation: "Человек силён, красив и трудолюбив."
+      }
+    ];
+
+    const strip = (s) =>
+      s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    function build() {
+      const container = document.getElementById("exercise");
+
+      items.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="greek-line"><strong>${i + 1}.</strong> ${item.html}</div>
+          <textarea id="tr${i}" placeholder="Перевод на русский"></textarea>
+          <br>
+          <button type="button" onclick="toggleModel(${i}, event)">Показать образец перевода</button>
+          <div class="model" id="m${i}">${item.translation}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function setStatus(el, status) {
+      el.classList.remove("correct", "almost-correct", "incorrect");
+      if (status) el.classList.add(status);
+    }
+
+    function checkInput(el, accepted) {
+      const user = el.value.trim();
+
+      if (!user) {
+        setStatus(el, "");
+        return;
+      }
+
+      if (accepted.includes(user)) {
+        setStatus(el, "correct");
+        return;
+      }
+
+      const plain = strip(user);
+      const near = accepted.some(ans => strip(ans) === plain);
+      setStatus(el, near ? "almost-correct" : "incorrect");
+    }
+
+    function updateResult() {
+      let correct = 0;
+      let almost = 0;
+      let total = 0;
+
+      items.forEach((item, i) => {
+        item.answers.forEach((accepted, j) => {
+          total++;
+          const el = document.getElementById(`g${i + 1}_${j + 1}`);
+          if (el.classList.contains("correct")) correct++;
+          else if (el.classList.contains("almost-correct")) almost++;
+        });
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === total) {
+        result.textContent = "Все грамматические пропуски заполнены правильно!";
+        result.style.backgroundColor = "lightgreen";
+      } else if (almost > 0) {
+        result.textContent = `${correct} из ${total} ответов правильны, ${almost} почти правильны.`;
+        result.style.backgroundColor = "";
+      } else {
+        result.textContent = `${correct} из ${total} ответов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function toggleModel(i, event) {
+      const box = document.getElementById(`m${i}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть образец перевода" : "Показать образец перевода";
+    }
+
+    window.onload = () => {
+      build();
+
+      items.forEach((item, i) => {
+        item.answers.forEach((accepted, j) => {
+          const el = document.getElementById(`g${i + 1}_${j + 1}`);
+          el.addEventListener("input", () => {
+            checkInput(el, accepted);
+            updateResult();
+          });
+        });
+      });
+
+      updateResult();
+    };
+  </script>
+</body>
+</html>

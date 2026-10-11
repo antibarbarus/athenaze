@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.15</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1050px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .rule {
+      padding: 10px 12px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      margin: 14px 0 22px 0;
+    }
+
+    .item {
+      margin: 18px 0 26px 0;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .sentence {
+      font-size: 19px;
+      line-height: 2;
+      margin-bottom: 8px;
+    }
+
+    select {
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      padding: 5px 7px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      transition: background-color 0.3s;
+      min-width: 86px;
+    }
+
+    .correct { background-color: lightgreen !important; }
+    .incorrect { background-color: lightcoral !important; }
+
+    textarea {
+      width: 100%;
+      min-height: 58px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 8px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 6px 9px;
+      margin-top: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model {
+      display: none;
+      margin-top: 8px;
+      padding: 9px 11px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .model.visible { display: block; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.15</h1>
+  <h2>Вставьте οὐ, οὐκ или οὐχ, затем переведите предложения</h2>
+
+  <div class="instructions">
+    Выберите правильную форму отрицания перед следующим словом, затем переведите предложение на русский язык.
+  </div>
+
+  <div class="rule">
+    <strong>Подсказка:</strong>
+    οὐ употребляется перед согласной,
+    οὐκ — перед гласной с тонким придыханием,
+    οὐχ — перед гласной с густым придыханием.
+  </div>
+
+  <div id="exercise"></div>
+
+  <p class="result" id="result"></p>
+
+  <script>
+    const items = [
+      {
+        parts: ["Ὁ ἥλιος", "καταδύνει, ἀλλὰ μάλα φλέγει."],
+        answer: "οὐ",
+        translation: "Солнце не заходит, но сильно палит."
+      },
+      {
+        parts: ["Ὁ Δικαιόπολις", "ἡσυχάζει ὑπὸ τῷ δένδρῳ, ἀλλὰ πονεῖ."],
+        answer: "οὐχ",
+        translation: "Дикеополь не отдыхает под деревом, а работает."
+      },
+      {
+        parts: ["Ὁ Δικαιόπολις", "οἰκεῖ ἐν ταῖς Ἀθήναις."],
+        answer: "οὐκ",
+        translation: "Дикеополь не живёт в Афинах."
+      },
+      {
+        parts: ["Ὁ Δικαιόπολις", "χαίρει, ἀλλὰ στενάζει."],
+        answer: "οὐ",
+        translation: "Дикеополь не радуется, а жалуется."
+      },
+      {
+        parts: ["Ὁ γὰρ σῖτος", "ἱκανός ἐστιν."],
+        answer: "οὐχ",
+        translation: "Ведь зерна недостаточно."
+      }
+    ];
+
+    function build() {
+      const container = document.getElementById("exercise");
+
+      items.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="sentence">
+            <strong>${i + 1}.</strong>
+            ${item.parts[0]}
+            <select id="s${i}">
+              <option value="">—</option>
+              <option value="οὐ">οὐ</option>
+              <option value="οὐκ">οὐκ</option>
+              <option value="οὐχ">οὐχ</option>
+            </select>
+            ${item.parts[1]}
+          </div>
+
+          <textarea id="tr${i}" placeholder="Перевод на русский"></textarea>
+          <br>
+          <button type="button" onclick="toggleModel(${i}, event)">Показать образец перевода</button>
+          <div class="model" id="m${i}">${item.translation}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function checkOne(i) {
+      const el = document.getElementById(`s${i}`);
+      el.classList.remove("correct", "incorrect");
+
+      if (!el.value) return;
+
+      el.classList.add(el.value === items[i].answer ? "correct" : "incorrect");
+    }
+
+    function updateResult() {
+      let correct = 0;
+
+      items.forEach((item, i) => {
+        if (document.getElementById(`s${i}`).value === item.answer) correct++;
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === items.length) {
+        result.textContent = "Все формы отрицания выбраны правильно! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else {
+        result.textContent = `${correct} из ${items.length} ответов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function toggleModel(i, event) {
+      const box = document.getElementById(`m${i}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть образец перевода" : "Показать образец перевода";
+    }
+
+    window.onload = () => {
+      build();
+
+      items.forEach((_, i) => {
+        document.getElementById(`s${i}`).addEventListener("change", () => {
+          checkOne(i);
+          updateResult();
+        });
+      });
+
+      updateResult();
+    };
+  </script>
+</body>
+</html>

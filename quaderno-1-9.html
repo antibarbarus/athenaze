@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.9</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 900px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .syllables {
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fafafa;
+      margin: 18px 0 24px 0;
+      font-size: 20px;
+      line-height: 2;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 3px 8px;
+      margin: 3px 5px 3px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+    }
+
+    .answers {
+      max-width: 520px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 45px 1fr;
+      gap: 12px;
+      align-items: center;
+      margin: 11px 0;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      font-family: 'Fira Mono', monospace;
+      font-size: 19px;
+      padding: 7px 9px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .solution {
+      display: none;
+      margin-top: 18px;
+      padding: 10px 12px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+      font-size: 18px;
+    }
+
+    .solution.visible { display: block; }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 7px 10px;
+      margin-top: 10px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.9</h1>
+  <h2>Составьте из слогов шесть существительных</h2>
+
+  <div class="instructions">
+    Соедините слоги так, чтобы получились шесть греческих существительных.
+    Слова можно вводить в любом порядке.
+  </div>
+
+  <div class="syllables">
+    <span class="chip">νος</span>
+    <span class="chip">χρό</span>
+    <span class="chip">οἶ</span>
+    <span class="chip">γρός</span>
+    <span class="chip">λί</span>
+    <span class="chip">νος</span>
+    <span class="chip">σῖ</span>
+    <span class="chip">πό</span>
+    <span class="chip">κος</span>
+    <span class="chip">θος</span>
+    <span class="chip">ἀ</span>
+    <span class="chip">τος</span>
+  </div>
+
+  <div class="answers">
+    <div class="row"><strong>1.</strong><input type="text" id="q1" spellcheck="false"></div>
+    <div class="row"><strong>2.</strong><input type="text" id="q2" spellcheck="false"></div>
+    <div class="row"><strong>3.</strong><input type="text" id="q3" spellcheck="false"></div>
+    <div class="row"><strong>4.</strong><input type="text" id="q4" spellcheck="false"></div>
+    <div class="row"><strong>5.</strong><input type="text" id="q5" spellcheck="false"></div>
+    <div class="row"><strong>6.</strong><input type="text" id="q6" spellcheck="false"></div>
+  </div>
+
+  <button type="button" onclick="toggleSolution(event)">Показать решение</button>
+
+  <div class="solution" id="solution">
+    χρόνος, οἶκος, λίθος, σῖτος, πόνος, ἀγρός
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    Каждое из шести слов нужно использовать один раз. Жёлтый цвет означает,
+    что слово совпадает по буквам, но есть ошибка в диакритике или регистре.
+  </div>
+
+  <script>
+    const answers = ["χρόνος", "οἶκος", "λίθος", "σῖτος", "πόνος", "ἀγρός"];
+
+    const removeDiacritics = (str) =>
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    function normalize(str) {
+      return str.trim().toLowerCase();
+    }
+
+    function setStatus(el, status) {
+      el.classList.remove("correct", "almost-correct", "incorrect");
+      if (status) el.classList.add(status);
+    }
+
+    function update() {
+      const usedExact = new Set();
+      const usedNear = new Set();
+      let correct = 0;
+      let almost = 0;
+
+      for (let i = 1; i <= 6; i++) {
+        const el = document.getElementById(`q${i}`);
+        const user = normalize(el.value);
+
+        if (!user) {
+          setStatus(el, "");
+          continue;
+        }
+
+        let idx = answers.findIndex((ans, j) =>
+          !usedExact.has(j) && normalize(ans) === user
+        );
+
+        if (idx !== -1) {
+          usedExact.add(idx);
+          setStatus(el, "correct");
+          correct++;
+          continue;
+        }
+
+        const plain = removeDiacritics(user);
+        idx = answers.findIndex((ans, j) =>
+          !usedExact.has(j) &&
+          !usedNear.has(j) &&
+          removeDiacritics(normalize(ans)) === plain
+        );
+
+        if (idx !== -1) {
+          usedNear.add(idx);
+          setStatus(el, "almost-correct");
+          almost++;
+        } else {
+          setStatus(el, "incorrect");
+        }
+      }
+
+      const result = document.getElementById("result");
+
+      if (correct === 6) {
+        result.textContent = "Все шесть существительных составлены правильно!";
+        result.style.backgroundColor = "lightgreen";
+      } else if (almost > 0) {
+        result.textContent = `${correct} из 6 слов правильны, ${almost} почти правильны.`;
+        result.style.backgroundColor = "";
+      } else {
+        result.textContent = `${correct} из 6 слов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function toggleSolution(event) {
+      const box = document.getElementById("solution");
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent = visible ? "Скрыть решение" : "Показать решение";
+    }
+
+    window.onload = () => {
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`q${i}`).addEventListener("input", update);
+      }
+      update();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.12</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+    h3 { margin-top: 28px; font-size: 18px; }
+
+    .instructions {
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .word-bank {
+      padding: 10px 12px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      margin: 14px 0 22px 0;
+      font-size: 18px;
+    }
+
+    .passage {
+      font-size: 19px;
+      line-height: 2.2;
+      margin-bottom: 24px;
+    }
+
+    select {
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      padding: 4px 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white;
+      transition: background-color 0.3s;
+      min-width: 145px;
+    }
+
+    .correct { background-color: lightgreen !important; }
+    .incorrect { background-color: lightcoral !important; }
+
+    .question {
+      margin: 18px 0 24px 0;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .question-text {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 78px;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      line-height: 1.5;
+      padding: 9px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 7px 10px;
+      margin-top: 8px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+      font-size: 17px;
+    }
+
+    .model.visible { display: block; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.12</h1>
+  <h2>Вставьте подходящие слова в текст, затем ответьте на вопросы по-гречески</h2>
+
+  <div class="instructions">
+    Сначала дополните текст словами из списка. Затем ответьте на вопросы полными предложениями.
+  </div>
+
+  <div class="word-bank">
+    <strong>Слова:</strong>
+    ἐπαίρει, καθίζει, κατατρίβει, πονεῖ, φέρει, φλέγει
+  </div>
+
+  <div class="passage">
+    Ὁ Δικαιόπολις οὐκέτι
+    <select id="s1">
+      <option value="">—</option>
+      <option>ἐπαίρει</option>
+      <option>καθίζει</option>
+      <option>κατατρίβει</option>
+      <option>πονεῖ</option>
+      <option>φέρει</option>
+      <option>φλέγει</option>
+    </select>,
+    ἀλλὰ
+    <select id="s2">
+      <option value="">—</option>
+      <option>ἐπαίρει</option>
+      <option>καθίζει</option>
+      <option>κατατρίβει</option>
+      <option>πονεῖ</option>
+      <option>φέρει</option>
+      <option>φλέγει</option>
+    </select>
+    ὑπὸ τῷ δένδρῳ πολὺν χρόνον.
+    Ὁ γὰρ ἥλιος μάλα
+    <select id="s3">
+      <option value="">—</option>
+      <option>ἐπαίρει</option>
+      <option>καθίζει</option>
+      <option>κατατρίβει</option>
+      <option>πονεῖ</option>
+      <option>φέρει</option>
+      <option>φλέγει</option>
+    </select>,
+    καὶ
+    <select id="s4">
+      <option value="">—</option>
+      <option>ἐπαίρει</option>
+      <option>καθίζει</option>
+      <option>κατατρίβει</option>
+      <option>πονεῖ</option>
+      <option>φέρει</option>
+      <option>φλέγει</option>
+    </select>
+    αὐτόν.
+    Ἔπειτα δὲ
+    <select id="s5">
+      <option value="">—</option>
+      <option>ἐπαίρει</option>
+      <option>καθίζει</option>
+      <option>κατατρίβει</option>
+      <option>πονεῖ</option>
+      <option>φέρει</option>
+      <option>φλέγει</option>
+    </select>
+    ἑαυτόν, καὶ
+    <select id="s6">
+      <option value="">—</option>
+      <option>ἐπαίρει</option>
+      <option>καθίζει</option>
+      <option>κατατρίβει</option>
+      <option>πονεῖ</option>
+      <option>φέρει</option>
+      <option>φλέγει</option>
+    </select>
+    τὸν λίθον ἐκ τοῦ ἀγροῦ.
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <h3>Ответьте по-гречески полными предложениями</h3>
+
+  <div class="question">
+    <div class="question-text"><strong>1.</strong> Что делает Дикеополь?</div>
+    <textarea id="q1" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(1, event)">Показать образец ответа</button>
+    <div class="model" id="m1">
+      Ὁ Δικαιόπολις οὐκέτι πονεῖ, ἀλλὰ καθίζει ὑπὸ τῷ δένδρῳ πολὺν χρόνον.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text"><strong>2.</strong> Почему?</div>
+    <textarea id="q2" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(2, event)">Показать образец ответа</button>
+    <div class="model" id="m2">
+      Ὁ γὰρ ἥλιος μάλα φλέγει καὶ κατατρίβει αὐτόν.
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      <strong>3.</strong> Что он делает затем? И что он выносит с поля?
+    </div>
+    <textarea id="q3" spellcheck="false"></textarea>
+    <br>
+    <button type="button" onclick="toggleModel(3, event)">Показать образец ответа</button>
+    <div class="model" id="m3">
+      Ἔπειτα δὲ ἐπαίρει ἑαυτὸν καὶ φέρει τὸν λίθον ἐκ τοῦ ἀγροῦ.
+    </div>
+  </div>
+
+  <div class="note">
+    В ответах на вопросы возможны и другие правильные формулировки, если они соответствуют тексту главы.
+  </div>
+
+  <script>
+    const answers = ["πονεῖ", "καθίζει", "φλέγει", "κατατρίβει", "ἐπαίρει", "φέρει"];
+
+    function checkSelect(i) {
+      const el = document.getElementById(`s${i + 1}`);
+      el.classList.remove("correct", "incorrect");
+
+      if (!el.value) return;
+
+      el.classList.add(el.value === answers[i] ? "correct" : "incorrect");
+    }
+
+    function updateResult() {
+      let correct = 0;
+
+      answers.forEach((answer, i) => {
+        const el = document.getElementById(`s${i + 1}`);
+        if (el.value === answer) correct++;
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === answers.length) {
+        result.textContent = "Все слова вставлены правильно! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else {
+        result.textContent = `${correct} из ${answers.length} слов вставлены правильно.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function toggleModel(n, event) {
+      const box = document.getElementById(`m${n}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть образец ответа" : "Показать образец ответа";
+    }
+
+    window.onload = () => {
+      answers.forEach((_, i) => {
+        document.getElementById(`s${i + 1}`).addEventListener("change", () => {
+          checkSelect(i);
+          updateResult();
+        });
+      });
+
+      updateResult();
+    };
+  </script>
+</body>
+</html>

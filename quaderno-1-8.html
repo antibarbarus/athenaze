@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.8</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 14px;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 9px 10px;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f6f6f6;
+      text-align: left;
+    }
+
+    th:nth-child(1), td:nth-child(1) { width: 30%; }
+    th:nth-child(2), td:nth-child(2) { width: 25%; }
+    th:nth-child(3), td:nth-child(3) { width: 45%; }
+
+    .greek {
+      font-size: 19px;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      padding: 7px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+      background: white;
+    }
+
+    .correct { background-color: lightgreen !important; }
+    .incorrect { background-color: lightcoral !important; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .table-wrap { overflow-x: auto; }
+      table { min-width: 760px; }
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.8</h1>
+  <h2>Определите, какие слова являются существительными, а какие — прилагательными; затем переведите их</h2>
+
+  <div class="instructions">
+    Для каждого слова выберите часть речи и впишите перевод на русский язык.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Слово</th>
+          <th>Часть речи</th>
+          <th>Перевод</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <p class="result" id="result"></p>
+
+  <div class="note">
+    Для перевода принимаются несколько близких русских вариантов.
+  </div>
+
+  <script>
+    const data = [
+      { word: "σῖτος", pos: "noun", tr: ["зерно", "хлеб", "пшеница"] },
+      { word: "χαλεπός", pos: "adjective", tr: ["тяжёлый", "тяжелый", "трудный"] },
+      { word: "μικρός", pos: "adjective", tr: ["маленький", "малый", "небольшой"] },
+      { word: "ἥλιος", pos: "noun", tr: ["солнце"] },
+      { word: "βίος", pos: "noun", tr: ["жизнь"] },
+      { word: "καλός", pos: "adjective", tr: ["красивый", "прекрасный", "хороший"] },
+      { word: "ἀγρός", pos: "noun", tr: ["поле"] },
+      { word: "ἀπέραντος", pos: "adjective", tr: ["бесконечный", "нескончаемый", "без конца"] },
+
+      { word: "ἄοκνος", pos: "adjective", tr: ["трудолюбивый", "неутомимый", "усердный"] },
+      { word: "ἰσχυρός", pos: "adjective", tr: ["сильный", "крепкий"] },
+      { word: "κλῆρος", pos: "noun", tr: ["участок", "надел", "земельный участок"] },
+      { word: "μακρός", pos: "adjective", tr: ["длинный", "долгий"] },
+      { word: "αὐτουργός", pos: "noun", tr: ["земледелец", "крестьянин", "фермер"] },
+      { word: "ἄνθρωπος", pos: "noun", tr: ["человек"] },
+      { word: "μέγας", pos: "adjective", tr: ["большой", "великий"] }
+    ];
+
+    const norm = s => s.trim().toLowerCase().replace(/\s+/g, " ");
+
+    function build() {
+      const tbody = document.getElementById("tbody");
+
+      data.forEach((item, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="greek">${item.word}</td>
+          <td>
+            <select id="p${i}">
+              <option value="">— выберите —</option>
+              <option value="noun">существительное</option>
+              <option value="adjective">прилагательное</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" id="t${i}" spellcheck="false" placeholder="перевод">
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function checkPos(i) {
+      const el = document.getElementById(`p${i}`);
+      el.classList.remove("correct", "incorrect");
+
+      if (!el.value) return;
+
+      el.classList.add(el.value === data[i].pos ? "correct" : "incorrect");
+    }
+
+    function checkTranslation(i) {
+      const el = document.getElementById(`t${i}`);
+      const user = norm(el.value);
+
+      el.classList.remove("correct", "incorrect");
+
+      if (!user) return;
+
+      const ok = data[i].tr.some(x => norm(x) === user);
+      el.classList.add(ok ? "correct" : "incorrect");
+    }
+
+    function updateResult() {
+      let correct = 0;
+      const total = data.length * 2;
+
+      data.forEach((_, i) => {
+        if (document.getElementById(`p${i}`).classList.contains("correct")) correct++;
+        if (document.getElementById(`t${i}`).classList.contains("correct")) correct++;
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === total) {
+        result.textContent = "Все ответы правильные! Отличная работа!";
+        result.style.backgroundColor = "lightgreen";
+      } else {
+        result.textContent = `${correct} из ${total} ответов правильны.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    window.onload = () => {
+      build();
+
+      data.forEach((_, i) => {
+        document.getElementById(`p${i}`).addEventListener("change", () => {
+          checkPos(i);
+          updateResult();
+        });
+
+        document.getElementById(`t${i}`).addEventListener("input", () => {
+          checkTranslation(i);
+          updateResult();
+        });
+      });
+
+      updateResult();
+    };
+  </script>
+</body>
+</html>

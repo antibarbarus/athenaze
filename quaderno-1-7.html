@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quaderno 1.7</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+
+    .instructions {
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .note {
+      padding: 10px 12px;
+      background: #f5f5f5;
+      border-left: 4px solid #aaa;
+      margin: 14px 0 22px 0;
+    }
+
+    .item {
+      margin: 18px 0 24px 0;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    .greek-line {
+      font-size: 19px;
+      line-height: 2.1;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"] {
+      font-family: 'Fira Mono', monospace;
+      font-size: 17px;
+      padding: 5px 7px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .short { width: 120px; }
+    .medium { width: 150px; }
+
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 6px 9px;
+      margin-top: 7px;
+      margin-right: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eeeeee; }
+
+    .model {
+      display: none;
+      margin-top: 8px;
+      padding: 9px 11px;
+      background: #f4f4f4;
+      border-left: 4px solid #aaa;
+      border-radius: 3px;
+    }
+
+    .model.visible { display: block; }
+
+    .result {
+      font-weight: bold;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Quaderno 1.7</h1>
+  <h2>Дополните предложения словами из изученной лексики</h2>
+
+  <div class="instructions">
+    В каждом предложении возможны разные ответы. Выбирайте слова так, чтобы они подходили
+    по смыслу, грамматической форме и ударению.
+  </div>
+
+  <div class="note">
+    Автоматическая проверка здесь принимает несколько естественных вариантов,
+    но не исчерпывает всех возможных правильных ответов. Если ваша фраза осмысленна
+    и грамматически верна, она может быть правильной даже при красной подсветке.
+  </div>
+
+  <div id="exercise"></div>
+
+  <p class="result" id="result"></p>
+
+  <script>
+    const items = [
+      {
+        html: `Ὁ <input class="short" id="g1_1"> φλέγει τὸν <input class="medium" id="g1_2">.`,
+        answers: [
+          ["ἥλιος"],
+          ["αὐτουργόν", "δοῦλον", "ἄνθρωπον"]
+        ],
+        model: "Ὁ ἥλιος φλέγει τὸν αὐτουργόν."
+      },
+      {
+        html: `Ὁ <input class="medium" id="g2_1"> τὸν <input class="medium" id="g2_2"> σκάπτει.`,
+        answers: [
+          ["αὐτουργός", "Δικαιόπολις"],
+          ["ἀγρόν", "κλῆρον"]
+        ],
+        model: "Ὁ αὐτουργὸς τὸν ἀγρὸν σκάπτει."
+      },
+      {
+        html: `Ὁ <input class="short" id="g3_1"> φέρει τὸν <input class="medium" id="g3_2"> πρὸς τὸν <input class="medium" id="g3_3">.`,
+        answers: [
+          ["δοῦλος", "ἄνθρωπος"],
+          ["λίθον", "σῖτον"],
+          ["οἶκον", "ἀγρόν", "κλῆρον"]
+        ],
+        model: "Ὁ δοῦλος φέρει τὸν λίθον πρὸς τὸν οἶκον."
+      },
+      {
+        html: `<input class="short" id="g4_1"> ἐστιν ὁ πόνος καὶ <input class="short" id="g4_2">.`,
+        answers: [
+          ["χαλεπός", "μακρός", "ἀπέραντος"],
+          ["μακρός", "χαλεπός", "ἀπέραντος"]
+        ],
+        model: "Χαλεπός ἐστιν ὁ πόνος καὶ μακρός."
+      },
+      {
+        html: `Οὐ πολύς ἐστιν ὁ <input class="short" id="g5_1">, ἀλλὰ <input class="short" id="g5_2">.`,
+        answers: [
+          ["σῖτος"],
+          ["ἱκανός"]
+        ],
+        model: "Οὐ πολύς ἐστιν ὁ σῖτος, ἀλλὰ ἱκανός."
+      },
+      {
+        html: `Μικρός ἐστιν ὁ <input class="short" id="g6_1">, ἀλλὰ <input class="short" id="g6_2">.`,
+        answers: [
+          ["κλῆρος", "οἶκος", "ἀγρός"],
+          ["καλός"]
+        ],
+        model: "Μικρός ἐστιν ὁ κλῆρος, ἀλλὰ καλός."
+      }
+    ];
+
+    const strip = (s) =>
+      s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    function build() {
+      const container = document.getElementById("exercise");
+
+      items.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="greek-line"><strong>${i + 1}.</strong> ${item.html}</div>
+          <button type="button" onclick="toggleModel(${i}, event)">Показать один возможный вариант</button>
+          <div class="model" id="m${i}">${item.model}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function setStatus(el, status) {
+      el.classList.remove("correct", "almost-correct", "incorrect");
+      if (status) el.classList.add(status);
+    }
+
+    function checkInput(el, accepted) {
+      const user = el.value.trim();
+
+      if (!user) {
+        setStatus(el, "");
+        return;
+      }
+
+      if (accepted.includes(user)) {
+        setStatus(el, "correct");
+        return;
+      }
+
+      const plain = strip(user);
+      const near = accepted.some(ans => strip(ans) === plain);
+      setStatus(el, near ? "almost-correct" : "incorrect");
+    }
+
+    function updateResult() {
+      let correct = 0;
+      let almost = 0;
+      let total = 0;
+
+      items.forEach((item, i) => {
+        item.answers.forEach((accepted, j) => {
+          total++;
+          const el = document.getElementById(`g${i + 1}_${j + 1}`);
+          if (el.classList.contains("correct")) correct++;
+          else if (el.classList.contains("almost-correct")) almost++;
+        });
+      });
+
+      const result = document.getElementById("result");
+
+      if (correct === total) {
+        result.textContent = "Все введённые варианты входят в набор принятых ответов!";
+        result.style.backgroundColor = "lightgreen";
+      } else if (almost > 0) {
+        result.textContent = `${correct} из ${total} ответов приняты точно, ${almost} почти правильны.`;
+        result.style.backgroundColor = "";
+      } else {
+        result.textContent = `${correct} из ${total} ответов совпадают с предложенными вариантами.`;
+        result.style.backgroundColor = "";
+      }
+    }
+
+    function toggleModel(i, event) {
+      const box = document.getElementById(`m${i}`);
+      const visible = box.classList.toggle("visible");
+      event.currentTarget.textContent =
+        visible ? "Скрыть вариант" : "Показать один возможный вариант";
+    }
+
+    window.onload = () => {
+      build();
+
+      items.forEach((item, i) => {
+        item.answers.forEach((accepted, j) => {
+          const el = document.getElementById(`g${i + 1}_${j + 1}`);
+          el.addEventListener("input", () => {
+            checkInput(el, accepted);
+            updateResult();
+          });
+        });
+      });
+
+      updateResult();
+    };
+  </script>
+</body>
+</html>
