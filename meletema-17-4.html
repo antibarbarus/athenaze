@@ -94,7 +94,18 @@
     <p class="result" id="result"></p>
 
     <script>
-        const answers = ["καθήμενοι", "γαστέρα", "πότερον", "ἤ", "οἶδα", "τήμερον", "οὔριος", "τυγχάνει", "πρότερον", "προήρεσαν"];
+        const answers = [
+            ["καθήμενοι"],
+            ["γαστέρα"],
+            ["πότερον"],
+            ["ἢ"],
+            ["οἶδα"],
+            ["τήμερον"],
+            ["οὔριος"],
+            ["τυγχάνει", "ἔτυχε"],
+            ["πρότερον"],
+            ["προήρεσαν", "προήρεσσον"]
+        ];
         
         // Функция для удаления диакритики
         const removeDiacritics = (str) => {
@@ -114,30 +125,29 @@
         };
 
         // Функция для проверки одного ответа
+        const exactMatch = (userAnswer, acceptedAnswers) =>
+            acceptedAnswers.some(answer => userAnswer === answer);
+
+        const nearMatch = (userAnswer, acceptedAnswers) => {
+            const normalizedUser = removeDiacritics(userAnswer.toLowerCase());
+            return acceptedAnswers.some(answer =>
+                normalizedUser === removeDiacritics(answer.toLowerCase())
+            );
+        };
+
         const checkSingleAnswer = (index) => {
             const inputElement = document.getElementById(`gap${index + 1}`);
             const userAnswer = inputElement.value.trim();
-            const correctAnswer = answers[index];
-            
+            const acceptedAnswers = answers[index];
+
             if (userAnswer === '') {
                 setStyles(inputElement, '');
+            } else if (exactMatch(userAnswer, acceptedAnswers)) {
+                setStyles(inputElement, 'correct');
+            } else if (nearMatch(userAnswer, acceptedAnswers)) {
+                setStyles(inputElement, 'almost-correct');
             } else {
-                // Приводим к нижнему регистру для сравнения
-                const normalizedUserAnswer = userAnswer.toLowerCase();
-                const normalizedCorrectAnswer = correctAnswer.toLowerCase();
-                
-                // Точное совпадение (с учетом регистра)
-                if (userAnswer === correctAnswer) {
-                    setStyles(inputElement, 'correct');
-                } 
-                // Совпадение без учета диакритики и регистра
-                else if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
-                    setStyles(inputElement, 'almost-correct');
-                } 
-                // Неправильный ответ
-                else {
-                    setStyles(inputElement, 'incorrect');
-                }
+                setStyles(inputElement, 'incorrect');
             }
         };
 
@@ -145,24 +155,18 @@
         const updateResults = () => {
             let correct = 0;
             let almostCorrect = 0;
-            
-            answers.forEach((answer, i) => {
+
+            answers.forEach((acceptedAnswers, i) => {
                 const inputElement = document.getElementById(`gap${i + 1}`);
                 const userAnswer = inputElement.value.trim();
-                
-                if (userAnswer === answer) {
+
+                if (exactMatch(userAnswer, acceptedAnswers)) {
                     correct++;
-                } else if (userAnswer !== '') {
-                    // Приводим к нижнему регистру для сравнения
-                    const normalizedUserAnswer = userAnswer.toLowerCase();
-                    const normalizedCorrectAnswer = answer.toLowerCase();
-                    
-                    if (removeDiacritics(normalizedUserAnswer) === removeDiacritics(normalizedCorrectAnswer)) {
-                        almostCorrect++;
-                    }
+                } else if (userAnswer !== '' && nearMatch(userAnswer, acceptedAnswers)) {
+                    almostCorrect++;
                 }
             });
-            
+
             const resultElement = document.getElementById('result');
             if (correct === answers.length) {
                 resultElement.textContent = 'Все ответы правильные! Отличная работа!';
