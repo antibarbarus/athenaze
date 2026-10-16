@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μελέτημα 3.4</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+  <style>
+    body {
+      margin: 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 1100px;
+    }
+    a { color: inherit; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 0; font-size: 20px; font-weight: normal; }
+    .instructions { margin-bottom: 22px; font-style: italic; }
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+    .column h3 { margin-top: 0; font-size: 18px; }
+    .item {
+      font-size: 20px;
+      line-height: 2.15;
+      white-space: nowrap;
+    }
+    input[type="text"] {
+      font-family: 'Fira Mono', monospace;
+      font-size: 19px;
+      padding: 3px 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      text-align: center;
+      box-sizing: border-box;
+      transition: background-color .25s;
+      width: 66px;
+      vertical-align: middle;
+    }
+    input.article { width: 78px; }
+    .correct { background-color: lightgreen; }
+    .almost-correct { background-color: gold; }
+    .incorrect { background-color: lightcoral; }
+    .result {
+      margin-top: 22px;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    button {
+      font-family: 'Fira Mono', monospace;
+      font-size: 14px;
+      padding: 7px 10px;
+      margin-top: 10px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+    button:hover { background: #eee; }
+    .note { color: #555; font-size: 14px; margin-top: 12px; }
+    @media (max-width: 800px) {
+      .columns { grid-template-columns: 1fr; }
+      .item { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+
+  <p><a href="meletemata.html">&lt; назад</a></p>
+
+  <h1>Μελέτημα 3.4</h1>
+  <h2>Дополните выражения</h2>
+
+  <div class="instructions">
+    Добавьте недостающие окончания или артикли.
+    Обратите внимание: все выражения слева стоят в единственном числе,
+    а выражения справа — во множественном.
+  </div>
+
+  <div class="columns">
+
+    <div class="column">
+      <h3>Единственное число</h3>
+      <div class="item">1. τοῦ ἀνοήτου δούλ<input id="q1" type="text" spellcheck="false"></div>
+      <div class="item">2. τῷ καλ<input id="q2" type="text" spellcheck="false"> δένδρ<input id="q3" type="text" spellcheck="false"></div>
+      <div class="item">3. τὸ καλ<input id="q4" type="text" spellcheck="false"> δένδρ<input id="q5" type="text" spellcheck="false"></div>
+      <div class="item">4. ὦ ἀνόητ<input id="q6" type="text" spellcheck="false"> δούλ<input id="q7" type="text" spellcheck="false"></div>
+      <div class="item">5. τῷ ἀνοήτ<input id="q8" type="text" spellcheck="false"> δούλ<input id="q9" type="text" spellcheck="false"></div>
+      <div class="item">6. <input class="article" id="q10" type="text" spellcheck="false"> ἀνόητος δούλ<input id="q11" type="text" spellcheck="false"></div>
+      <div class="item">7. <input class="article" id="q12" type="text" spellcheck="false"> καλοῦ δένδρ<input id="q13" type="text" spellcheck="false"></div>
+      <div class="item">8. <input class="article" id="q14" type="text" spellcheck="false"> ἀνόητ<input id="q15" type="text" spellcheck="false"> δοῦλον</div>
+      <div class="item">9. ὦ καλ<input id="q16" type="text" spellcheck="false"> δένδρ<input id="q17" type="text" spellcheck="false"></div>
+    </div>
+
+    <div class="column">
+      <h3>Множественное число</h3>
+      <div class="item">1. τῶν ἀνοήτ<input id="q18" type="text" spellcheck="false"> δούλ<input id="q19" type="text" spellcheck="false"></div>
+      <div class="item">2. <input class="article" id="q20" type="text" spellcheck="false"> καλ<input id="q21" type="text" spellcheck="false"> δένδροις</div>
+      <div class="item">3. <input class="article" id="q22" type="text" spellcheck="false"> καλ<input id="q23" type="text" spellcheck="false"> δένδρα</div>
+      <div class="item">4. ὦ ἀνόητοι δούλ<input id="q24" type="text" spellcheck="false"></div>
+      <div class="item">5. τοῖς ἀνοήτ<input id="q25" type="text" spellcheck="false"> δούλ<input id="q26" type="text" spellcheck="false"></div>
+      <div class="item">6. <input class="article" id="q27" type="text" spellcheck="false"> ἀνόητ<input id="q28" type="text" spellcheck="false"> δοῦλοι</div>
+      <div class="item">7. <input class="article" id="q29" type="text" spellcheck="false"> καλ<input id="q30" type="text" spellcheck="false"> δένδρων</div>
+      <div class="item">8. τοὺς ἀνοήτ<input id="q31" type="text" spellcheck="false"> δούλ<input id="q32" type="text" spellcheck="false"></div>
+      <div class="item">9. ὦ καλ<input id="q33" type="text" spellcheck="false"> δένδρ<input id="q34" type="text" spellcheck="false"></div>
+    </div>
+
+  </div>
+
+  <p class="result" id="result"></p>
+  <button type="button" onclick="clearAll()">Очистить</button>
+
+  <div class="note">
+    Вписывайте только недостающую часть слова или артикль.
+    Жёлтый цвет означает ошибку только в диакритике или регистре.
+  </div>
+
+<script>
+const answers = [
+  ["ου"],
+  ["ῷ"], ["ῳ"],
+  ["ὸν"], ["ον"],
+  ["ε"], ["ε"],
+  ["ῳ"], ["ῳ"],
+  ["ὁ"], ["ος"],
+  ["τοῦ"], ["ου"],
+  ["τὸν"], ["ον"],
+  ["ὸν"], ["ον"],
+  ["ων"], ["ων"],
+  ["τοῖς"], ["οῖς"],
+  ["τὰ"], ["ὰ"],
+  ["οι"],
+  ["οις"], ["οις"],
+  ["οἱ"], ["οι"],
+  ["τῶν"], ["ῶν"],
+  ["ους"], ["ους"],
+  ["ὰ"], ["α"]
+];
+
+function norm(s) {
+  return s.trim().replace(/\s+/g, " ");
+}
+
+function strip(s) {
+  return norm(s)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function setStatus(el, status) {
+  el.classList.remove("correct", "almost-correct", "incorrect");
+  if (status) el.classList.add(status);
+}
+
+function checkOne(i) {
+  const el = document.getElementById(`q${i + 1}`);
+  const user = norm(el.value);
+  const accepted = answers[i].map(norm);
+
+  if (!user) {
+    setStatus(el, "");
+    return;
+  }
+
+  if (accepted.includes(user)) {
+    setStatus(el, "correct");
+    return;
+  }
+
+  setStatus(
+    el,
+    accepted.some(a => strip(a) === strip(user))
+      ? "almost-correct"
+      : "incorrect"
+  );
+}
+
+function updateResult() {
+  let correct = 0;
+  let almost = 0;
+
+  answers.forEach((_, i) => {
+    const el = document.getElementById(`q${i + 1}`);
+    if (el.classList.contains("correct")) correct++;
+    else if (el.classList.contains("almost-correct")) almost++;
+  });
+
+  const result = document.getElementById("result");
+
+  if (correct === answers.length) {
+    result.textContent = "Все ответы правильные! Отличная работа!";
+    result.style.backgroundColor = "lightgreen";
+  } else if (almost > 0) {
+    result.textContent = `${correct} из ${answers.length} ответов правильны, ${almost} почти правильны (ошибка в диакритике или регистре).`;
+    result.style.backgroundColor = "";
+  } else {
+    result.textContent = `${correct} из ${answers.length} ответов правильны.`;
+    result.style.backgroundColor = "";
+  }
+}
+
+function clearAll() {
+  answers.forEach((_, i) => {
+    const el = document.getElementById(`q${i + 1}`);
+    el.value = "";
+    setStatus(el, "");
+  });
+  updateResult();
+}
+
+window.onload = () => {
+  answers.forEach((_, i) => {
+    document.getElementById(`q${i + 1}`).addEventListener("input", () => {
+      checkOne(i);
+      updateResult();
+    });
+  });
+  updateResult();
+};
+</script>
+
+</body>
+</html>
