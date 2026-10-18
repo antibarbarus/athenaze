@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno 2.1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1050px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.7}
+a{color:inherit}h1{margin-bottom:8px}h2{font-size:20px;font-weight:normal;margin-top:0}
+.instructions{font-style:italic;margin:0 0 24px}
+.item{padding:0 0 18px;margin:0 0 20px;border-bottom:1px solid #e4e4e4}
+.greek{font-size:19px;line-height:2.25}
+input.greek-input{font-family:inherit;font-size:19px;line-height:1.4;padding:5px 9px;margin:0 4px;width:130px;box-sizing:border-box;vertical-align:middle;border:1px solid #ccc;border-radius:4px;background:#fff}
+input.greek-input.correct{background:lightgreen}input.greek-input.almost-correct{background:gold}input.greek-input.incorrect{background:lightcoral}
+textarea{font-family:inherit;font-size:16px;line-height:1.5;width:100%;box-sizing:border-box;resize:vertical;min-height:62px;padding:8px 10px;border:1px solid #ccc;border-radius:4px}
+button{font-family:inherit;font-size:14px;background:#f7f7f7;border:1px solid #bbb;border-radius:4px;padding:7px 10px;margin:7px 8px 0 0;cursor:pointer}button:hover{background:#eee}
+.model{display:none;margin-top:10px;padding:10px 12px;background:#f4f4f4;border-left:4px solid #aaa;border-radius:3px}
+.model.visible{display:block}
+.result{margin:20px 0;padding:10px;font-weight:bold;border-radius:5px}
+.note{font-size:14px;color:#555;margin-top:12px}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Quaderno 2.1</h1>
+<h2>Впишите нужную форму глагола εἰμί и переведите предложения</h2>
+<div class="instructions">Вставьте в каждое предложение нужную форму: <strong>εἰμί, εἶ, ἐστι(ν), ἴσθι</strong>. Учитывайте правила акцентуации энклитик и употребления приставного ν. Затем переведите предложение на русский язык.</div>
+<div class="note" style="margin-bottom:18px">Энклитическое <strong>ἐστι(ν)</strong> пишется без собственного ударения после слова с конечным острым ударением: <strong>χαλεπός ἐστιν</strong>. Сравните: <strong>οἶκός ἐστιν</strong>, <strong>βίος ἐστίν</strong>, <strong>ἄνθρωπός ἐστιν</strong>, <strong>ὅ τε</strong>. Перед гласной или знаком препинания приставное <strong>ν</strong> обязательно. В этом упражнении иное написание ν не принимается.</div>
+<div id="exercise"></div>
+<p class="result" id="result"></p>
+<div><button type="button" id="showAll">Показать все переводы</button><button type="button" id="hideAll">Скрыть все переводы</button><button type="button" id="reset">Очистить</button></div>
+<div class="note">Введённая форма проверяется сразу. Жёлтый цвет обозначает ошибку только в диакритике или регистре; отсутствие обязательного ν считается неправильной формой. Перевод сравните самостоятельно с образцом.</div>
+<script>
+const items=[
+ {before:'Ὁ δεσπότης χαλεπός',after:'.',answer:'ἐστιν',translation:'Хозяин суров.'},
+ {before:'Σύ, ὦ δοῦλε, ἀργὸς',after:'.',answer:'εἶ',translation:'Ты, раб, ленив.'},
+ {before:'Ἐγώ',after:'ἄνθρωπος ἰσχυρός.',answer:'εἰμι',translation:'Я сильный человек.'},
+ {before:'Ὁ θεὸς ἵλεώς',after:'.',answer:'ἐστιν',translation:'Бог милостив (благосклонен).'},
+ {before:'Ἐγώ',after:'ἀργός, ὦ δέσποτα.',answer:'εἰμι',translation:'Я ленив, господин.'},
+ {before:'Σὺ',after:'κατάρατος, ὦ δοῦλε.',answer:'εἶ',translation:'Ты проклят, раб.'},
+ {before:'Μὴ οὕτω χαλεπὸς',after:', ὦ δέσποτα.',answer:'ἴσθι',translation:'Не будь таким суровым, господин.'},
+ {before:'Διὰ τί οὕτω χαλεπός',after:'ὁ βίος;',answer:'ἐστιν',translation:'Почему жизнь так тяжела?'},
+ {before:'Ἄοκνος',after:', ὦ δοῦλε, καὶ πόνει.',answer:'ἴσθι',translation:'Будь усерден, раб, и трудись.'},
+ {before:'Ἐγὼ μέν',after:'ἄοκνος, σὺ δὲ συλλάμβανε.',answer:'εἰμι',translation:'Я-то трудолюбив, а ты помогай.'}
+];
+
+const container=document.getElementById('exercise');
+items.forEach((item,i)=>{
+ const section=document.createElement('section');section.className='item';
+
+ section.innerHTML=`<div class="greek"><strong>${i+1}.</strong> ${item.before} <input class="greek-input" id="s${i}" type="text" autocomplete="off" spellcheck="false" aria-label="Форма εἰμί в предложении ${i+1}"> ${item.after}</div><textarea id="t${i}" spellcheck="false" placeholder="Перевод на русский"></textarea><div><button type="button" id="b${i}">Показать образец перевода</button></div><div class="model" id="m${i}">${item.translation}</div>`;
+ container.appendChild(section);
+ document.getElementById(`s${i}`).addEventListener('input',update);
+ document.getElementById(`b${i}`).addEventListener('click',()=>toggle(i));
+});
+function toggle(i,show){let model=document.getElementById(`m${i}`);let visible=typeof show==='boolean'?show:!model.classList.contains('visible');model.classList.toggle('visible',visible);document.getElementById(`b${i}`).textContent=visible?'Скрыть образец перевода':'Показать образец перевода'}
+function strip(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+function accepted(item){return [item.answer]}
+function update(){
+ let correct=0,almost=0;
+ items.forEach((item,i)=>{
+  const el=document.getElementById(`s${i}`);
+  const val=el.value.trim().normalize('NFC');
+  el.classList.remove('correct','almost-correct','incorrect');
+  if(!val)return;
+  const forms=accepted(item);
+  if(forms.includes(val)){correct++;el.classList.add('correct')}
+  else if(forms.some(x=>strip(x)===strip(val))){almost++;el.classList.add('almost-correct')}
+  else el.classList.add('incorrect');
+ });
+ const result=document.getElementById('result');
+ result.textContent=correct===items.length?'Все формы написаны правильно! Отличная работа!':almost?`${correct} из ${items.length} форм написаны правильно, ${almost} почти правильно (диакритика или регистр).`:`${correct} из ${items.length} форм написаны правильно.`;
+ result.style.backgroundColor=correct===items.length?'lightgreen':'';
+}
+document.getElementById('showAll').onclick=()=>items.forEach((_,i)=>toggle(i,true));
+document.getElementById('hideAll').onclick=()=>items.forEach((_,i)=>toggle(i,false));
+document.getElementById('reset').onclick=()=>{items.forEach((_,i)=>{document.getElementById(`s${i}`).value='';document.getElementById(`t${i}`).value='';toggle(i,false)});update()};
+update();
+</script>
+</body>
+</html>
