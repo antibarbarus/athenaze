@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno 2.2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1050px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.7}
+a{color:inherit}h1{margin-bottom:8px}h2{font-size:20px;font-weight:normal;margin-top:0}
+.instructions{font-style:italic;margin:0 0 24px}
+.item{padding:0 0 18px;margin:0 0 20px;border-bottom:1px solid #e4e4e4}
+.greek{font-size:19px;line-height:2.35}
+.greek-input{font-family:inherit;font-size:19px;line-height:1.35;padding:5px 9px;margin:0 3px;width:174px;box-sizing:border-box;vertical-align:middle;border:1px solid #ccc;border-radius:4px;background:#fff}
+.greek-input.wide{width:205px}
+.greek-input.correct{background:lightgreen}.greek-input.almost-correct{background:gold}.greek-input.incorrect{background:lightcoral}
+.lemma{font-size:13px;color:#606060;white-space:nowrap;margin-right:4px}
+textarea{font-family:inherit;font-size:16px;line-height:1.5;width:100%;box-sizing:border-box;resize:vertical;min-height:62px;padding:8px 10px;border:1px solid #ccc;border-radius:4px}
+button{font-family:inherit;font-size:14px;background:#f7f7f7;border:1px solid #bbb;border-radius:4px;padding:7px 10px;margin:7px 8px 0 0;cursor:pointer}button:hover{background:#eee}
+.model{display:none;margin-top:10px;padding:10px 12px;background:#f4f4f4;border-left:4px solid #aaa;border-radius:3px}.model.visible{display:block}
+.result{margin:20px 0;padding:10px;font-weight:bold;border-radius:5px}
+.note{font-size:14px;color:#555;margin-top:12px}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Quaderno 2.2</h1>
+<h2>Поставьте слова в нужную форму и переведите предложения</h2>
+<div class="instructions">Впишите слова в скобках в форме, необходимой по смыслу предложения. Учитывайте падежи, лицо, число, наклонение и ударения. Затем переведите предложения на русский язык.</div>
+<div id="exercise"></div>
+<p class="result" id="result"></p>
+<div><button type="button" id="showAll">Показать все переводы</button><button type="button" id="hideAll">Скрыть все переводы</button><button type="button" id="reset">Очистить</button></div>
+<div class="note">Проверка выполняется сразу: зелёный — точная форма, жёлтый — совпадение по буквам с ошибкой в диакритике или регистре, красный — неверная форма. Русские переводы проверяются самостоятельно по образцу.</div>
+<script>
+const items = [{"parts": "Ὁ δοῦλος μένει ἐν {0}.", "answers": ["τῷ ἀγρῷ"], "lemmas": ["ὁ ἀγρός"], "translation": "Раб остаётся в поле."}, {"parts": "Ὁ Ξανθίας φέρει τὸ ἄροτρον πρὸς {0}.", "answers": ["τὸν ἀγρόν"], "lemmas": ["ὁ ἀγρός"], "translation": "Ксанфий несёт плуг в поле (к полю)."}, {"parts": "Ὁ Δικαιόπολις ἡσυχάζει ὑπὸ {0}.", "answers": ["τῷ δένδρῳ"], "lemmas": ["τὸ δένδρον"], "translation": "Дикеополь отдыхает под деревом."}, {"parts": "Ἐγὼ μὲν {0}, σὺ δέ, ὦ {1}, {2}.", "answers": ["πονῶ", "ἀργὲ δοῦλε", "συλλάμβανε"], "lemmas": ["πονέω", "ἀργὸς δοῦλος", "συλλαμβάνω"], "translation": "Я работаю, а ты, ленивый раб, помогай."}, {"parts": "Διὰ τί οὐ {0}, ὦ Ξανθία;", "answers": ["σπεύδεις"], "lemmas": ["σπεύδω"], "translation": "Почему ты не торопишься, Ксанфий?"}, {"parts": "{0} τὸν λίθον, ὦ δοῦλε, καὶ {1} αὐτὸν ἐκ {2}.", "answers": ["Αἶρε", "φέρε", "τοῦ ἀγροῦ"], "lemmas": ["αἴρω", "φέρω", "ὁ ἀγρός"], "translation": "Подними камень, раб, и вынеси его с поля."}, {"parts": "Μὴ βραδέως {0}, ὦ δοῦλε, ἀλλὰ {1}.", "answers": ["βαῖνε", "σπεῦδε"], "lemmas": ["βαίνω", "σπεύδω"], "translation": "Не иди медленно, раб, а поспеши."}, {"parts": "Οὐ βραδέως {0}, ὦ δέσποτα, ἀλλ᾽ {1}.", "answers": ["βαδίζω", "ἀκολουθῶ"], "lemmas": ["βαδίζω", "ἀκολουθέω"], "translation": "Я не медленно иду, господин, а следую за тобой."}];
+const container=document.getElementById('exercise');
+let total=0;
+items.forEach((item,i)=>{
+ let markup=item.parts.replace(/\{(\d+)\}/g,(_,k)=>{
+  const j=Number(k),id=`s${i}_${j}`;
+  total++;
+  return `<input class="greek-input${item.answers[j].length>12?' wide':''}" id="${id}" type="text" autocomplete="off" spellcheck="false" aria-label="Пропуск ${j+1} в предложении ${i+1}"><span class="lemma">(${item.lemmas[j]})</span>`;
+ });
+ const section=document.createElement('section');section.className='item';
+ section.innerHTML=`<div class="greek"><strong>${i+1}.</strong> ${markup}</div><textarea id="t${i}" spellcheck="false" placeholder="Перевод на русский"></textarea><div><button type="button" id="b${i}">Показать образец перевода</button></div><div class="model" id="m${i}">${item.translation}</div>`;
+ container.appendChild(section);
+ item.answers.forEach((_,j)=>document.getElementById(`s${i}_${j}`).addEventListener('input',update));
+ document.getElementById(`b${i}`).addEventListener('click',()=>toggle(i));
+});
+function toggle(i,show){const m=document.getElementById(`m${i}`);const state=typeof show==='boolean'?show:!m.classList.contains('visible');m.classList.toggle('visible',state);document.getElementById(`b${i}`).textContent=state?'Скрыть образец перевода':'Показать образец перевода'}
+function strip(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+function update(){
+ let correct=0,almost=0;
+ items.forEach((item,i)=>item.answers.forEach((expected,j)=>{
+  const el=document.getElementById(`s${i}_${j}`),val=el.value.trim().normalize('NFC');
+  el.classList.remove('correct','almost-correct','incorrect');
+  if(!val)return;
+  if(val===expected){el.classList.add('correct');correct++}
+  else if(strip(val)===strip(expected)){el.classList.add('almost-correct');almost++}
+  else el.classList.add('incorrect');
+ }));
+ const r=document.getElementById('result');
+ r.textContent=correct===total?'Все ответы правильные! Отличная работа!':almost?`${correct} из ${total} ответов правильны, ${almost} почти правильны (диакритика или регистр).`:`${correct} из ${total} ответов правильны.`;
+ r.style.backgroundColor=correct===total?'lightgreen':'';
+}
+document.getElementById('showAll').onclick=()=>items.forEach((_,i)=>toggle(i,true));
+document.getElementById('hideAll').onclick=()=>items.forEach((_,i)=>toggle(i,false));
+document.getElementById('reset').onclick=()=>{items.forEach((item,i)=>{item.answers.forEach((_,j)=>{document.getElementById(`s${i}_${j}`).value=''});document.getElementById(`t${i}`).value='';toggle(i,false)});update()};
+update();
+</script>
+</body>
+</html>
