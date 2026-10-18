@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno 2.4 — Athenaze</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+<style>
+body{margin:20px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.7;max-width:1100px}
+a{color:inherit}h1{margin-bottom:5px}h2{font-size:19px;font-weight:normal;margin:0 0 14px}
+.instructions{font-style:italic;margin:0 0 20px}.greek{font-size:19px;line-height:1.9;margin:16px 0 20px}
+textarea{box-sizing:border-box;width:100%;min-height:280px;resize:vertical;border:1px solid #bbb;border-radius:4px;padding:12px;font:19px/1.9 'Fira Mono',monospace;background:#fff}
+button{font:15px 'Fira Mono',monospace;border:1px solid #aaa;border-radius:4px;background:#f6f6f6;padding:9px 13px;cursor:pointer;margin:12px 8px 0 0}
+button:hover{background:#eaeaea}.reference{border:1px solid #ddd;border-radius:4px;padding:10px 16px;margin:18px 0;background:#fafafa}.reference[hidden]{display:none}
+.reference h3{font-size:17px;margin:4px 0}.hint{font-size:14px;color:#555;margin-top:12px}.reference p{font-size:19px;line-height:1.9;margin:10px 0} .label{font-weight:bold}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Quaderno 2.4</h1>
+<h2>Перепишите текст, изменив формы глаголов</h2>
+<p class="instructions">Перепишите следующий отрывок, поставив глаголы (где это необходимо) в 3-е лицо единственного числа. При необходимости добавьте к глаголам подлежащее, которое можно определить из содержания рассказа.</p>
+<p class="label">Исходный текст</p>
+<div class="greek" lang="grc">Ἀεὶ τῷ δούλῳ λέγω· «Συλλάμβανε, ὦ ἀργὲ δοῦλε», ὁ δὲ δοῦλος καθίζει ὑπὸ τῷ ἐν τῷ ἀγρῷ δένδρῳ καὶ ἡσυχάζει. Οὕτως οὖν ῥάβδον λαμβάνω καὶ βαδίζω πρὸς τὸ δένδρον καὶ τὸν δοῦλον τύπτω. Δι᾽ ὀλίγου δὲ ὁ δοῦλος ἐπαίρει ἑαυτὸν καὶ πονεῖ. «Διὰ τί οὐ πονεῖς, ὦ ἀργὲ δοῦλε», λέγω, «εἰ μὴ τύπτω σε;» Ὁ δὲ δοῦλος· «Ἐγώ, ὦ δέσποτα, οὐκ εἰμὶ ἀργός, ἀλλ᾽ ὁ ἥλιος ἤδη μάλα φλέγει καὶ κατατρίβει με». Ἔπειτα δὲ ἐκβαίνω ἐκ τοῦ ἀγροῦ καὶ βαδίζω πρὸς τὸν οἶκον· ὁ μὲν δοῦλος ἀκολουθεῖ.</div>
+<label class="label" for="answer">Ваш вариант</label>
+<textarea id="answer" lang="grc" spellcheck="false" placeholder="Напишите здесь преобразованный текст…"></textarea>
+<div><button type="button" id="show">Показать образец ответа</button><button type="button" id="clear">Очистить поле</button></div>
+<div id="reference" class="reference" hidden>
+<h3>Возможный вариант</h3>
+<p lang="grc">Ἀεὶ τῷ δούλῳ ὁ Δικαιόπολις λέγει· «Συλλάμβανε, ὦ ἀργὲ δοῦλε», ὁ δὲ δοῦλος καθίζει ὑπὸ τῷ ἐν τῷ ἀγρῷ δένδρῳ καὶ ἡσυχάζει. Οὕτως οὖν ὁ Δικαιόπολις ῥάβδον λαμβάνει καὶ βαδίζει πρὸς τὸ δένδρον καὶ τὸν δοῦλον τύπτει. Δι᾽ ὀλίγου δὲ ὁ δοῦλος ἐπαίρει ἑαυτὸν καὶ πονεῖ. «Διὰ τί οὐ πονεῖς, ὦ ἀργὲ δοῦλε», λέγει ὁ Δικαιόπολις, «εἰ μὴ τύπτω σε;» Ὁ δὲ δοῦλος· «Ἐγώ, ὦ δέσποτα, οὐκ εἰμὶ ἀργός, ἀλλ᾽ ὁ ἥλιος ἤδη μάλα φλέγει καὶ κατατρίβει με». Ἔπειτα δὲ ὁ Δικαιόπολις ἐκβαίνει ἐκ τοῦ ἀγροῦ καὶ βαδίζει πρὸς τὸν οἶκον· ὁ μὲν δοῦλος ἀκολουθεῖ.</p>
+<p class="hint">В повествовании формы 1-го лица заменяются формами 3-го лица: λέγω → λέγει, λαμβάνω → λαμβάνει, βαδίζω → βαδίζει, τύπτω → τύπτει, ἐκβαίνω → ἐκβαίνει. В прямой речи лица глаголов не меняются: персонажи продолжают говорить от своего имени. Подлежащее ὁ Δικαιόπολις можно повторять не каждый раз, если оно понятно из контекста.</p>
+</div>
+<p class="hint">У этого упражнения нет единственного буквального ответа, поэтому вместо автоматической проверки предусмотрено сравнение с образцом.</p>
+<script>
+const btn=document.getElementById('show');const ref=document.getElementById('reference');
+btn.addEventListener('click',()=>{ref.hidden=!ref.hidden;btn.textContent=ref.hidden?'Показать образец ответа':'Скрыть образец ответа'});
+document.getElementById('clear').addEventListener('click',()=>{document.getElementById('answer').value='';document.getElementById('answer').focus()});
+</script>
+</body></html>
