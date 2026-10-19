@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno 2.7 — Ударения</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.6;max-width:940px}
+a{color:inherit}h1{margin-bottom:8px}h2{font-size:20px;font-weight:normal;margin-top:0}
+.instructions{font-style:italic;margin:12px 0 24px}.item{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:12px 0}
+.number{width:23px;color:#555}.source{min-width:190px;font-size:20px}
+input{font:19px 'Fira Mono',monospace;padding:7px 9px;max-width:85%;width:245px;border:1px solid #bbb;border-radius:4px;transition:background-color .2s}
+.correct{background:lightgreen}.almost-correct{background:gold}.incorrect{background:lightcoral}
+.result{font-weight:bold;margin:24px 0 14px;padding:10px;border-radius:4px}.footer{margin-top:30px;font-size:14px;color:#555}
+small{color:#555}
+@media(max-width:520px){.source{min-width:120px}.item{gap:8px}input{width:200px}}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Quaderno 2.7</h1>
+<h2>Исправьте ударения</h2>
+<p class="instructions">В следующих словах ударения расставлены неправильно, поскольку нарушают одно из правил акцентуации. Перепишите каждое слово с правильным ударением.</p>
+<div id="exercise">
+<div class="item"><span class="number">1.</span><span class="source">βράδεως</span><input type="text" aria-label="Ответ 1" autocomplete="off" spellcheck="false"></div>
+<div class="item"><span class="number">2.</span><span class="source">κώνος <small>(конус)</small></span><input type="text" aria-label="Ответ 2" autocomplete="off" spellcheck="false"></div>
+<div class="item"><span class="number">3.</span><span class="source">κῶνωψ <small>(комар)</small></span><input type="text" aria-label="Ответ 3" autocomplete="off" spellcheck="false"></div>
+<div class="item"><span class="number">4.</span><span class="source">χρὸνος</span><input type="text" aria-label="Ответ 4" autocomplete="off" spellcheck="false"></div>
+<div class="item"><span class="number">5.</span><span class="source">καθεῦδω</span><input type="text" aria-label="Ответ 5" autocomplete="off" spellcheck="false"></div>
+<div class="item"><span class="number">6.</span><span class="source">κᾶθευδε</span><input type="text" aria-label="Ответ 6" autocomplete="off" spellcheck="false"></div>
+<div class="item"><span class="number">7.</span><span class="source">συλλάμβανω</span><input type="text" aria-label="Ответ 7" autocomplete="off" spellcheck="false"></div>
+</div>
+<p class="result" id="result" aria-live="polite"></p>
+<p><small>Зелёный — точное совпадение; жёлтый — буквы верны, но ударение или придыхание отличаются; красный — ошибка в форме.</small></p>
+<p class="footer">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html" target="_blank" rel="noopener noreferrer">Основные законы ударения (§ 5) и ударение в глаголе (§ 6)</a>.</p>
+<script>
+const answers=['βραδέως','κῶνος','κώνωψ','χρόνος','καθεύδω','κάθευδε','συλλαμβάνω'];
+const inputs=Array.from(document.querySelectorAll('#exercise input'));
+const simplify=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function update(){let good=0,near=0;inputs.forEach((inp,i)=>{const s=inp.value.trim().normalize('NFC'),a=answers[i].normalize('NFC');inp.classList.remove('correct','almost-correct','incorrect');if(!s)return;if(s===a){inp.classList.add('correct');good++}else if(simplify(s)===simplify(a)){inp.classList.add('almost-correct');near++}else inp.classList.add('incorrect')});const out=document.getElementById('result');out.textContent=good===answers.length?'Все ответы правильные! Отличная работа!':`${good} из ${answers.length} правильных ответов${near?`, ${near} почти правильных (ошибка в диакритике)`:''}.`;out.style.backgroundColor=good===answers.length?'lightgreen':''}
+inputs.forEach(inp=>inp.addEventListener('input',update));update();
+</script>
+</body></html>
