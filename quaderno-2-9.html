@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quaderno 2.9 — Соедините части предложений</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1100px;font:16px/1.65 'Fira Mono',monospace}
+a{color:inherit}h1{margin-bottom:8px}h2{margin-top:0;font-size:20px;font-weight:normal}
+.instructions{font-style:italic;margin:12px 0 22px}.exercise-row{margin:15px 0;padding:12px 0;border-bottom:1px solid #eee}
+.greek-line{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:19px}
+.num{width:24px;flex-shrink:0;color:#555}.begin{min-width:290px}
+select{font:18px 'Fira Mono',monospace;min-height:43px;padding:7px 9px;border:1px solid #bbb;border-radius:4px;background:white;max-width:100%;flex:1;min-width:245px}
+.correct{background:lightgreen}.incorrect{background:lightcoral}
+.translation{margin:10px 0 2px 36px;display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px}
+textarea{font:15px 'Fira Mono',monospace;border:1px solid #bbb;border-radius:4px;padding:8px;width:410px;max-width:100%;min-height:45px;resize:vertical;box-sizing:border-box}
+button{font:14px 'Fira Mono',monospace;padding:7px 11px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer}button:hover{background:#eee}
+.model{display:none;margin:8px 0 0 36px;color:#333}.model.show{display:block}
+.result{padding:10px;margin:20px 0 8px;font-weight:bold;border-radius:4px}
+.note,.footer{color:#555;font-size:14px;margin-top:18px}
+@media(max-width:730px){.begin{min-width:0;flex-basis:100%}.greek-line{align-items:flex-start}.translation{margin-left:0}.model{margin-left:0}}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Quaderno 2.9</h1>
+<h2>Соедините части предложений</h2>
+<p class="instructions">Подберите к каждому выражению из левой колонки подходящее продолжение из правой колонки, чтобы получилось законченное предложение. Затем переведите предложения на русский язык. Каждое продолжение используется один раз.</p>
+<div id="exercise"></div>
+<p class="result" id="result" aria-live="polite"></p>
+<p class="note">Правильное соответствие выделяется зелёным, неправильное — красным. Переводы проверяйте самостоятельно по образцам.</p>
+<p class="footer">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html" target="_blank" rel="noopener noreferrer">Справочная грамматика древнегреческого языка</a>.</p>
+<script>
+const endings=[
+ 'τοὺς βοῦς.',
+ 'ὦ δέσποτα.',
+ 'μένει ἐν τῷ ἀγρῷ.',
+ 'τύπτει τὸν δοῦλον.',
+ 'πρὸς τὸν ἀγρόν;',
+ 'ὑπὸ τῷ δένδρῳ.',
+ 'εἰς τὸν ἀγρόν.',
+ 'ἐκ τοῦ οἴκου.'
+];
+const exercise=[
+ {start:'Ὁ δοῦλος',correct:2,translation:'Раб остаётся в поле.'},
+ {start:'Ὁ δεσπότης',correct:3,translation:'Хозяин бьёт раба.'},
+ {start:'Ὁ αὐτουργὸς κεντεῖ',correct:0,translation:'Земледелец погоняет быков (уколами стрекала).'},
+ {start:'Ὁ δοῦλος καθεύδει',correct:5,translation:'Раб спит под деревом.'},
+ {start:'Ἵλεως ἴσθι,',correct:1,translation:'Будь милостив, господин!'},
+ {start:'Ὁ Δικαιόπολις ἐκβαίνει',correct:7,translation:'Дикеополь выходит из дома.'},
+ {start:'Διὰ τί οὐ σπεύδεις',correct:4,translation:'Почему ты не спешишь в поле?'},
+ {start:'Ὁ Δικαιόπολις εἰσβαίνει',correct:6,translation:'Дикеополь входит в поле.'}
+];
+const container=document.getElementById('exercise');
+exercise.forEach((x,i)=>{
+ const row=document.createElement('div');row.className='exercise-row';
+ const line=document.createElement('div');line.className='greek-line';
+ const num=document.createElement('span');num.className='num';num.textContent=(i+1)+'.';
+ const start=document.createElement('span');start.className='begin';start.textContent=x.start;
+ const select=document.createElement('select');select.setAttribute('aria-label','Продолжение для предложения '+(i+1));
+ const none=document.createElement('option');none.value='';none.textContent='— Выберите продолжение —';select.append(none);
+ endings.forEach((ending,j)=>{const opt=document.createElement('option');opt.value=String(j);opt.textContent=ending;select.append(opt)});
+ line.append(num,start,select);
+ const tr=document.createElement('div');tr.className='translation';
+ const text=document.createElement('textarea');text.placeholder='Перевод на русский';text.setAttribute('aria-label','Перевод предложения '+(i+1));
+ const button=document.createElement('button');button.type='button';button.textContent='Показать образец перевода';
+ const model=document.createElement('p');model.className='model';model.textContent='Образец: '+x.translation;
+ button.addEventListener('click',()=>{const shown=model.classList.toggle('show');button.textContent=shown?'Скрыть образец':'Показать образец перевода'});
+ select.addEventListener('change',update);tr.append(text,button);row.append(line,tr,model);container.append(row);
+});
+function update(){let good=0;const selected=[...document.querySelectorAll('select')];
+ selected.forEach((s,i)=>{s.classList.remove('correct','incorrect');if(s.value==='')return;
+ const value=Number(s.value),duplicate=selected.some((other,j)=>j!==i&&other.value!==''&&Number(other.value)===value);
+ if(value===exercise[i].correct&&!duplicate){s.classList.add('correct');good++}else{s.classList.add('incorrect')}
+ });
+ const result=document.getElementById('result');result.textContent=good===exercise.length?'Все восемь соответствий определены правильно!':`${good} из ${exercise.length} соответствий верны.`;result.style.backgroundColor=good===exercise.length?'lightgreen':'';
+}
+update();
+</script>
+</body>
+</html>

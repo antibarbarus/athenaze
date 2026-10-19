@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaderno 2.8 — Составьте глаголы из слогов</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:950px;font:16px/1.65 'Fira Mono',monospace}
+a{color:inherit}h1{margin-bottom:8px}h2{margin-top:0;font-size:20px;font-weight:normal}
+.instructions{font-style:italic;margin:12px 0 20px}.syllables{font-size:21px;line-height:2;padding:12px 16px;border:1px solid #ddd;border-radius:4px;margin-bottom:25px}
+.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0}.num{width:26px;color:#555}
+input,textarea{font:19px 'Fira Mono',monospace;border:1px solid #bbb;border-radius:4px;padding:7px 9px;box-sizing:border-box}
+input{width:190px}textarea{font-size:15px;width:330px;max-width:100%;min-height:44px;resize:vertical}
+.correct{background:lightgreen}.almost-correct{background:gold}.incorrect{background:lightcoral}
+.result{padding:10px;margin:20px 0 8px;font-weight:bold;border-radius:4px}
+button{font:14px 'Fira Mono',monospace;padding:7px 11px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer}
+button:hover{background:#eee}.model{display:none;margin:8px 0 0 38px;color:#333}.model.show{display:block}
+.note,.footer{color:#555;font-size:14px;margin-top:18px}
+@media(max-width:620px){.row{align-items:flex-start}.row textarea{flex-basis:100%;margin-left:38px}}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Quaderno 2.8</h1>
+<h2>Составьте глаголы из слогов</h2>
+<p class="instructions">Соедините приведённые ниже слоги так, чтобы получить пять глаголов в форме 1-го лица единственного числа настоящего времени. Один из глаголов должен быть в нестянутой форме. Затем переведите глаголы на русский язык. Каждый слог используется один раз.</p>
+<div class="syllables" aria-label="Предложенные слоги">λαύ, ω, ἕλ, βά, νω, βαί, έ, νω, ποι, νω, ἔ, κω, λαμ.</div>
+<div id="exercise">
+<div class="row"><span class="num">1.</span><input type="text" aria-label="Глагол 1" autocomplete="off" spellcheck="false"><textarea aria-label="Перевод 1" placeholder="Перевод на русский"></textarea><button type="button" class="reveal">Показать образец перевода</button><p class="model" aria-live="polite"></p></div>
+<div class="row"><span class="num">2.</span><input type="text" aria-label="Глагол 2" autocomplete="off" spellcheck="false"><textarea aria-label="Перевод 2" placeholder="Перевод на русский"></textarea><button type="button" class="reveal">Показать образец перевода</button><p class="model" aria-live="polite"></p></div>
+<div class="row"><span class="num">3.</span><input type="text" aria-label="Глагол 3" autocomplete="off" spellcheck="false"><textarea aria-label="Перевод 3" placeholder="Перевод на русский"></textarea><button type="button" class="reveal">Показать образец перевода</button><p class="model" aria-live="polite"></p></div>
+<div class="row"><span class="num">4.</span><input type="text" aria-label="Глагол 4" autocomplete="off" spellcheck="false"><textarea aria-label="Перевод 4" placeholder="Перевод на русский"></textarea><button type="button" class="reveal">Показать образец перевода</button><p class="model" aria-live="polite"></p></div>
+<div class="row"><span class="num">5.</span><input type="text" aria-label="Глагол 5" autocomplete="off" spellcheck="false"><textarea aria-label="Перевод 5" placeholder="Перевод на русский"></textarea><button type="button" class="reveal">Показать образец перевода</button><p class="model" aria-live="polite"></p></div>
+</div>
+<p id="result" class="result" aria-live="polite"></p>
+<p class="note">Зелёный — правильная форма; жёлтый — ошибка только в ударении или придыхании; красный — неправильная форма или повтор уже введённого глагола. Порядок ответов произвольный. Переводы проверяйте по образцам самостоятельно.</p>
+<p class="footer">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html" target="_blank" rel="noopener noreferrer">Справочная грамматика древнегреческого языка</a>.</p>
+<script>
+const lexicon=[
+{form:'ἐλαύνω',translation:'я гоню, веду (например, быков)'},
+{form:'ἕλκω',translation:'я тяну, тащу'},
+{form:'βαίνω',translation:'я иду, шагаю'},
+{form:'λαμβάνω',translation:'я беру, хватаю'},
+{form:'ποιέω',translation:'я делаю, создаю (нестянутая форма; обычно ποιῶ)'}
+];
+const rows=[...document.querySelectorAll('#exercise .row')];
+const bare=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function match(s){return lexicon.find(x=>x.form===s)||lexicon.find(x=>bare(x.form)===bare(s));}
+function update(){
+ let good=0,near=0,used=new Set();
+ rows.forEach(row=>{
+   const inp=row.querySelector('input'),s=inp.value.trim().normalize('NFC');
+   inp.classList.remove('correct','almost-correct','incorrect');
+   if(!s)return;
+   const candidate=match(s);
+   if(!candidate||used.has(candidate.form)){inp.classList.add('incorrect');return;}
+   used.add(candidate.form);
+   if(s===candidate.form){inp.classList.add('correct');good++;}
+   else {inp.classList.add('almost-correct');near++;}
+ });
+ const result=document.getElementById('result');
+ result.textContent=good===5?'Все пять глаголов составлены правильно!':`${good} из 5 правильных ответов${near?`, ${near} почти правильных (ошибка в диакритике)`:''}.`;
+ result.style.backgroundColor=good===5?'lightgreen':'';
+}
+rows.forEach(row=>{
+ const input=row.querySelector('input'),button=row.querySelector('button'),model=row.querySelector('.model');
+ input.addEventListener('input',()=>{model.classList.remove('show');button.textContent='Показать образец перевода';update();});
+ button.addEventListener('click',()=>{
+  if(model.classList.contains('show')){model.classList.remove('show');button.textContent='Показать образец перевода';return;}
+  const entry=match(input.value.trim().normalize('NFC'));
+  model.textContent=entry?`Образец: ${entry.translation}`:'Сначала введите один из пяти глаголов в поле слева.';
+  model.classList.add('show');button.textContent='Скрыть образец';
+ });
+});
+update();
+</script>
+</body>
+</html>

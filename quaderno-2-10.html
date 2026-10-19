@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quaderno 2.10 — Составьте предложения</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1100px;font:16px/1.65 'Fira Mono',monospace}
+a{color:inherit}h1{margin-bottom:8px}h2{margin-top:0;font-size:20px;font-weight:normal}
+.instructions{font-style:italic;margin:12px 0 22px}.exercise-row{margin:19px 0;padding:0 0 19px;border-bottom:1px solid #e4e4e4}
+.words{font-size:19px;margin:0 0 10px}.num{color:#555}.label{display:block;font-size:14px;color:#555;margin:8px 0 3px}
+textarea{font:18px/1.6 'Fira Mono',monospace;border:1px solid #bbb;border-radius:4px;padding:8px;width:100%;max-width:850px;min-height:54px;resize:vertical;box-sizing:border-box}
+textarea.translation{font-size:15px;min-height:43px}
+button{font:14px 'Fira Mono',monospace;padding:7px 11px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer;margin-top:8px}button:hover{background:#eee}
+.model{display:none;margin:10px 0;padding:11px 13px;border-left:3px solid #bbb;background:#f8f8f8;font-size:16px}.model.show{display:block}
+.greek{font-size:19px}.hint{color:#555;font-size:14px}.footer{color:#555;font-size:14px;margin-top:24px}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Quaderno 2.10</h1>
+<h2>Составьте предложения из данных слов</h2>
+<p class="instructions">Используя предложенные слова, составьте осмысленные древнегреческие предложения. Порядок слов в греческом достаточно свободен, поэтому не обязательно сохранять порядок, в котором слова приведены ниже. Иногда возможны несколько правильных решений. Затем переведите предложения на русский язык.</p>
+<p><b>Пример:</b> <span class="greek">φέρω, δοῦλος, λίθος → Ὁ δοῦλος φέρει τὸν λίθον.</span></p>
+<p class="hint">Запишите своё предложение в первое поле, а перевод — во второе. Нажмите «Показать образец», чтобы сравнить свой вариант. Из-за множества допустимых формулировок автоматической проверки здесь нет.</p>
+<div id="exercise"></div>
+<p class="footer">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html" target="_blank" rel="noopener noreferrer">Справочная грамматика древнегреческого языка</a> (порядок слов — § 53; падежи — § 51).</p>
+<script>
+const exercises=[
+ {words:'τύπτω, δοῦλος, δεσπότης.', answer:'Ὁ δεσπότης τύπτει τὸν δοῦλον.', translation:'Хозяин бьёт раба.'},
+ {words:'ἀγρός, αὐτουργός, σκάπτω.', answer:'Ὁ αὐτουργὸς σκάπτει τὸν ἀγρόν.', translation:'Земледелец копает поле.'},
+ {words:'ὦ, ἡσυχάζω, δένδρον, δοῦλος, μή, ὑπό.', answer:'Ὦ δοῦλε, μὴ ἡσύχαζε ὑπὸ τῷ δένδρῳ.', translation:'Раб, не отдыхай под деревом!'},
+ {words:'Δημήτηρ, πληθύνω, σῖτος.', answer:'Ἡ Δημήτηρ πληθύνει τὸν σῖτον.', translation:'Деметра умножает хлеб (урожай зерна).'},
+ {words:'ἐκβαίνω, οἶκος, ἐκ.', answer:'Ἐκβαίνω ἐκ τοῦ οἴκου.', translation:'Я выхожу из дома.'},
+ {words:'ἀγρός, εἰσβαίνω, εἰς.', answer:'Εἰσβαίνω εἰς τὸν ἀγρόν.', translation:'Я вхожу в поле.'},
+ {words:'αὐτουργός, ζυγόν, τοὺς βοῦς, ἄγω, ὑπό.', answer:'Ὁ αὐτουργὸς ἄγει τοὺς βοῦς ὑπὸ τὸ ζυγόν.', translation:'Земледелец подводит быков под ярмо.'},
+ {words:'ὑπό, καθεύδω, Ξανθίας, δένδρον.', answer:'Ὁ Ξανθίας καθεύδει ὑπὸ τῷ δένδρῳ.', translation:'Ксанфий спит под деревом.'},
+ {words:'τοὺς βοῦς, αὐτουργός, εἰ μή, οὐχ, ἄροτρον, κεντέω, ἕλκουσιν (= «тянут»).', answer:'Οἱ βόες οὐχ ἕλκουσιν τὸ ἄροτρον, εἰ μὴ κεντεῖ ὁ αὐτουργός.', translation:'Быки не тянут плуг, если земледелец их не подгоняет.'},
+ {words:'ἀγρός, διὰ τί, ὦ, πρός, δοῦλος, φέρω, ἄροτρον, ἀργός, οὐ.', answer:'Διὰ τί οὐ φέρεις τὸ ἄροτρον πρὸς τὸν ἀγρόν, ὦ ἀργὲ δοῦλε;', translation:'Почему ты не несёшь плуг в поле, ленивый раб?'}
+];
+const root=document.getElementById('exercise');
+exercises.forEach((item,i)=>{
+ const row=document.createElement('section');row.className='exercise-row';
+ const p=document.createElement('p');p.className='words';p.textContent=`${i+1}. ${item.words}`;
+ const l1=document.createElement('label');l1.className='label';l1.textContent='Предложение на древнегреческом';
+ const greek=document.createElement('textarea');greek.spellcheck=false;greek.placeholder='Напишите предложение…';greek.setAttribute('aria-label',`Греческое предложение ${i+1}`);
+ const l2=document.createElement('label');l2.className='label';l2.textContent='Перевод на русский';
+ const translation=document.createElement('textarea');translation.className='translation';translation.placeholder='Ваш перевод…';translation.setAttribute('aria-label',`Перевод ${i+1}`);
+ const button=document.createElement('button');button.type='button';button.textContent='Показать образец';
+ const model=document.createElement('div');model.className='model';
+ const example=document.createElement('div');example.className='greek';example.textContent=item.answer;
+ const gloss=document.createElement('div');gloss.textContent=item.translation;
+ model.append(example,gloss);
+ button.addEventListener('click',()=>{const isShown=model.classList.toggle('show');button.textContent=isShown?'Скрыть образец':'Показать образец';});
+ row.append(p,l1,greek,l2,translation,button,model);root.append(row);
+});
+</script>
+</body>
+</html>
