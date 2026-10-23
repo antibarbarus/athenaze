@@ -86,7 +86,7 @@
   <h2>Дополните выражения, добавив недостающие окончания или артикли</h2>
 
   <div class="instructions">
-    Впишите только недостающую часть слова или артикль.
+    Впишите только недостающую часть слова или артикль. Ударения и подписная йота обязательны: без них ответ не засчитывается.
   </div>
 
   <div class="exercise-grid">
@@ -133,7 +133,7 @@
 
       <p>
         τὸ δένδρ<input type="text" id="gap16">
-        καλ<input type="text" id="gap17"> ἐστίν
+        καλ<input type="text" id="gap17"> ἐστιν
       </p>
 
       <p>
@@ -148,27 +148,28 @@
   <p class="result" id="result"></p>
 
   <script>
+    // В ключах только орфографически полные ответы.
+    // Отсутствие ударения / подписной йоты подсвечивается жёлтым, но не засчитывается.
     const answers = [
       ["ε"],
       ["τοῦ"],
       ["ου"],
-      ["ὸν", "ον"],
+      ["ὸν"],
       ["ον"],
       ["ὁ"],
       ["ος"],
-      ["ῷ", "ω"],
-      ["ῳ", "ω"],
-
-      ["ὸν", "ον"],
+      ["ῷ"],
+      ["ῳ"],
+      ["ὸν"],
       ["ον"],
-      ["ὸν", "ον"],
+      ["ὸν"],
       ["ον"],
-      ["οῦ", "ου"],
+      ["οῦ"],
       ["ου"],
       ["ον"],
-      ["ὸν", "ον"],
+      ["όν"],
       ["τῷ"],
-      ["ῷ", "ω"]
+      ["ῷ"]
     ];
 
     const removeDiacritics = (str) => {
@@ -188,7 +189,7 @@
 
     const checkSingleAnswer = (index) => {
       const input = document.getElementById(`gap${index + 1}`);
-      const user = input.value.trim();
+      const user = input.value.trim().normalize("NFC");
       const accepted = answers[index];
 
       if (user === '') {
@@ -196,7 +197,7 @@
         return;
       }
 
-      if (accepted.includes(user)) {
+      if (accepted.some(ans => ans.normalize("NFC") === user)) {
         setStyles(input, 'correct');
         return;
       }
@@ -215,9 +216,9 @@
 
       answers.forEach((accepted, i) => {
         const input = document.getElementById(`gap${i + 1}`);
-        const user = input.value.trim();
+        const user = input.value.trim().normalize("NFC");
 
-        if (accepted.includes(user)) {
+        if (accepted.some(ans => ans.normalize("NFC") === user)) {
           correct++;
         } else if (user !== '') {
           const normalizedUser = removeDiacritics(user.toLowerCase());
