@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quaderno 3.10</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1100px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.65}a{color:inherit}h1{margin-bottom:5px}h2{font-size:20px;font-weight:normal;margin-top:0}.instructions{font-style:italic;margin:0 0 22px}.item{border-bottom:1px solid #ddd;padding:15px 0}.source{font-size:20px;margin:0 0 9px}.answer{font-family:inherit;font-size:19px;width:min(100%,850px);min-height:47px;box-sizing:border-box;border:1px solid #aaa;border-radius:3px;padding:8px;resize:vertical;line-height:1.5}.correct{background:lightgreen}.almost-correct{background:gold}.incorrect{background:lightcoral}.small{font-size:14px;color:#555}.model{display:none;background:#f3f3f3;border-left:3px solid #aaa;padding:10px;margin-top:8px}.model.visible{display:block}button{font-family:inherit;border:1px solid #bbb;border-radius:4px;padding:7px 10px;margin:8px 0 0;background:#f7f7f7;cursor:pointer}.result{font-weight:bold;margin-top:20px;padding:10px}.footer{margin-top:24px;font-size:14px}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 3.10</h1>
+<h2>Расставьте правильные ударения в предложениях</h2>
+<p class="instructions">Перепишите каждое предложение, расставив острые, тяжёлые и облечённые ударения. Учитывайте правила об энклитиках и о словах без собственного ударения. Придыхания в исходных предложениях уже обозначены.</p>
+<div id="exercise"></div>
+<p class="result" id="result" aria-live="polite"></p>
+<p class="small">Зелёный — точное совпадение; жёлтый — различается только диакритика или регистр (не засчитывается); красный — другие ошибки. Нормализуются лишь пробелы и знак в конце предложения.</p>
+<p class="footer">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s7" target="_blank" rel="noopener">§ 7. Энклитики и проклитики</a>; <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s4" target="_blank" rel="noopener">§ 4. Знаки ударения</a>.</p>
+<script>
+const exercises=[
+{source:'Ὁ σακκος μεγας εστιν.',answer:'Ὁ σάκκος μέγας ἐστίν.',ru:'Мешок большой.',note:'После парокситона μέγας двусложная энклитика ἐστίν получает ударение на последнем слоге.'},
+{source:'Ὁ παις οὐκ εστιν ἀργος ἀλλα ἀοκνος.',answer:'Ὁ παῖς οὐκ ἔστιν ἀργὸς ἀλλὰ ἄοκνος.',ru:'Мальчик не ленив, а прилежен.',note:'После οὐκ употребляется ударная форма ἔστιν. Перед следующим словом ἀργός и ἀλλά получают тяжёлое ударение.'},
+{source:'Οἱ δουλοι ἀνοητοι εἰσιν.',answer:'Οἱ δοῦλοι ἀνόητοί εἰσιν.',ru:'Рабы неразумны.',note:'Перед энклитикой εἰσιν слово ἀνόητοι с ударением на третьем слоге от конца получает дополнительное острое ударение на последнем.'},
+{source:'Οὐ δυνατον εστιν ἀμπελους φυτευειν.',answer:'Οὐ δυνατόν ἐστιν ἀμπέλους φυτεύειν.',ru:'Невозможно сажать виноградные лозы.',note:'Окситон δυνατόν сохраняет острое ударение перед энклитикой ἐστιν; сама энклитика безударна.'},
+{source:'Οἱ καρποι ὡραιοι εἰσιν.',answer:'Οἱ καρποὶ ὡραῖοί εἰσιν.',ru:'Плоды спелые.',note:'У ὡραῖοι облечённое на предпоследнем слоге; перед энклитикой εἰσιν появляется дополнительное острое на последнем. Καρποί перед следующим словом становится καρποὶ.'},
+{source:'Ὁ τε Φιλιππος και ὁ πατηρ οἰκαδε βαινουσιν.',answer:'Ὅ τε Φίλιππος καὶ ὁ πατὴρ οἴκαδε βαίνουσιν.',ru:'И Филипп, и отец идут домой.',note:'Перед энклитикой τε проклитика ὁ получает ударение: ὅ τε. У πατήρ перед следующим словом острое становится тяжёлым: πατὴρ.'},
+{source:'Σκαιος τε και ἀργος εστιν ὁ δουλος.',answer:'Σκαιός τε καὶ ἀργός ἐστιν ὁ δοῦλος.',ru:'Раб и глуп, и ленив.',note:'Сκαιός перед τε и ἀργός перед ἐστιν сохраняют острое ударение: оба следующих слова — энклитики.'}
+];
+function normalize(s){return s.normalize('NFC').trim().replace(/\s+/g,' ').replace(/[.;··]+$/,'').trim()}
+function plain(s){return normalize(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+function update(){let correct=0,almost=0;exercises.forEach((ex,i)=>{const field=document.getElementById('a'+i);const val=normalize(field.value);field.classList.remove('correct','almost-correct','incorrect');if(!val)return;const key=normalize(ex.answer);if(val===key){field.classList.add('correct');correct++}else if(plain(val)===plain(key)){field.classList.add('almost-correct');almost++}else field.classList.add('incorrect')});const el=document.getElementById('result');el.textContent=correct===exercises.length?'Все 7 предложений написаны правильно!':`${correct} из ${exercises.length} предложений верны${almost?', '+almost+' почти правильно':''}.`;el.style.backgroundColor=correct===exercises.length?'lightgreen':''}
+function toggle(i){const node=document.getElementById('m'+i);const isOpen=node.classList.toggle('visible');document.getElementById('b'+i).textContent=isOpen?'Скрыть образец':'Показать образец и перевод'}
+function start(){const root=document.getElementById('exercise');exercises.forEach((ex,i)=>{const wrapper=document.createElement('section');wrapper.className='item';const orig=document.createElement('p');orig.className='source';orig.textContent=(i+1)+'. '+ex.source;wrapper.appendChild(orig);const label=document.createElement('label');label.className='small';label.htmlFor='a'+i;label.textContent='Предложение с ударениями';wrapper.appendChild(label);wrapper.appendChild(document.createElement('br'));const input=document.createElement('textarea');input.className='answer';input.id='a'+i;input.rows=1;input.spellcheck=false;input.addEventListener('input',update);wrapper.appendChild(input);wrapper.insertAdjacentHTML('beforeend',`<br><button type="button" id="b${i}" onclick="toggle(${i})">Показать образец и перевод</button><div id="m${i}" class="model"><div lang="grc">${ex.answer}</div><div>${ex.ru}</div><div class="small">${ex.note}</div></div>`);root.appendChild(wrapper)});update()}
+window.addEventListener('DOMContentLoaded',start)
+</script>
+</body></html>
