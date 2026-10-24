@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaderno 3.5</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1100px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.65}
+a{color:inherit}h1{margin-bottom:5px}h2{font-size:20px;font-weight:normal;margin-top:0}
+.instructions{font-style:italic;margin:14px 0 25px}.exercise{padding:15px 0 20px;border-bottom:1px solid #ddd}
+.stem{font-size:20px;margin:0 0 8px}.line{display:flex;gap:12px;align-items:center;margin:9px 0;flex-wrap:wrap}
+.prep{font-size:20px;min-width:60px}.answer{font-family:inherit;font-size:18px;width:min(550px,90%);padding:7px 9px;border:1px solid #ccc;border-radius:4px;box-sizing:border-box}
+button{font-family:inherit;font-size:14px;background:#f7f7f7;border:1px solid #bbb;padding:7px 10px;border-radius:4px;cursor:pointer;margin-top:11px}
+button:hover{background:#eee}.model{display:none;margin-top:10px;background:#f5f5f5;border-left:3px solid #aaa;padding:10px 14px}.model.visible{display:block}
+.model p{margin:5px 0}.hint{font-size:14px;color:#555}.tools{margin:24px 0}.footer{font-size:14px;margin-top:24px}
+@media(max-width:600px){.line{gap:6px}.prep{min-width:54px}.answer{width:calc(100% - 65px)}}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 3.5</h1>
+<h2>Дополните предложения, используя указанные предлоги</h2>
+<p class="instructions">Дополните каждую фразу на древнегреческом языке по своему усмотрению. Для каждой из пяти фраз составьте три варианта, используя предложенные предлоги. Обратите внимание на падежи после предлогов.</p>
+<main id="tasks"></main>
+<div class="tools"><button type="button" id="clear">Очистить все ответы</button></div>
+<p class="hint">В этом упражнении возможны разные грамматически правильные ответы, поэтому автоматической проверки нет. Кнопка «Показать образец» позволяет сравнить свой вариант с одним из возможных решений.</p>
+<p class="footer">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s38" target="_blank" rel="noopener noreferrer">предлоги и управление падежами (§ 38)</a>.</p>
+<script>
+const tasks = [
+ {stem:'Ὁ πατὴρ βαδίζει',options:[['ἀπό','τοῦ ἀγροῦ','Ὁ πατὴρ βαδίζει ἀπὸ τοῦ ἀγροῦ.','Отец идёт с поля.'],['πρός','τὸν οἶκον','Ὁ πατὴρ βαδίζει πρὸς τὸν οἶκον.','Отец идёт к дому.'],['ἐν','τῷ ἀγρῷ','Ὁ πατὴρ βαδίζει ἐν τῷ ἀγρῷ.','Отец ходит по полю.']]},
+ {stem:'Ὁ δοῦλος βαίνει',options:[['ἐκ','τοῦ οἴκου','Ὁ δοῦλος βαίνει ἐκ τοῦ οἴκου.','Раб выходит из дома.'],['μετά','τὸν αὐτουργόν','Ὁ δοῦλος βαίνει μετὰ τὸν αὐτουργόν.','Раб идёт позади земледельца.'],['πρός','τὸν ἀγρόν','Ὁ δοῦλος βαίνει πρὸς τὸν ἀγρόν.','Раб идёт к полю.']]},
+ {stem:'Ὁ παῖς καθίζει',options:[['ἐπί','τῷ λίθῳ','Ὁ παῖς καθίζει ἐπὶ τῷ λίθῳ.','Мальчик сидит на камне.'],['ὑπό','τῷ δένδρῳ','Ὁ παῖς καθίζει ὑπὸ τῷ δένδρῳ.','Мальчик сидит под деревом.'],['ἐν','τῷ οἴκῳ','Ὁ παῖς καθίζει ἐν τῷ οἴκῳ.','Мальчик сидит в доме.']]},
+ {stem:'Ὁ δοῦλος ἐλαύνει τοὺς βοῦς',options:[['ἐκ','τοῦ ἀγροῦ','Ὁ δοῦλος ἐλαύνει τοὺς βοῦς ἐκ τοῦ ἀγροῦ.','Раб гонит быков с поля.'],['εἰς','τὸν ἀγρόν','Ὁ δοῦλος ἐλαύνει τοὺς βοῦς εἰς τὸν ἀγρόν.','Раб гонит быков на поле.'],['πρός','τὸν οἶκον','Ὁ δοῦλος ἐλαύνει τοὺς βοῦς πρὸς τὸν οἶκον.','Раб гонит быков к дому.']]},
+ {stem:'Ἡ μήτηρ σπεύδει',options:[['ἀπό','τοῦ οἴκου','Ἡ μήτηρ σπεύδει ἀπὸ τοῦ οἴκου.','Мать спешит из дома.'],['εἰς','τὸν ἀγρόν','Ἡ μήτηρ σπεύδει εἰς τὸν ἀγρόν.','Мать спешит на поле.'],['μετά','τὸν πατέρα','Ἡ μήτηρ σπεύδει μετὰ τὸν πατέρα.','Мать спешит вслед за отцом.']]}
+];
+const root = document.getElementById('tasks');
+for(const [i,t] of tasks.entries()){
+ const block=document.createElement('section');block.className='exercise';
+ const stem=document.createElement('p');stem.className='stem';stem.textContent=`${i+1}. ${t.stem} …`;block.append(stem);
+ for(const [j,entry] of t.options.entries()){
+   const line=document.createElement('div');line.className='line';
+   const prep=document.createElement('span');prep.className='prep';prep.textContent=entry[0];
+   const input=document.createElement('input');input.type='text';input.className='answer';input.autocomplete='off';input.spellcheck=false;input.setAttribute('aria-label',`Предложение ${i+1}, предлог ${entry[0]}: продолжение после предлога`);
+   input.dataset.input='true';line.append(prep,input);block.append(line);
+ }
+ const btn=document.createElement('button');btn.type='button';btn.textContent='Показать образцы ответов';
+ const model=document.createElement('div');model.className='model';
+ for(const entry of t.options){const p=document.createElement('p');const strong=document.createElement('strong');strong.textContent=entry[2];p.append(strong,document.createTextNode(' — '+entry[3]));model.append(p)}
+ btn.addEventListener('click',()=>{const visible=model.classList.toggle('visible');btn.textContent=visible?'Скрыть образцы':'Показать образцы ответов'});
+ block.append(btn,model);root.append(block);
+}
+document.getElementById('clear').addEventListener('click',()=>{for(const x of document.querySelectorAll('[data-input]'))x.value=''});
+</script>
+</body>
+</html>
