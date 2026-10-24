@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaderno 3.4</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1100px;font:16px/1.65 'Fira Mono',monospace}a{color:inherit}h1{margin-bottom:5px}h2{font-size:20px;font-weight:400;margin-top:0}.intro{font-style:italic;margin:0 0 22px}.item{margin:0 0 28px;padding:0 0 20px;border-bottom:1px solid #ddd}.greek{font-size:19px;line-height:2.25}.choice{display:inline-block;vertical-align:baseline}.choice select{font:18px 'Fira Mono',monospace;padding:6px 5px;border:1px solid #bbb;border-radius:3px;max-width:100%;background:#fff}.choice select.correct{background:lightgreen}.choice select.incorrect{background:lightcoral}.translation{margin-top:8px}textarea{box-sizing:border-box;display:block;width:100%;max-width:850px;padding:8px;font:16px/1.6 'Fira Mono',monospace;border:1px solid #ccc;border-radius:3px;min-height:65px}button{font:14px 'Fira Mono',monospace;padding:7px 10px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer;margin-top:9px}.model{display:none;margin:10px 0;padding:10px 12px;background:#f4f4f4;border-left:3px solid #aaa}.model.visible{display:block}.result{font-weight:bold;padding:10px;margin:22px 0 15px}.note{color:#555;font-size:14px}@media(max-width:680px){.greek{font-size:18px}.choice select{font-size:16px}}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 3.4</h1>
+<h2>Выберите правильную форму и переведите предложения</h2>
+<p class="intro">В каждом случае выберите один из трёх предложенных вариантов, затем переведите получившееся предложение на русский язык.</p>
+<div id="exercise"></div>
+<p id="result" class="result" aria-live="polite"></p>
+<p class="note">Проверка выбора происходит сразу. Перевод можно сверить с образцом: разные русские формулировки допустимы.</p>
+<p class="note">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html" target="_blank" rel="noopener noreferrer">Справочная грамматика Athenaze, том I</a> (в частности, § 38 — предлоги, § 51 — падежи).</p>
+<script>
+const questions=[
+ {parts:["Ὁ παῖς προσχωρεῖ "," καὶ συλλέγει τοὺς καρποὺς ἐν ","."],
+  slots:[{choices:["τὸ δένδρον","τοῦ δένδρου","τῷ δένδρῳ"],answer:2},{choices:["τὸν σάκκον","τοῦ σάκκου","τῷ σάκκῳ"],answer:2}],
+  translation:"Мальчик подходит к дереву и собирает плоды в мешке.",explain:"προσχωρέω управляет дательным падежом; ἐν также требует дательного."},
+ {parts:["Ὁ γεωργὸς οἴκαδε βαδίζει ἀπὸ ","."],
+  slots:[{choices:["τοὺς ἀγρούς","τῶν ἀγρῶν","τοῖς ἀγροῖς"],answer:1}],
+  translation:"Земледелец идёт домой с полей.",explain:"Предлог ἀπό требует родительного падежа."},
+ {parts:["Φεῦ, φεῦ ","· ὁ γὰρ πατὴρ αὐτὸν τύπτει."],
+  slots:[{choices:["τὸν υἱόν","τοῦ υἱοῦ","τῷ υἱῷ"],answer:1}],
+  translation:"Увы, увы, бедный сын! Ведь отец его бьёт.",explain:"После восклицания φεῦ возможен родительный падеж: φεῦ τοῦ υἱοῦ."},
+ {parts:["Πολλοί εἰσιν οἱ καρποὶ ἐπὶ ","· οὕτως οὖν ὁ γεωργὸς μάλα χαίρει."],
+  slots:[{choices:["τὰ δένδρα","τῶν δένδρων","τοῖς δένδροις"],answer:2}],
+  translation:"На деревьях много плодов; поэтому земледелец очень радуется.",explain:"ἐπί с дательным передаёт местонахождение: на деревьях."},
+ {parts:["Μετὰ "," ὁ Δικαιόπολις τὸν ἀγρὸν σπείρει."],
+  slots:[{choices:["τὸ δεῖπνον","τοῦ δείπνου","τῷ δείπνῳ"],answer:0}],
+  translation:"После обеда Дикеополь засевает поле.",explain:"μετά с винительным означает «после»."},
+ {parts:["Ὁ γεωργὸς ἀναβαίνει ἐπὶ "," καὶ κατασείει τοὺς καρπούς."],
+  slots:[{choices:["τὸ δένδρον","τοῦ δένδρου","τῷ δένδρῳ"],answer:0}],
+  translation:"Земледелец взбирается на дерево и стряхивает плоды.",explain:"ἐπί с винительным обозначает направление движения: на дерево."}
+];
+function elem(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
+function draw(){const root=document.getElementById('exercise');questions.forEach((q,i)=>{
+const section=elem('section','item'),line=elem('div','greek');line.append(document.createTextNode(`${i+1}. `));
+q.parts.forEach((part,j)=>{line.append(document.createTextNode(part));if(j<q.slots.length){const wrap=elem('span','choice');const s=elem('select');s.setAttribute('aria-label',`Предложение ${i+1}, вариант ${j+1}`);const first=elem('option','', '— выберите —');first.value='';s.append(first);q.slots[j].choices.forEach((c,k)=>{const op=elem('option','',c);op.value=String(k);s.append(op)});s.addEventListener('change',update);wrap.append(s);line.append(wrap)}});
+section.append(line);section.append(elem('div','translation','Перевод на русский:'));
+const area=elem('textarea');area.setAttribute('aria-label',`Перевод предложения ${i+1}`);section.append(area);
+const btn=elem('button','','Показать образец перевода');btn.type='button';const m=elem('div','model');m.append(elem('div','',q.translation));m.append(elem('div','note',q.explain));btn.addEventListener('click',()=>{const show=m.classList.toggle('visible');btn.textContent=show?'Скрыть образец':'Показать образец перевода'});section.append(btn,m);root.append(section)});update()}
+function update(){let correct=0,filled=0,total=0;const items=document.querySelectorAll('#exercise .item');questions.forEach((q,i)=>{const selects=items[i].querySelectorAll('select');selects.forEach((s,j)=>{total++;s.classList.remove('correct','incorrect');if(s.value!==''){filled++;if(Number(s.value)===q.slots[j].answer){s.classList.add('correct');correct++}else{s.classList.add('incorrect')}}})});const out=document.getElementById('result');out.textContent=`Правильно: ${correct} из ${total} форм. Заполнено: ${filled} из ${total}.`;out.style.backgroundColor=correct===total?'lightgreen':''}
+draw();
+</script>
+</body>
+</html>
