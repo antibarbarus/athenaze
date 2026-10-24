@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno 3.8</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;font:16px/1.7 'Fira Mono',monospace;max-width:1050px}a{color:inherit}h1{margin-bottom:8px}h2{margin-top:0;font-size:20px;font-weight:normal}.instructions{font-style:italic;margin-bottom:22px}.item{margin:18px 0;padding:10px 0 21px;border-bottom:1px solid #ddd}.words{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:10px 0}.choice{font:21px/1.7 'Fira Mono',monospace;border:1px solid transparent;background:transparent;padding:4px 5px;cursor:pointer;border-radius:4px;color:inherit;text-decoration:none}.choice:hover,.choice:focus-visible{border-color:#aaa}.choice.selected{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}.choice.correct{background:lightgreen}.choice.incorrect{background:lightcoral}.result{font-weight:bold;padding:10px;margin-top:18px}.explanation{display:none;font-size:15px;color:#444;margin:12px 0}.explanation.visible{display:block}.show{font:14px 'Fira Mono',monospace;padding:6px 9px;background:#f8f8f8;border:1px solid #bbb;border-radius:4px;cursor:pointer}.note{font-size:14px;color:#555;margin:18px 0}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 3.8</h1>
+<h2>Найдите самое общее понятие</h2>
+<p class="instructions">В каждой группе из трёх слов выберите и подчеркните то, которое включает два остальных: либо потому, что обозначает более общее понятие, либо потому, что обозначает целое по отношению к его частям. Нажмите на выбранное слово.</p>
+<div id="exercise"></div>
+<p class="result" id="result" aria-live="polite"></p>
+<p class="note">Зелёный цвет — правильный выбор; красный — неправильный. Каждая группа проверяется сразу после выбора.</p>
+<p class="note">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html" target="_blank" rel="noopener">Справочная грамматика древнегреческого языка</a>.</p>
+<script>
+const items=[
+ {words:['ἄνθρωπος','γεωργός','δεσπότης'],correct:0,explanation:'ἄνθρωπος — человек; земледелец (γεωργός) и хозяин (δεσπότης) — люди.'},
+ {words:['ἄμπελος','δένδρον','ἐλαία'],correct:1,explanation:'δένδρον — дерево; виноградная лоза (ἄμπελος) и олива (ἐλαία) рассматриваются здесь как виды деревьев.'},
+ {words:['ἀγρός','οἶκος','κλῆρος'],correct:2,explanation:'κλῆρος — земельный надел, хозяйство: более широкое целое по отношению к полю (ἀγρός) и дому (οἶκος).'},
+ {words:['πατήρ','ἄνθρωπος','μήτηρ'],correct:1,explanation:'ἄνθρωπος — человек; отец (πατήρ) и мать (μήτηρ) — люди.'}
+];
+const selected=Array(items.length).fill(null);
+function render(){
+ const area=document.getElementById('exercise');
+ items.forEach((item,i)=>{
+  const part=document.createElement('section');part.className='item';
+  part.innerHTML=`<strong>${i+1}.</strong><div class="words" role="group" aria-label="Группа ${i+1}"></div><button type="button" class="show">Показать объяснение</button><div class="explanation"></div>`;
+  area.appendChild(part);
+  const words=part.querySelector('.words');
+  item.words.forEach((word,j)=>{
+   const button=document.createElement('button');button.type='button';button.className='choice';button.textContent=word;button.setAttribute('aria-pressed','false');
+   button.addEventListener('click',()=>{selected[i]=j;update();});words.appendChild(button);
+   if(j<2){const sep=document.createElement('span');sep.textContent=',';words.appendChild(sep);}
+  });
+  const show=part.querySelector('.show'),ex=part.querySelector('.explanation');ex.textContent=item.explanation;
+  show.addEventListener('click',()=>{const visible=ex.classList.toggle('visible');show.textContent=visible?'Скрыть объяснение':'Показать объяснение';});
+ });
+ update();
+}
+function update(){
+ let correct=0,answered=0;
+ [...document.querySelectorAll('.item')].forEach((part,i)=>{
+  const j=selected[i];if(j!==null)answered++;
+  if(j===items[i].correct)correct++;
+  part.querySelectorAll('.choice').forEach((btn,k)=>{
+   btn.classList.toggle('selected',j===k);
+   btn.classList.toggle('correct',j===k&&k===items[i].correct);
+   btn.classList.toggle('incorrect',j===k&&k!==items[i].correct);
+   btn.setAttribute('aria-pressed',String(j===k));
+  });
+ });
+ const result=document.getElementById('result');
+ result.textContent=correct===4?'Все четыре группы определены правильно!':`Правильно: ${correct} из 4. Выбрано: ${answered} из 4.`;
+ result.style.backgroundColor=correct===4?'lightgreen':'';
+}
+window.addEventListener('DOMContentLoaded',render);
+</script>
+</body></html>
