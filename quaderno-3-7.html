@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quaderno 3.7</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;font:16px/1.7 'Fira Mono',monospace;max-width:1050px}a{color:inherit}h1{margin-bottom:8px}h2{margin-top:0;font-size:20px;font-weight:normal}.instructions{font-style:italic;margin:0 0 18px}.syllables{font-size:21px;line-height:2;padding:12px 0;margin-bottom:16px}.exercise{display:grid;grid-template-columns:repeat(2,minmax(290px,1fr));gap:15px 30px}.item{padding:12px 0;border-bottom:1px solid #ddd}.item label{font-size:18px}.greek{width:210px;max-width:100%;font:19px 'Fira Mono',monospace;padding:6px 8px;border:1px solid #bbb;border-radius:4px;box-sizing:border-box}.translation{display:block;width:95%;max-width:450px;font:16px 'Fira Mono',monospace;padding:6px 8px;margin-top:10px;border:1px solid #ccc;border-radius:4px}.correct{background:lightgreen}.almost-correct{background:gold}.incorrect{background:lightcoral}.sample{display:none;margin:8px 0;color:#444;font-size:14px}.sample.visible{display:block}button{font:14px 'Fira Mono',monospace;padding:6px 9px;margin-top:10px;background:#f8f8f8;border:1px solid #bbb;border-radius:4px;cursor:pointer}.result{margin-top:22px;font-weight:bold;padding:10px}.note{font-size:14px;color:#555;margin:16px 0}@media(max-width:700px){.exercise{grid-template-columns:1fr}}
+</style>
+</head><body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 3.7</h1>
+<h2>Составьте семь прилагательных из слогов</h2>
+<p class="instructions">Соедините предложенные слоги так, чтобы получились семь прилагательных мужского рода в именительном падеже единственного числа (на -ος). Впишите слова в любом порядке и переведите на русский.</p>
+<div class="syllables" aria-label="Предложенные слоги">τι, νη, δρεῖ, τός, ος, σκαι, κα, ός, ὡ, κός, ος, ος, αἴ, τος, κί, δυ, ἀν, ἀ, να, ραῖ.</div>
+<div id="exercise" class="exercise"></div>
+<p class="result" id="result" aria-live="polite"></p>
+<p class="note">Каждый слог используется один раз. Зелёный — полностью верный ответ; жёлтый — ошибка в ударении или придыхании (не засчитывается); красный — неправильная форма. Повторение уже использованного слова не засчитывается.</p>
+<p class="note">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s5" target="_blank" rel="noopener">основные законы ударения (§ 5)</a>, <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s20" target="_blank" rel="noopener">прилагательные первого класса (§ 20)</a>.</p>
+<script>
+const forms=[
+ {word:'ἀνδρεῖος',translation:'смелый, мужественный'},
+ {word:'ἀκίνητος',translation:'неподвижный'},
+ {word:'αἴτιος',translation:'виновный; являющийся причиной'},
+ {word:'δυνατός',translation:'сильный, способный; возможный'},
+ {word:'ὡραῖος',translation:'спелый, созревший; своевременный'},
+ {word:'σκαιός',translation:'неуклюжий, неловкий; глупый'},
+ {word:'κακός',translation:'плохой, дурной'}
+];
+const nodes=[];
+function strip(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+function norm(s){return s.trim().normalize('NFC')}
+function create(){
+ const area=document.getElementById('exercise');
+ for(let i=0;i<forms.length;i++){
+  const div=document.createElement('div');div.className='item';
+  div.innerHTML=`<label for="answer${i}">${i+1}. </label><input class="greek" id="answer${i}" type="text" autocomplete="off" spellcheck="false" aria-label="Прилагательное ${i+1}"><input class="translation" id="translation${i}" type="text" placeholder="Перевод на русский" aria-label="Перевод ${i+1}"><button type="button" id="show${i}">Показать перевод</button><div class="sample" id="sample${i}"></div>`;
+  area.appendChild(div);
+  const inp=document.getElementById(`answer${i}`), btn=document.getElementById(`show${i}`);
+  nodes.push(inp);inp.addEventListener('input',check);
+  btn.addEventListener('click',()=>{const x=document.getElementById(`sample${i}`);const visible=x.classList.toggle('visible');btn.textContent=visible?'Скрыть перевод':'Показать перевод';});
+ }
+ check();
+}
+function check(){
+ const exactUsed=new Set(); let exact=0,near=0;
+ // First reserve all uniquely correct answers so that an earlier near-match doesn't block one.
+ const exactMatch=nodes.map(inp=>forms.findIndex(f=>norm(f.word)===norm(inp.value)));
+ nodes.forEach((inp,i)=>{inp.classList.remove('correct','almost-correct','incorrect');const j=exactMatch[i];if(j>=0&&!exactUsed.has(j)){exactUsed.add(j);inp.classList.add('correct');exact++}});
+ const nearUsed=new Set(exactUsed);
+ nodes.forEach((inp,i)=>{
+  const val=norm(inp.value);if(!val||inp.classList.contains('correct'))return;
+  const j=forms.findIndex((f,k)=>!nearUsed.has(k)&&strip(f.word)===strip(val));
+  if(j>=0){nearUsed.add(j);inp.classList.add('almost-correct');near++;}else inp.classList.add('incorrect');
+ });
+ const result=document.getElementById('result');
+ result.textContent=exact===7?'Все семь прилагательных составлены правильно!':`${exact} из 7 форм правильны${near?', '+near+' почти правильны (диакритика)':''}.`;
+ result.style.backgroundColor=exact===7?'lightgreen':'';
+ nodes.forEach((inp,i)=>{
+  const j=forms.findIndex(f=>norm(f.word)===norm(inp.value));
+  document.getElementById(`sample${i}`).textContent=j>=0?`${forms[j].word} — ${forms[j].translation}`:'Сначала впишите форму прилагательного правильно, чтобы увидеть образец перевода.';
+ });
+}
+window.addEventListener('DOMContentLoaded',create);
+</script>
+</body></html>

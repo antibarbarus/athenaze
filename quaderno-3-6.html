@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quaderno 3.6</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;font:16px/1.7 'Fira Mono',monospace;max-width:1050px}a{color:inherit}h1{margin-bottom:8px}h2{margin-top:0;font-size:20px;font-weight:normal}.instructions{font-style:italic;margin:0 0 18px}.syllables{font-size:21px;line-height:2;padding:12px 0;margin-bottom:16px}.exercise{display:grid;grid-template-columns:repeat(2,minmax(290px,1fr));gap:15px 30px}.item{padding:12px 0;border-bottom:1px solid #ddd}.item label{font-size:18px}.greek{width:210px;max-width:100%;font:19px 'Fira Mono',monospace;padding:6px 8px;border:1px solid #bbb;border-radius:4px;box-sizing:border-box}.translation{display:block;width:95%;max-width:450px;font:16px 'Fira Mono',monospace;padding:6px 8px;margin-top:10px;border:1px solid #ccc;border-radius:4px}.correct{background:lightgreen}.almost-correct{background:gold}.incorrect{background:lightcoral}.sample{display:none;margin:8px 0;color:#444;font-size:14px}.sample.visible{display:block}button{font:14px 'Fira Mono',monospace;padding:6px 9px;margin-top:10px;background:#f8f8f8;border:1px solid #bbb;border-radius:4px;cursor:pointer}.result{margin-top:22px;font-weight:bold;padding:10px}.note{font-size:14px;color:#555;margin:16px 0}@media(max-width:700px){.exercise{grid-template-columns:1fr}}
+</style>
+</head><body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 3.6</h1>
+<h2>Составьте шесть глаголов из слогов</h2>
+<p class="instructions">Составьте шесть глаголов в форме 1-го лица единственного числа настоящего времени (один — в нестянутой форме). Впишите их в любом порядке и переведите на русский.</p>
+<div class="syllables" aria-label="Предложенные слоги">λέ, χω, ἔ, ἀγ, ω, μέλ, συλ, πάσ, πω, λεί, έ, νο, χω, γω, λω.</div>
+<div id="exercise" class="exercise"></div>
+<p class="result" id="result" aria-live="polite"></p>
+<p class="note">Все предложенные слоги используются при составлении шести глаголов. Жёлтым отмечаются ответы с ошибкой в диакритике; они не входят в число полностью правильных.</p>
+<p class="note">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s8" target="_blank" rel="noopener">стяжение гласных (§ 8)</a>, <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s40" target="_blank" rel="noopener">настоящее время (§ 40)</a>.</p>
+<script>
+const forms=[
+ {word:'συλλέγω',translation:'собираю'},
+ {word:'ἔχω',translation:'имею, держу'},
+ {word:'ἀγνοέω',translation:'не знаю, не ведаю'},
+ {word:'μέλλω',translation:'собираюсь, намереваюсь'},
+ {word:'πάσχω',translation:'испытываю, претерпеваю'},
+ {word:'λείπω',translation:'оставляю, покидаю'}
+];
+const nodes=[];
+function strip(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+function norm(s){return s.trim().normalize('NFC')}
+function create(){
+ const area=document.getElementById('exercise');
+ for(let i=0;i<6;i++){
+  const div=document.createElement('div');div.className='item';
+  div.innerHTML=`<label for="answer${i}">${i+1}. </label><input class="greek" id="answer${i}" type="text" autocomplete="off" spellcheck="false" aria-label="Глагол ${i+1}"><input class="translation" id="translation${i}" type="text" placeholder="Перевод на русский" aria-label="Перевод ${i+1}"><button type="button" id="show${i}">Показать перевод</button><div class="sample" id="sample${i}"></div>`;
+  area.appendChild(div);
+  const inp=document.getElementById(`answer${i}`), btn=document.getElementById(`show${i}`);
+  nodes.push(inp);
+  inp.addEventListener('input',check);
+  btn.addEventListener('click',()=>{const x=document.getElementById(`sample${i}`);const visible=x.classList.toggle('visible');btn.textContent=visible?'Скрыть перевод':'Показать перевод';});
+ }
+ check();
+}
+function check(){
+ // Match unique forms regardless of the order in which the student enters them.
+ const used=new Set();let exact=0, near=0;
+ for(const inp of nodes){
+  inp.classList.remove('correct','almost-correct','incorrect');
+  const val=norm(inp.value);if(!val)continue;
+  let idx=forms.findIndex((f,j)=>!used.has(j)&&norm(f.word)===val);
+  if(idx>=0){used.add(idx);inp.classList.add('correct');exact++;continue}
+  idx=forms.findIndex((f,j)=>!used.has(j)&&strip(f.word)===strip(val));
+  if(idx>=0){used.add(idx);inp.classList.add('almost-correct');near++}else inp.classList.add('incorrect');
+ }
+ const result=document.getElementById('result');
+ result.textContent=exact===6?'Все шесть глаголов составлены правильно!':`${exact} из 6 форм правильны${near?', '+near+' почти правильны (диакритика)':''}.`;
+ result.style.backgroundColor=exact===6?'lightgreen':'';
+ // Provide a translation hint only for a correctly entered form; the original is not given away.
+ nodes.forEach((inp,i)=>{const idx=forms.findIndex(f=>norm(f.word)===norm(inp.value));document.getElementById(`sample${i}`).textContent=idx>=0?`${forms[idx].word} — ${forms[idx].translation}`:'Сначала впишите форму глагола правильно, чтобы увидеть образец перевода.'});
+}
+window.addEventListener('DOMContentLoaded',create);
+</script>
+</body></html>
