@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Μελέτημα 2.7</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.6;max-width:1150px}a{color:inherit}h1{margin-bottom:5px}h2{font-weight:normal;font-size:20px;margin-top:0}.instructions{font-style:italic;margin-bottom:18px}
+.sheet{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:'nom gen' 'voc dat' 'acc empty';border-top:1px solid #aaa;border-left:1px solid #aaa}
+.case{padding:17px 16px 20px;border-right:1px solid #aaa;border-bottom:1px solid #aaa;min-height:175px}.case h3{margin:0 0 10px;font-size:17px;font-weight:normal;color:#555}.nom{grid-area:nom}.gen{grid-area:gen}.voc{grid-area:voc}.dat{grid-area:dat}.acc{grid-area:acc}.empty{grid-area:empty;border-right:1px solid #aaa;border-bottom:1px solid #aaa}
+.phrase{font-size:21px;line-height:2.25;white-space:nowrap}
+input[type=text]{font-family:'Fira Mono',monospace;font-size:19px;padding:4px 6px;text-align:center;border:1px solid #bbb;border-radius:3px;box-sizing:border-box;vertical-align:middle;max-width:145px;transition:background .2s}
+.correct{background:lightgreen}.almost{background:gold}.wrong{background:lightcoral}.result{padding:10px 0;font-weight:bold}.note{font-size:14px;color:#555} @media(max-width:750px){.sheet{display:block}.empty{display:none}.case{min-height:auto}.phrase{white-space:normal}}
+</style></head><body><p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Μελέτημα 2.7</h1><h2>Дополните таблицу склонения</h2>
+<p class="instructions">Впишите недостающие окончания или артикли. Обратите внимание на ударения и придыхания.</p>
+<div class="sheet">
+<section class="case nom"><h3>Nom. — именительный</h3><div class="phrase">τὸ κέντρ<input id="gap1" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 1" style="width:68px"></div>
+<div class="phrase">ὁ οἰκ<input id="gap2" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 2" style="width:68px"></div>
+<div class="phrase"><input id="gap3" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 3" style="width:62px"> γεωργός</div>
+<div class="phrase"><input id="gap4" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 4" style="width:68px"> δένδρ<input id="gap5" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 5" style="width:68px"></div></section>
+<section class="case gen"><h3>Gen. — родительный</h3><div class="phrase">τοῦ κέντρ<input id="gap6" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 6" style="width:68px"></div>
+<div class="phrase"><input id="gap7" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 7" style="width:90px"> οἴκου</div>
+<div class="phrase">τοῦ γεωργ<input id="gap8" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 8" style="width:68px"></div>
+<div class="phrase"><input id="gap9" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 9" style="width:90px"> δένδρ<input id="gap10" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 10" style="width:68px"></div></section>
+<section class="case voc"><h3>Voc. — звательный</h3><div class="phrase">ὦ οἰκ<input id="gap11" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 11" style="width:62px"></div>
+<div class="phrase"><input id="gap12" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 12" style="width:62px"> γεωργ<input id="gap13" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 13" style="width:62px"></div>
+<div class="phrase">ὦ δένδρ<input id="gap14" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 14" style="width:68px"></div></section>
+<section class="case dat"><h3>Dat. — дательный</h3><div class="phrase"><input id="gap15" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 15" style="width:68px"> κέντρῳ</div>
+<div class="phrase">τῷ οἴκ<input id="gap16" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 16" style="width:62px"></div>
+<div class="phrase"><input id="gap17" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 17" style="width:68px"> γεωργῷ</div>
+<div class="phrase">τῷ δένδρ<input id="gap18" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 18" style="width:62px"></div></section>
+<section class="case acc"><h3>Acc. — винительный</h3><div class="phrase"><input id="gap19" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 19" style="width:68px"> κέντρον</div>
+<div class="phrase"><input id="gap20" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 20" style="width:90px"> οἶκον</div>
+<div class="phrase">τὸν γεωργ<input id="gap21" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 21" style="width:68px"></div>
+<div class="phrase">τὸ δένδρ<input id="gap22" type="text" spellcheck="false" autocomplete="off" aria-label="Пропуск 22" style="width:68px"></div></section>
+<div class="empty"></div></div>
+<p id="result" class="result" aria-live="polite"></p><p class="note">Зелёный — точный ответ; жёлтый — ошибка в диакритике (не засчитывается); красный — неверный ответ.</p>
+<script>
+const answers=["ον", "ος", "ὁ", "τὸ", "ον", "ου", "τοῦ", "οῦ", "τοῦ", "ου", "ε", "ὦ", "έ", "ον", "τῷ", "ῳ", "τῷ", "ῳ", "τὸ", "τὸν", "όν", "ον"];
+const strip=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function update(){let correct=0,almost=0;answers.forEach((ans,i)=>{let el=document.getElementById('gap'+(i+1));let val=el.value.trim().normalize('NFC');el.classList.remove('correct','almost','wrong');if(!val)return;if(val===ans.normalize('NFC')){el.classList.add('correct');correct++}else if(strip(val)===strip(ans)){el.classList.add('almost');almost++}else el.classList.add('wrong')});let r=document.getElementById('result');r.textContent=correct===answers.length?'Все формы введены правильно!':`${correct} из ${answers.length} ответов правильны`+(almost?`, ${almost} почти правильны (ошибка в диакритике)`:``)+'.';}
+window.addEventListener('DOMContentLoaded',()=>{answers.forEach((_,i)=>document.getElementById('gap'+(i+1)).addEventListener('input',update));update()});
+</script></body></html>
