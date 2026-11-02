@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno 4.9</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+ body{margin:20px;max-width:1120px;font:16px/1.6 'Fira Mono',monospace;color:#222}
+ a{color:inherit}h1{margin:8px 0}h2{font-size:20px;font-weight:normal;margin:0 0 15px}
+ .instructions{font-style:italic;margin:12px 0 22px}
+ .wordbank{display:flex;flex-wrap:wrap;gap:9px;padding:14px 0 20px;min-height:52px}
+ .word{font:18px 'Fira Mono',monospace;border:1px solid #bbb;border-radius:4px;padding:8px 11px;background:white;cursor:pointer;transition:background-color .15s}
+ .word:focus-visible,.area:focus-visible{outline:2px solid #555;outline-offset:2px}
+ .word.selected{border-color:#333;background:#e5e5e5}
+ .word.correct{background:lightgreen;border-color:#73ac78}
+ .word.incorrect{background:lightcoral;border-color:#cf6e6e}
+ .word .remove{display:none}
+ .area .word .remove{display:inline;margin-left:8px;font-size:14px;color:#555}
+ .columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:10px 0 20px}
+ .area{border:1px solid #bbb;min-height:225px;border-radius:4px;cursor:pointer;overflow:hidden}
+ .area:hover{border-color:#666}
+ .area h3{margin:0;padding:10px 8px;text-align:center;background:#f4f4f4;border-bottom:1px solid #bbb;font-size:20px;font-weight:normal}
+ .placed{display:flex;flex-wrap:wrap;gap:8px;padding:12px;align-content:flex-start;min-height:160px}
+ .area:focus-within{border-color:#444}
+ .result{font-weight:bold;margin-top:12px;padding:10px 0}
+ .buttons{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+ button.reset{font:14px 'Fira Mono',monospace;padding:8px 12px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer}
+ .help{font-size:14px;color:#555;margin-top:18px}
+ @media(max-width:650px){.columns{grid-template-columns:1fr}.area{min-height:125px}.placed{min-height:65px}}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 4.9</h1>
+<h2>Распределите слова по смысловым группам</h2>
+<p class="instructions">Поместите каждое слово в соответствующую колонку таблицы. Название колонки обозначает семантическую область.</p>
+<p>Выберите слово, затем нажмите на нужную колонку. Чтобы вернуть слово в исходный список, нажмите на него ещё раз. Также можно перетаскивать слова мышью.</p>
+<div class="wordbank" id="bank" aria-label="Слова для распределения"></div>
+<div class="columns" id="columns">
+<section class="area" id="city" role="button" tabindex="0" aria-label="Поместить слово в ἄστυ">
+ <h3>ἄστυ <span style="font-size:14px;color:#666">(город)</span></h3><div class="placed" id="city-words"></div>
+</section>
+<section class="area" id="home" role="button" tabindex="0" aria-label="Поместить слово в οἰκία">
+ <h3>οἰκία <span style="font-size:14px;color:#666">(дом)</span></h3><div class="placed" id="home-words"></div>
+</section>
+<section class="area" id="field" role="button" tabindex="0" aria-label="Поместить слово в ἀγρός">
+ <h3>ἀγρός <span style="font-size:14px;color:#666">(поле)</span></h3><div class="placed" id="field-words"></div>
+</section>
+</div>
+<p id="result" class="result" aria-live="polite"></p>
+<div class="buttons"><button class="reset" type="button" id="reset">Очистить</button></div>
+<p class="help">Зелёный цвет — правильная группа, красный — неверная. Слова можно переносить между колонками. Справка: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html">Справочная грамматика древнегреческого языка</a>.</p>
+<script>
+'use strict';
+const words = [
+  {id:'w0',text:'ἀγορά',group:'city'},
+  {id:'w1',text:'θύρα',group:'home'},
+  {id:'w2',text:'ὁδός',group:'city'},
+  {id:'w3',text:'χόρτος',group:'field'},
+  {id:'w4',text:'κλίνη',group:'home'},
+  {id:'w5',text:'καπηλεῖον',group:'city'},
+  {id:'w6',text:'ἄροτρον',group:'field'},
+  {id:'w7',text:'τράπεζα',group:'home'},
+  {id:'w8',text:'ζυγόν',group:'field'},
+  {id:'w9',text:'ἐργαστήριον',group:'city'}
+];
+const placements = Object.fromEntries(words.map(w=>[w.id,null]));
+let selected = null;
+const groups = ['city','home','field'];
+function makeChip(word){
+ const btn=document.createElement('button');btn.type='button';btn.className='word';
+ const group=placements[word.id];
+ if(group)btn.classList.add(group===word.group?'correct':'incorrect');
+ if(selected===word.id)btn.classList.add('selected');
+ btn.textContent=word.text;
+ btn.setAttribute('aria-label',word.text+(group?' — вернуть в список':' — выбрать'));
+ btn.draggable=true;
+ btn.addEventListener('dragstart',ev=>{selected=word.id;ev.dataTransfer.setData('text/plain',word.id);ev.dataTransfer.effectAllowed='move'});
+ btn.addEventListener('click',ev=>{
+   ev.stopPropagation();
+   if(placements[word.id]){placements[word.id]=null;selected=null}
+   else selected=selected===word.id?null:word.id;
+   render();
+ });
+ return btn;
+}
+function place(id,group){if(!id)return;placements[id]=group;selected=null;render()}
+function render(){
+ const bank=document.getElementById('bank');bank.replaceChildren();
+ groups.forEach(g=>document.getElementById(g+'-words').replaceChildren());
+ for(const word of words){
+  const group=placements[word.id];
+  (group?document.getElementById(group+'-words'):bank).appendChild(makeChip(word));
+ }
+ const placed=words.filter(w=>placements[w.id]);
+ const correct=placed.filter(w=>placements[w.id]===w.group).length;
+ const wrong=placed.length-correct;
+ const result=document.getElementById('result');
+ result.textContent=correct===words.length?'Все 10 слов распределены правильно!':`Правильно распределено: ${correct} из 10. Осталось разместить: ${words.length-placed.length}. Ошибок: ${wrong}.`;
+ result.style.backgroundColor=correct===words.length?'lightgreen':'';
+ result.style.padding=correct===words.length?'10px':'10px 0';
+}
+for(const g of groups){
+ const area=document.getElementById(g);
+ area.addEventListener('click',()=>place(selected,g));
+ area.addEventListener('keydown',ev=>{if((ev.key==='Enter'||ev.key===' ')&&selected){ev.preventDefault();place(selected,g)}});
+ area.addEventListener('dragover',ev=>ev.preventDefault());
+ area.addEventListener('drop',ev=>{ev.preventDefault();const id=ev.dataTransfer.getData('text/plain');if(Object.hasOwn(placements,id))place(id,g)});
+}
+const bank=document.getElementById('bank');
+bank.addEventListener('dragover',ev=>ev.preventDefault());
+bank.addEventListener('drop',ev=>{ev.preventDefault();const id=ev.dataTransfer.getData('text/plain');if(Object.hasOwn(placements,id)){placements[id]=null;selected=null;render()}});
+document.getElementById('reset').addEventListener('click',()=>{for(const w of words)placements[w.id]=null;selected=null;render()});
+render();
+</script>
+</body>
+</html>

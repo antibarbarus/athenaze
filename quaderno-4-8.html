@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaderno 4.8</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1040px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.65}
+a{color:inherit}h1{margin-bottom:7px}h2{font-weight:normal;font-size:20px;margin-top:0}.instructions{font-style:italic;margin:12px 0 25px}.item{border-bottom:1px solid #ddd;padding:12px 0 19px}.line{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.number{width:28px;flex-shrink:0}.choices{display:flex;gap:11px;flex-wrap:wrap}.word{border:1px solid #c6c6c6;border-radius:4px;font:inherit;font-size:19px;background:#fff;padding:8px 12px;cursor:pointer}.word:hover{background:#f3f3f3}.word.chosen{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}.word.correct{background:lightgreen}.word.wrong{background:lightcoral}.explain-btn{font:inherit;font-size:13px;background:#f6f6f6;border:1px solid #bbb;border-radius:4px;margin-top:12px;padding:5px 9px;cursor:pointer}.explanation{display:none;margin-top:9px;color:#444;font-size:14px}.explanation.open{display:block}.result{margin-top:20px;font-weight:bold;padding:10px;border-radius:4px}.small{color:#555;font-size:13px;margin-top:16px}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 4.8</h1>
+<h2>Выберите наиболее общее понятие</h2>
+<p class="instructions">В каждой группе из трёх слов выберите то, которое включает в себя два других — как общее понятие или как целое по отношению к частям. Нажмите на выбранное слово, чтобы подчеркнуть его.</p>
+<div id="exercise"></div>
+<p class="result" id="result"></p>
+<p class="small"><a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html">Справочная грамматика</a></p>
+<script>
+const groups=[
+ {words:['ἀγορά','ἄστυ','ὁδός'],correct:1,explanation:'ἄστυ — город; ἀγορά — площадь (рынок), ὁδός — дорога, улица. Площадь и улицы находятся в городе.'},
+ {words:['γυνή','δέσποινα','θυγάτηρ'],correct:0,explanation:'γυνή — женщина; δέσποινα — госпожа, θυγάτηρ — дочь. Оба последних слова обозначают женщин.'},
+ {words:['θύρα','τράπεζα','οἰκία'],correct:2,explanation:'οἰκία — дом; θύρα — дверь, τράπεζα — стол. Дверь и стол относятся к дому (части или обстановке).'},
+ {words:['χωρίον','κώμη','ἄστυ'],correct:0,explanation:'χωρίον — место, местность; κώμη — деревня, ἄστυ — город. Первое слово обозначает более широкое понятие места.'},
+ {words:['σῦκον','καρπός','ἐλαία'],correct:1,explanation:'καρπός — плод; σῦκον — инжир (плод смоковницы), ἐλαία — олива (в том числе её плод). Плод — более общее понятие.'}
+];
+const selected=Array(groups.length).fill(null);
+function render(){
+ const el=document.getElementById('exercise');
+ groups.forEach((g,i)=>{
+  const section=document.createElement('section');section.className='item';
+  const line=document.createElement('div');line.className='line';
+  const num=document.createElement('span');num.className='number';num.textContent=(i+1)+'.';line.appendChild(num);
+  const choices=document.createElement('div');choices.className='choices';
+  g.words.forEach((word,j)=>{
+   const b=document.createElement('button');b.type='button';b.className='word';b.textContent=word;
+   b.setAttribute('aria-pressed','false');
+   b.addEventListener('click',()=>{selected[i]=j;update();});choices.appendChild(b);
+  });
+  line.appendChild(choices);section.appendChild(line);
+  const toggle=document.createElement('button');toggle.className='explain-btn';toggle.type='button';toggle.textContent='Показать объяснение';
+  const note=document.createElement('div');note.className='explanation';note.textContent=g.explanation;
+  toggle.addEventListener('click',()=>{let open=note.classList.toggle('open');toggle.textContent=open?'Скрыть объяснение':'Показать объяснение';});
+  section.append(toggle,note);el.appendChild(section);
+ });update();
+}
+function update(){
+ let ok=0;let answered=0;
+ [...document.querySelectorAll('.item')].forEach((section,i)=>{
+  section.querySelectorAll('.word').forEach((button,j)=>{
+   const chosen=selected[i]===j;
+   button.classList.toggle('chosen',chosen);
+   button.classList.toggle('correct',chosen && j===groups[i].correct);
+   button.classList.toggle('wrong',chosen && j!==groups[i].correct);
+   button.setAttribute('aria-pressed',String(chosen));
+  });
+  if(selected[i]!==null){answered++;if(selected[i]===groups[i].correct)ok++;}
+ });
+ const r=document.getElementById('result');r.textContent=`Правильно: ${ok} из ${groups.length}. Выбрано: ${answered} из ${groups.length}.`;
+ r.style.backgroundColor=ok===groups.length?'lightgreen':'';
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaderno 4.1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+ body{margin:20px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.6;max-width:1100px}
+ a{color:inherit}h1{margin-bottom:8px}h2{font-size:20px;font-weight:normal;margin-top:0}
+ .instructions{font-style:italic;margin:0 0 20px}
+ .main{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr);gap:32px;align-items:start}
+ .heading{font-size:15px;color:#555;margin:0 0 10px}
+ .pair{display:grid;grid-template-columns:2.6em minmax(85px,.8fr) minmax(180px,1.6fr);gap:12px;align-items:center;margin:6px 0;padding:4px 0}
+ .num{font-size:14px;color:#666}.word,.reference{font-size:19px}
+ select{width:100%;font-family:inherit;font-size:16px;padding:9px 8px;border:1px solid #bbb;border-radius:4px;color:inherit;background:transparent;min-width:0}
+ select.correct{background:lightgreen}select.incorrect{background:lightcoral}select.duplicate{background:lightcoral}
+ .references{padding:12px 18px;border:1px solid #ddd;border-radius:4px}
+ .reference{margin:5px 0 9px}.reference.used{opacity:.4;text-decoration:line-through}
+ .result{font-weight:bold;margin:22px 0 10px;padding:10px 0}
+ .foot{font-size:14px;color:#555;max-width:850px}
+ button{font-family:inherit;font-size:14px;padding:7px 12px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer}
+ button:hover{background:#eee}
+ @media(max-width:790px){.main{grid-template-columns:1fr;gap:16px}.references{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px}.references .heading{grid-column:1/-1}.pair{grid-template-columns:1.6em minmax(80px,.6fr) minmax(140px,1.4fr);gap:7px}}
+ @media(max-width:450px){.references{grid-template-columns:1fr}.pair{grid-template-columns:1.4em 85px minmax(0,1fr)}select{font-size:14px}}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 4.1</h1>
+<h2>Соедините соответствующие выражения</h2>
+<p class="instructions">Подберите к каждому прилагательному слева подходящее существительное с артиклем из правой колонки. Учитывайте род, число и падеж. Каждое выражение справа можно использовать только один раз.</p>
+<div class="main">
+<section><p class="heading">Прилагательное — ваш выбор</p><div id="exercise"></div></section>
+<section class="references" id="references"><p class="heading">Варианты из правой колонки учебника</p></section>
+</div>
+<p class="result" id="result" role="status" aria-live="polite"></p>
+<button type="button" id="clear">Очистить ответы</button>
+<p class="foot">Зелёный цвет — правильное соответствие, красный — неверное или повторно выбранное. Два существительных среднего рода могут грамматически сочетаться как с <span lang="grc">πολύ</span>, так и с <span lang="grc">μέγα</span>; оба согласованных распределения засчитываются.</p>
+<p class="foot">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html">склонение прилагательных</a>.</p>
+<script>
+'use strict';
+const left = ['πολύ','μέγας','μεγάλη','πολύς','μέγαν','ὀλίγοι','πολλά','μεγάλῃ','μέγα'];
+const right = ['ὁ σῖτος','τῇ βοῇ','οἱ ἄνθρωποι','τὸ δεῖπνον','ἡ ἀγορά','τὸ ἄστυ','ὁ φίλος','τὸν χορόν','τὰ χωρία'];
+// For the two neuter singular adjectives, either neuter singular noun is grammatically possible.
+const accepted = [[3,5],[6],[4],[0],[7],[2],[8],[1],[3,5]];
+const exercise = document.getElementById('exercise');
+const references = document.getElementById('references');
+const selects = [];
+left.forEach((word,i)=>{
+ const row=document.createElement('div');row.className='pair';
+ const num=document.createElement('span');num.className='num';num.textContent=String(i+1)+'.';
+ const greek=document.createElement('span');greek.className='word';greek.lang='grc';greek.textContent=word;
+ const select=document.createElement('select'); select.setAttribute('aria-label',`Соответствие для ${word}`);
+ const empty=document.createElement('option');empty.value='';empty.textContent='— выберите —';select.appendChild(empty);
+ right.forEach((choice,j)=>{const opt=document.createElement('option');opt.value=String(j);opt.textContent=choice;select.appendChild(opt)});
+ select.addEventListener('change',check); selects.push(select);row.append(num,greek,select);exercise.appendChild(row);
+});
+const referenceEls=[];
+right.forEach((word,i)=>{const item=document.createElement('div');item.className='reference';item.lang='grc';item.textContent=word;references.appendChild(item);referenceEls.push(item)});
+function check(){
+ const used=new Map();
+ selects.forEach((s,i)=>{if(s.value!==''){const n=Number(s.value);if(!used.has(n))used.set(n,[]);used.get(n).push(i)}});
+ let ok=0, filled=0, doubles=0;
+ selects.forEach((s,i)=>{
+  s.classList.remove('correct','incorrect','duplicate');
+  if(s.value==='')return;
+  filled++;
+  const n=Number(s.value);const duplicate=used.get(n).length>1;
+  if(duplicate){s.classList.add('duplicate');doubles++;}
+  else if(accepted[i].includes(n)){s.classList.add('correct');ok++;}
+  else{s.classList.add('incorrect')}
+ });
+ referenceEls.forEach((el,i)=>el.classList.toggle('used',used.has(i)));
+ const result=document.getElementById('result');
+ if(ok===left.length){result.textContent='Все 9 соответствий найдены правильно!';result.style.color='inherit'}
+ else {result.textContent=`Правильно: ${ok} из 9. Заполнено: ${filled} из 9.`+(doubles?' Повторяющиеся варианты не засчитываются.':'');result.style.color='inherit'}
+}
+document.getElementById('clear').addEventListener('click',()=>{selects.forEach(s=>s.value='');check()});
+check();
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaderno 4.2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.6;max-width:1100px}
+a{color:inherit}h1{margin-bottom:8px}h2{font-size:20px;font-weight:normal;margin-top:0}
+.instructions{font-style:italic;margin:0 0 20px}
+.exercise-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;max-width:850px}
+.item{display:flex;gap:13px;align-items:center;min-height:57px;font-size:20px;white-space:nowrap}
+.num{font-size:14px;color:#666;min-width:2em}
+input{width:90px;box-sizing:border-box;font-family:inherit;font-size:19px;padding:6px 8px;border:1px solid #bbb;border-radius:4px;text-align:center;transition:background-color .2s}
+.correct{background:lightgreen}.almost-correct{background:gold}.incorrect{background:lightcoral}
+.result{font-weight:bold;margin-top:20px;padding:8px 0}
+button{font-family:inherit;font-size:14px;padding:7px 12px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer}
+button:hover{background:#eee}.foot{font-size:14px;color:#555;max-width:850px}
+@media(max-width:620px){.exercise-grid{grid-template-columns:1fr;gap:0}.item{min-height:52px}}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 4.2</h1>
+<h2>Добавьте правильный артикль</h2>
+<p class="instructions">Перед каждой формой прилагательного впишите определённый артикль в нужном роде, числе и падеже. Учитывайте ударения, придыхания и подписную йоту.</p>
+<div class="exercise-grid" id="exercise"></div>
+<p class="result" id="result" role="status" aria-live="polite"></p>
+<button id="clear" type="button">Очистить ответы</button>
+<p class="foot">Зелёный цвет — полностью правильный артикль; жёлтый — ошибка только в диакритике (не засчитывается); красный — неправильная форма. У форм <span lang="grc">μεγάλῳ</span> и <span lang="grc">πολλοῦ</span> род мужской или средний, но артикль в обоих случаях одинаков.</p>
+<p class="foot">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s14">артикль (§ 14)</a> и <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s21">прилагательные μέγας и πολύς (§ 21)</a>.</p>
+<script>
+'use strict';
+// Source sequence, two columns, read down the left and then down the right.
+const groups = [
+ [
+  {word:'μεγάλη',answer:'ἡ'},
+  {word:'πολύν',answer:'τὸν'},
+  {word:'μέγας',answer:'ὁ'},
+  {word:'μεγάλῳ',answer:'τῷ'},
+  {word:'πολλά',answer:'τὰ'},
+  {word:'πολλῆς',answer:'τῆς'},
+  {word:'μέγαν',answer:'τὸν'},
+  {word:'πολλῶν',answer:'τῶν'}
+ ],
+ [
+  {word:'μεγάλα',answer:'τὰ'},
+  {word:'πολλοῦ',answer:'τοῦ'},
+  {word:'πολύς',answer:'ὁ'},
+  {word:'μέγα',answer:'τὸ'},
+  {word:'πολλαί',answer:'αἱ'},
+  {word:'μεγάλῃ',answer:'τῇ'},
+  {word:'πολλήν',answer:'τὴν'},
+  {word:'πολύ',answer:'τὸ'}
+ ]
+];
+const entries=groups.flat();
+const container=document.getElementById('exercise');
+const inputs=[];
+groups.forEach((group,col)=>{
+ const section=document.createElement('section');
+ group.forEach((item,i)=>{
+  const index=col*8+i;
+  const row=document.createElement('div');row.className='item';
+  const num=document.createElement('span');num.className='num';num.textContent=String(index+1)+'.';
+  const input=document.createElement('input');input.type='text';input.id='a'+index;input.setAttribute('aria-label',`Артикль перед ${item.word}`);input.autocomplete='off';input.spellcheck=false;input.setAttribute('lang','grc');
+  const greek=document.createElement('span');greek.lang='grc';greek.textContent=item.word;
+  row.append(num,input,greek);section.appendChild(row);inputs[index]=input;
+  input.addEventListener('input',check);
+ });container.appendChild(section);
+});
+const normalize=s=>s.trim().normalize('NFC');
+const bare=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function check(){
+ let correct=0,almost=0;
+ entries.forEach((entry,i)=>{
+  const input=inputs[i];const val=normalize(input.value);const answer=normalize(entry.answer);
+  input.classList.remove('correct','almost-correct','incorrect');
+  if(!val)return;
+  if(val===answer){input.classList.add('correct');correct++;}
+  else if(bare(val)===bare(answer)){input.classList.add('almost-correct');almost++;}
+  else input.classList.add('incorrect');
+ });
+ const result=document.getElementById('result');
+ if(correct===entries.length)result.textContent='Все 16 артиклей указаны правильно!';
+ else result.textContent=`Правильно: ${correct} из 16.`+(almost?` С ошибкой в диакритике (не засчитано): ${almost}.`:'');
+ result.style.backgroundColor=correct===entries.length?'lightgreen':'';
+}
+document.getElementById('clear').addEventListener('click',()=>{inputs.forEach(x=>x.value='');check()});
+check();
+</script>
+</body>
+</html>

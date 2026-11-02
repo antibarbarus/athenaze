@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno 4.4</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;max-width:1080px;font-family:'Fira Mono',monospace;font-size:16px;line-height:1.65}
+a{color:inherit}h1{margin-bottom:8px}h2{margin-top:0;font-weight:normal;font-size:20px}.instructions{font-style:italic;margin-bottom:20px}.syllables{font-size:21px;line-height:2;background:#f7f7f7;padding:13px 17px;border-radius:4px;margin:16px 0 24px}.syllable{display:inline-block;white-space:nowrap}.syllable.used{text-decoration:line-through;text-decoration-thickness:2px;opacity:.38}.exercises{display:grid;grid-template-columns:repeat(2,minmax(260px,1fr));gap:14px 30px}.item{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid #eee}.number{color:#555;min-width:23px}input{width:205px;max-width:90%;box-sizing:border-box;padding:7px;font:19px 'Fira Mono',monospace;border:1px solid #ccc;border-radius:3px;transition:background-color .2s}.correct{background:lightgreen}.almost-correct{background:gold}.incorrect{background:lightcoral}.translation{font-size:14px;color:#555;min-width:95px}button{font:14px 'Fira Mono',monospace;border:1px solid #bbb;border-radius:4px;padding:7px 10px;background:#f7f7f7;cursor:pointer}button:hover{background:#eee}.result{font-weight:bold;padding:10px 0;margin-top:20px}.note{font-size:14px;color:#555;margin-top:10px}footer{margin-top:28px}@media(max-width:680px){.exercises{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 4.4</h1>
+<h2>Составьте семь существительных женского рода I склонения из предложенных слогов</h2>
+<p class="instructions">Используйте каждый слог столько раз, сколько он встречается в списке. Впишите получившиеся слова в любом порядке, соблюдая ударения и придыхания. Слоги правильно составленных слов автоматически зачёркиваются.</p>
+<div class="syllables" lang="grc" id="syllables" aria-label="Слоги для составления слов"></div>
+<div class="exercises" id="exercise"></div>
+<p class="result" id="result" aria-live="polite"></p>
+<button type="button" id="toggleTranslations">Показать переводы</button>
+<button type="button" id="clear">Очистить</button>
+<p class="note">Зелёный — точный ответ; жёлтый — ошибка только в ударении, придыхании или регистре (не засчитывается); красный — неправильная форма или повтор уже использованного слова.</p>
+<footer>Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html#s17">I склонение (§ 17)</a>.</footer>
+<script>
+'use strict';
+const dictionary=[
+ {word:'κώμη',translation:'деревня'},
+ {word:'γῆ',translation:'земля'},
+ {word:'κλίνη',translation:'ложе, кровать'},
+ {word:'δούλη',translation:'рабыня'},
+ {word:'γυνή',translation:'женщина, жена'},
+ {word:'φίλη',translation:'подруга; дорогая (женщина)'},
+ {word:'ἑορτή',translation:'праздник'}
+];
+const syllables=['λη','κώ','γῆ','νή','κλί','δού','γυ','φί','νη','ἑ','τή','λη','ορ','μη'];
+const syllableIndicesByWord={
+ 'κώμη':[1,13],
+ 'γῆ':[2],
+ 'κλίνη':[4,8],
+ 'δούλη':[5,0],
+ 'γυνή':[6,3],
+ 'φίλη':[7,11],
+ 'ἑορτή':[9,12,10]
+};
+const syllableElements=[];
+function renderSyllables(){
+ const target=document.getElementById('syllables');
+ syllables.forEach((syllable,i)=>{
+   const span=document.createElement('span');
+   span.className='syllable';span.textContent=syllable;
+   target.appendChild(span);syllableElements.push(span);
+   target.appendChild(document.createTextNode(i<syllables.length-1?', ':'.'));
+ });
+}
+function updateSyllables(acceptedWords){
+ const usedIndices=new Set();
+ for(const word of acceptedWords){
+   for(const index of syllableIndicesByWord[word])usedIndices.add(index);
+ }
+ syllableElements.forEach((span,index)=>{
+   const used=usedIndices.has(index);
+   span.classList.toggle('used',used);
+   span.setAttribute('aria-label',span.textContent+(used?', использован':''));
+ });
+}
+const inputs=[];
+const strip=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function render(){
+  const target=document.getElementById('exercise');
+  for(let i=0;i<7;i++){
+    const item=document.createElement('div');item.className='item';
+    const num=document.createElement('span');num.className='number';num.textContent=(i+1)+'.';
+    const input=document.createElement('input');input.type='text';input.lang='grc';input.autocomplete='off';input.spellcheck=false;input.setAttribute('aria-label',`Слово ${i+1}`);
+    const tr=document.createElement('span');tr.className='translation';tr.hidden=true;
+    item.append(num,input,tr);target.appendChild(item);inputs.push({input,tr});
+    input.addEventListener('input',check);
+  }
+}
+function check(){
+ const used=new Set(); const acceptedWords=[]; let right=0,almost=0;
+ for(const {input} of inputs){
+   input.classList.remove('correct','almost-correct','incorrect');
+   const value=input.value.trim().normalize('NFC');if(!value)continue;
+   let index=dictionary.findIndex((entry,i)=>!used.has(i)&&value===entry.word);
+   if(index!==-1){used.add(index);acceptedWords.push(dictionary[index].word);input.classList.add('correct');right++;continue;}
+   index=dictionary.findIndex((entry,i)=>!used.has(i)&&strip(value)===strip(entry.word));
+   if(index!==-1){used.add(index);input.classList.add('almost-correct');almost++;continue;}
+   input.classList.add('incorrect');
+ }
+ document.getElementById('result').textContent=right===7?'Все семь слов составлены правильно!':`Правильно: ${right} из 7.${almost?' Ошибок только в диакритике или регистре: '+almost+'.':''}`;
+ updateTranslations();
+ updateSyllables(acceptedWords);
+}
+let translationsVisible=false;
+function updateTranslations(){
+ for(const {input,tr} of inputs){
+   const value=input.value.trim();const entry=dictionary.find(v=>strip(v.word)===strip(value));
+   tr.textContent=translationsVisible?(entry?entry.translation:'—'):'';
+   tr.hidden=!translationsVisible;
+ }
+}
+document.getElementById('toggleTranslations').addEventListener('click',e=>{translationsVisible=!translationsVisible;e.target.textContent=translationsVisible?'Скрыть переводы':'Показать переводы';updateTranslations()});
+document.getElementById('clear').addEventListener('click',()=>{inputs.forEach(({input})=>input.value='');check()});
+renderSyllables();render();check();
+</script>
+</body>
+</html>

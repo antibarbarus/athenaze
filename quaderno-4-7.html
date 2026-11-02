@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quaderno 4.7 — Антонимы</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+  body { margin:20px; font-family:'Fira Mono',monospace; font-size:16px; line-height:1.6; max-width:1080px; }
+  a { color:inherit; }
+  h1 { margin-bottom:8px; }
+  h2 { margin-top:0; font-size:20px; font-weight:normal; }
+  .instructions { font-style:italic; margin:0 0 22px; }
+  .exercise { display:grid; grid-template-columns: minmax(185px, .8fr) minmax(250px, 1.2fr); gap:0 20px; max-width:820px; }
+  .head { color:#555; font-size:14px; border-bottom:1px solid #ccc; padding-bottom:7px; }
+  .word,.answer { border-bottom:1px solid #eee; padding:12px 4px; font-size:19px; min-height:47px; display:flex; align-items:center; }
+  .word { gap:14px; }
+  .num { font-size:13px; color:#777; width:20px; flex-shrink:0; }
+  select { font:inherit; font-size:18px; padding:7px 8px; border:1px solid #bbb; border-radius:3px; width:100%; background:white; color:inherit; transition:background-color .2s; }
+  select.correct { background:lightgreen; }
+  select.incorrect { background:lightcoral; }
+  .result { font-weight:bold; margin-top:22px; padding:10px; border-radius:4px; }
+  .actions { margin-top:8px; }
+  button { font:inherit; font-size:14px; padding:7px 12px; cursor:pointer; background:#f7f7f7; border:1px solid #bbb; border-radius:4px; }
+  button:hover { background:#ececec; }
+  .note { font-size:14px; color:#555; margin-top:15px; }
+  @media(max-width:520px) { .exercise { grid-template-columns:minmax(120px,.75fr) minmax(170px,1.25fr); gap:0 9px; } .word,.answer { font-size:16px; } select { font-size:15px; padding:6px 4px; } .num { width:13px; } }
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 4.7</h1>
+<h2>Подберите к каждому глаголу его антоним</h2>
+<p class="instructions">Соедините выражения из двух колонок, выбирая подходящий глагол справа. Каждый вариант можно использовать только один раз.</p>
+<div class="exercise" id="exercise">
+  <div class="head">Глагол</div><div class="head">Антоним</div>
+</div>
+<p class="result" id="result" aria-live="polite"></p>
+<div class="actions"><button type="button" id="reset">Очистить</button></div>
+<p class="note">Зелёный цвет — правильный ответ, красный — неправильный. Выбранный вариант недоступен в остальных строках, пока вы его не измените.</p>
+<p class="note">Справка по грамматике: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html">Справочная грамматика Athenaze, том I</a>.</p>
+<script>
+const verbs = [
+  {left:'αἴρω', right:'καταβάλλω'},
+  {left:'λαμβάνω', right:'παρέχω'},
+  {left:'ἀνατέλλω', right:'καταδύνω'},
+  {left:'ἀποχωρέω', right:'προσχωρέω'},
+  {left:'σχολάζω', right:'πονέω'},
+  {left:'χαίρω', right:'στενάζω'},
+  {left:'λύω', right:'ἅπτω'}
+];
+const choices = ['στενάζω','ἅπτω','πονέω','παρέχω','καταβάλλω','καταδύνω','προσχωρέω'];
+const exercise = document.getElementById('exercise');
+const selects = [];
+verbs.forEach((item,i) => {
+  const word = document.createElement('div');
+  word.className='word';
+  const number=document.createElement('span'); number.className='num'; number.textContent=i+1+'.';
+  const label=document.createElement('span'); label.textContent=item.left;
+  word.append(number,label); exercise.appendChild(word);
+  const cell=document.createElement('div'); cell.className='answer';
+  const select=document.createElement('select');
+  select.setAttribute('aria-label','Антоним к '+item.left);
+  const placeholder=document.createElement('option'); placeholder.value=''; placeholder.textContent='— выберите —';
+  select.appendChild(placeholder);
+  choices.forEach(c=> { const option=document.createElement('option'); option.value=c; option.textContent=c; select.appendChild(option); });
+  select.addEventListener('change',update);
+  selects.push(select); cell.appendChild(select); exercise.appendChild(cell);
+});
+function update() {
+  const used = new Set(selects.map(s=>s.value).filter(Boolean));
+  let count=0;
+  selects.forEach((select,i) => {
+    select.classList.remove('correct','incorrect');
+    if(select.value) {
+      const correct=select.value===verbs[i].right;
+      select.classList.add(correct?'correct':'incorrect');
+      if(correct) count++;
+    }
+    [...select.options].forEach(opt=>{ opt.disabled=!!opt.value && opt.value!==select.value && used.has(opt.value); });
+  });
+  const result=document.getElementById('result');
+  result.textContent=count===verbs.length?'Все соответствия определены правильно!':`${count} из ${verbs.length} соответствий определены правильно.`;
+  result.style.backgroundColor=count===verbs.length?'lightgreen':'';
+}
+document.getElementById('reset').addEventListener('click',()=> { selects.forEach(s=>s.value=''); update(); });
+update();
+</script>
+</body>
+</html>
