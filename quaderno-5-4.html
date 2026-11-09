@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quaderno 5.4</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{font-family:'Fira Mono',monospace;max-width:1050px;margin:20px;font-size:16px;line-height:1.6}a{color:inherit}h1{margin-bottom:8px}h2{font-size:20px;font-weight:normal;margin-top:0}.instructions{font-style:italic;margin:0 0 24px}.columns{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;align-items:start}.item{display:grid;grid-template-columns:2em minmax(135px,1fr) minmax(140px,1fr);align-items:center;gap:8px;margin:7px 0}.num{color:#777;font-size:13px}.greek{font-size:19px}input{font-family:inherit;font-size:19px;min-width:0;width:100%;box-sizing:border-box;padding:6px 8px;border:1px solid #bbb;border-radius:4px;background:transparent;color:inherit}input.correct{background:lightgreen}input.almost{background:gold}input.wrong{background:lightcoral}.result{margin:22px 0 12px;font-weight:bold}button{font-family:inherit;font-size:14px;padding:7px 12px;border:1px solid #bbb;border-radius:4px;background:#f7f7f7;cursor:pointer}.foot{font-size:14px;color:#555;margin-top:16px}@media(max-width:720px){.columns{grid-template-columns:1fr;gap:0}.item{grid-template-columns:2em 1fr 1.2fr}}
+</style>
+</head>
+<body>
+<p><a href="https://antibarbarus.github.io/athenaze/quaderno.html">&lt; назад</a></p>
+<h1>Quaderno 5.4</h1>
+<h2>Сокращённые формы глаголов</h2>
+<p class="instructions">Перепишите глагольные формы в сокращённом виде. Обратите особое внимание на ударения.</p>
+<div class="columns"><div id="left"></div><div id="right"></div></div>
+<p class="result" id="result" role="status" aria-live="polite"></p>
+<button type="button" id="clear">Очистить ответы</button>
+<p class="foot">Зелёный цвет — верная форма с правильной диакритикой, жёлтый — верные буквы, но ошибка в диакритике, красный — неверная форма. В пунктах с подвижным ν допускаются оба варианта, как указано в учебнике: (ν).</p>
+<p class="foot">Справка: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html">грамматика Athenaze</a>.</p>
+<script>
+'use strict';
+const data=[
+ ['ἀθυμέω',['ἀθυμῶ']],
+ ['βοάεις',['βοᾷς']],
+ ['σιγάετε',['σιγᾶτε']],
+ ['πονέειν',['πονεῖν']],
+ ['ἀγάπαε',['ἀγάπα']],
+ ['ὁράουσι(ν)',['ὁρῶσι','ὁρῶσιν']],
+ ['ὁρμάω',['ὁρμῶ']],
+ ['ἀγανακτέομεν',['ἀγανακτοῦμεν']],
+ ['θορυβέει',['θορυβεῖ']],
+ ['διαπεράομεν',['διαπερῶμεν']],
+ ['φιλέουσι(ν)',['φιλοῦσι','φιλοῦσιν']],
+ ['ὑλάκτεε',['ὑλάκτει']],
+ ['ὁρμάει',['ὁρμᾷ']],
+ ['ὁράειν',['ὁρᾶν']],
+ ['προσχωρέετε',['προσχωρεῖτε']],
+ ['θεωρέεις',['θεωρεῖς']]
+];
+const inputs=[];
+for(let i=0;i<data.length;i++){
+ const row=document.createElement('div');row.className='item';
+ const n=document.createElement('span');n.className='num';n.textContent=`${(i%8)+1}.`;
+ const source=document.createElement('span');source.className='greek';source.lang='grc';source.textContent=data[i][0];
+ const input=document.createElement('input');input.type='text';input.lang='grc';input.autocomplete='off';input.spellcheck=false;input.setAttribute('aria-label',`Сокращённая форма ${data[i][0]}`);input.addEventListener('input',check);
+ row.append(n,source,input);document.getElementById(i<8?'left':'right').appendChild(row);inputs.push(input);
+}
+const plain=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function check(){let correct=0,near=0,answered=0;
+ inputs.forEach((el,i)=>{const v=el.value.trim().normalize('NFC');el.classList.remove('correct','almost','wrong');if(!v)return;answered++;
+ if(data[i][1].some(ans=>v===ans.normalize('NFC'))){el.classList.add('correct');correct++}
+ else if(data[i][1].some(ans=>plain(v)===plain(ans))){el.classList.add('almost');near++}
+ else el.classList.add('wrong');
+ });document.getElementById('result').textContent=`Правильно: ${correct} из ${data.length}. Заполнено: ${answered} из ${data.length}. Ошибки только в диакритике: ${near}.`;
+}
+document.getElementById('clear').addEventListener('click',()=>{inputs.forEach(el=>el.value='');check();inputs[0].focus()});check();
+</script>
+</body>
+</html>
