@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Μελέτημα 4.7</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;font:16px/1.65 'Fira Mono',monospace;color:#222}a{color:#276392}h1{margin:.4em 0}h2{font-size:17px;font-weight:normal;margin:0 0 22px}.exercise{max-width:1030px}.item{margin:0 0 23px;padding-bottom:18px;border-bottom:1px solid #e6e6e6}.question{font-size:19px;line-height:1.85;margin:0 0 10px}.answer{display:block;width:100%;box-sizing:border-box;min-height:74px;padding:9px;font:17px/1.6 'Fira Mono',monospace;border:1px solid #aaa;border-radius:3px;resize:vertical}.sample{margin-top:10px}.sample summary{cursor:pointer;color:#275e86}.sample .text{font-size:18px;line-height:1.8;margin:9px 0 4px}.translation{font-size:15px;color:#555;margin:4px 0 0}.controls button{font:inherit;padding:6px 12px;cursor:pointer}footer{margin-top:30px;color:#666;font-size:14px}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Μελέτημα 4.7</h1>
+<h2>Ответьте письменно по-древнегречески на вопросы полными предложениями, опираясь на текст главы IV («Πρὸς τῇ κρήνῃ»).</h2>
+<main class="exercise" id="exercise"></main>
+<div class="controls"><button type="button" id="clear">Очистить ответы</button></div>
+<footer>Образцы показывают один из возможных правильных ответов; другие грамматически корректные формулировки также допустимы.</footer>
+<script>
+const items=[
+ {q:'Τί ποιοῦσιν ὅ τε Δικαιόπολις καὶ ὁ Φίλιππος διὰ τοῦ χειμῶνος;',a:'Διὰ τοῦ χειμῶνος ὁ μὲν Φίλιππος τὰ πρόβατα θεραπεύει, ὁ δὲ Δικαιόπολις τὰς ἐλαίας πιέζει καὶ ἔλαιον ποιεῖ.',ru:'Зимой Филипп ухаживает за овцами, а Дикеополь выжимает оливки и делает оливковое масло.'},
+ {q:'Τί ποιοῦσι πρὸς τῇ κρήνῃ αἱ κόραι;',a:'Αἱ κόραι πρὸς τῇ κρήνῃ τὰς ὑδρίας γεμίζουσιν.',ru:'Девушки у источника наполняют кувшины.'},
+ {q:'Ἆρα μεγάλη ἐστὶν ἡ τῆς κώμης ἀγορά;',a:'Οὔ, ἡ τῆς κώμης ἀγορὰ οὐ μεγάλη ἐστίν, ἀλλὰ καλή.',ru:'Нет, площадь деревни не большая, но красивая.'},
+ {q:'Τί ποιοῦσιν οἱ γεωργοὶ μετὰ τὰ ἔργα;',a:'Μετὰ τὰ ἔργα οἱ γεωργοὶ ἐκ τῶν ἀγρῶν οἴκαδε ἐπανέρχονται.',ru:'После работы земледельцы возвращаются с полей домой.'},
+ {q:'Τί λέγει ὁ ἄγγελος;',a:'Ὁ ἄγγελος λέγει ὅτι οἱ Ἀθηναῖοι ἑορτὴν ποιοῦσιν.',ru:'Вестник говорит, что афиняне устраивают праздник.'},
+ {q:'Τί ἐν νῷ ἔχουσιν αἱ γυναῖκες;',a:'Αἱ γυναῖκες ἐν νῷ ἔχουσι βαδίζειν πρὸς τὸ ἄστυ καὶ τοὺς χοροὺς καὶ τοὺς ἀγῶνας θεωρεῖν.',ru:'Женщины собираются пойти в город и посмотреть танцы и состязания.'}
+];
+const root=document.getElementById('exercise');
+items.forEach((x,i)=>{
+ const section=document.createElement('section');section.className='item';
+ const question=document.createElement('p');question.className='question';question.lang='grc';question.textContent=(i+1)+'. '+x.q;
+ const input=document.createElement('textarea');input.className='answer';input.lang='grc';input.rows=2;input.autocomplete='off';input.spellcheck=false;input.setAttribute('aria-label','Ответ на вопрос '+(i+1));
+ const details=document.createElement('details');details.className='sample';
+ const summary=document.createElement('summary');summary.textContent='Показать образец ответа';
+ const answer=document.createElement('p');answer.className='text';answer.lang='grc';answer.textContent=x.a;
+ const translation=document.createElement('p');translation.className='translation';translation.textContent=x.ru;
+ details.append(summary,answer,translation);section.append(question,input,details);root.append(section);
+});
+document.getElementById('clear').addEventListener('click',()=>{document.querySelectorAll('.answer').forEach(e=>e.value='')});
+</script>
+</body>
+</html>
