@@ -1,0 +1,67 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Μελέτημα 4.21 — Кроссворд</title><link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet"><style>
+:root{--ink:#252525;--muted:#616161;--green:#d1efce;--yellow:#fff0b3;--red:#f7c7c7}
+*{box-sizing:border-box}body{margin:20px;font:16px/1.6 'Fira Mono',monospace;color:var(--ink);max-width:1120px}
+a{color:inherit}h1{font-size:27px;margin:14px 0 4px}h2{font-size:19px;font-weight:normal;margin:0 0 16px}
+.layout{display:grid;grid-template-columns:minmax(190px,300px) minmax(0,1fr);gap:25px;align-items:start}
+.clues{padding-top:3px}.clue{display:flex;gap:9px;align-items:baseline;margin:0 0 10px}.num{color:var(--muted);min-width:26px}
+.board-outer{overflow-x:auto;padding:8px 3px 15px}.board{display:grid;grid-template-columns:repeat(11,43px);grid-template-rows:repeat(9,43px);width:max-content}
+.cell{width:43px;height:43px;appearance:none;background:white;border:1.5px solid #393939;border-radius:0;padding:0;text-align:center;font:22px 'Fira Mono',monospace;outline-offset:-3px}
+.cell.special{background:#e9ebef;border-left:3px solid #333;border-right:3px solid #333}
+.cell.right{background:var(--green)}.cell.near{background:var(--yellow)}.cell.bad{background:var(--red)}.cell.special.right{background:#b9e3b8}.cell.special.near{background:#ffe49a}.cell:focus{position:relative;z-index:2;outline:2px solid #4a77b8}
+.legend,.small{font-size:13px;color:var(--muted)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}button{padding:8px 13px;border:1px solid #bbb;background:#f6f6f6;font:14px 'Fira Mono',monospace;cursor:pointer;border-radius:4px}button:hover{background:#eaeaea}
+#result{font-weight:bold;margin:12px 0}.vertical{display:flex;gap:5px;margin:9px 0;flex-wrap:wrap}.vertical span{width:35px;height:38px;border:1px solid #666;display:grid;place-items:center;font:20px 'Fira Mono',monospace;background:#eee}.vertical .solved{background:var(--green)}
+details{margin:20px 0}details summary{cursor:pointer}footer{margin-top:28px;border-top:1px solid #ddd;padding-top:12px;font-size:14px}
+@media(max-width:760px){.layout{grid-template-columns:1fr;gap:4px}.clues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 10px}.cell{width:35px;height:35px;font-size:19px}.board{grid-template-columns:repeat(11,35px);grid-template-rows:repeat(9,35px)}}
+</style></head><body>
+<p><a href="meletemata.html">&lt; назад</a></p><h1>Μελέτημα 4.21</h1><h2>Кроссворд · Древнегреческая лексика</h2>
+<p>Впишите древнегреческие слова по русским подсказкам. Буквы выделенной вертикальной колонки образуют название известного места в Афинах.</p>
+<div class="layout"><div id="clues" class="clues"></div><div><div class="board-outer"><div id="board" class="board" role="group" aria-label="Кроссворд"></div></div><p class="legend">В каждой клетке — одна буква с диакритикой. Для перехода используйте →, пробел или Tab. Можно вставить целое слово в первую клетку строки.</p><p class="legend">Зелёный — правильное слово, жёлтый — ошибка в диакритике, красный — иная ошибка.</p><strong>Название по вертикали</strong><div class="vertical" id="vertical"></div><p id="reveal" class="small"></p></div></div>
+<div class="actions"><button type="button" id="clear">Очистить ответы</button><button type="button" id="check">Проверить</button></div><p id="result" aria-live="polite"></p><details><summary>Показать ответы</summary><div id="solutions"></div></details>
+<footer>Справка: <a href="https://antibarbarus.github.io/athenaze/grammar-volume-1.html">Грамматика древнегреческого языка</a></footer><script>
+const data = [{"clue": "(Я) люблю", "answer": "ἀγαπάω", "start": 4}, {"clue": "Слушайте!", "answer": "ἀκούετε", "start": 3}, {"clue": "Зрелый", "answer": "ὡραῖος", "start": 3}, {"clue": "Шум, гам", "answer": "θόρυβος", "start": 3}, {"clue": "Госпожа, хозяйка", "answer": "δέσποινα", "start": 1}, {"clue": "Странный", "answer": "ἄτοπος", "start": 2}, {"clue": "Немногие", "answer": "ὀλίγοι", "start": 3}, {"clue": "Такой, подобный", "answer": "τοιοῦτος", "start": 2}, {"clue": "Большой", "answer": "μέγας", "start": 0}];
+const secretColumn=4, columnWord='ἈΚΡΟΠΟΛΙΣ';
+const board=document.getElementById('board'), list=document.getElementById('clues');
+const rows=[];
+const norm=s=>s.normalize('NFC');
+const plain=s=>norm(s).normalize('NFD').replace(/\p{M}/gu,'').toLowerCase();
+const chars=s=>Array.from(new Intl.Segmenter('el',{granularity:'grapheme'}).segment(norm(s)),v=>v.segment);
+
+data.forEach(({clue,answer,start},r)=>{
+ const p=document.createElement('p');p.className='clue';
+ const n=document.createElement('span');n.className='num';n.textContent=(r+1)+'.';
+ const t=document.createElement('span');t.textContent=clue;p.append(n,t);list.append(p);
+ rows[r]=[];
+ chars(answer).forEach((_,i)=>{
+   const input=document.createElement('input');input.type='text';input.className='cell'+(start+i===secretColumn?' special':'');
+   input.autocomplete='off';input.autocapitalize='off';input.spellcheck=false;input.maxLength=24;
+   input.setAttribute('aria-label',`Слово ${r+1}, буква ${i+1}`);input.dataset.row=r;input.dataset.pos=i;
+   input.style.gridRow=r+1;input.style.gridColumn=start+i+1;board.append(input);rows[r].push(input);
+   input.addEventListener('compositionstart',()=>input.dataset.composing='1');
+   input.addEventListener('compositionend',()=>{input.dataset.composing='0';onInput(input)});
+   input.addEventListener('input',()=>{if(input.dataset.composing!=='1')onInput(input)});
+   input.addEventListener('keydown',e=>onKey(e,input));
+   input.addEventListener('paste',e=>{const s=(e.clipboardData||window.clipboardData).getData('text').trim();if(chars(s).length>1){e.preventDefault();pasteWord(input,s)}});
+ });
+});
+function pasteWord(input,s){const r=+input.dataset.row,i=+input.dataset.pos,cells=rows[r],parts=chars(s.replace(/\s/g,''));for(let j=0;j<parts.length&&i+j<cells.length;j++)cells[i+j].value=parts[j];if(i+parts.length<cells.length)cells[i+parts.length].focus();else cells[cells.length-1].focus();verify()}
+function onInput(input){let parts=chars(input.value.replace(/\s/g,''));if(parts.length>1){pasteWord(input,input.value);return}input.value=parts[0]||'';verify()}
+function onKey(e,input){if(e.isComposing||input.dataset.composing==='1')return;
+const r=+input.dataset.row,i=+input.dataset.pos,c=rows[r];
+if(['ArrowRight',' ','Enter'].includes(e.key)){e.preventDefault();if(i+1<c.length)c[i+1].focus();else if(e.key==='Enter'&&r+1<rows.length)rows[r+1][0].focus()}
+else if(e.key==='ArrowLeft'&&i>0){e.preventDefault();c[i-1].focus()}
+else if(e.key==='Backspace'&&!input.value&&i>0){e.preventDefault();c[i-1].value='';c[i-1].focus();verify()}
+else if(e.key==='ArrowDown'&&r+1<rows.length){e.preventDefault();rows[r+1][Math.min(i,rows[r+1].length-1)].focus()}
+else if(e.key==='ArrowUp'&&r>0){e.preventDefault();rows[r-1][Math.min(i,rows[r-1].length-1)].focus()}
+}
+function verify(){let good=0,near=0;const sec=document.getElementById('vertical');sec.replaceChildren();
+data.forEach((v,r)=>{const cells=rows[r];const filled=cells.every(c=>!!c.value.trim());const typed=cells.map(c=>c.value).join('');const exact=filled&&norm(typed)===norm(v.answer),close=filled&&!exact&&plain(typed)===plain(v.answer);
+if(exact)good++;if(close)near++;
+cells.forEach(c=>{c.classList.remove('right','near','bad');if(filled)c.classList.add(exact?'right':close?'near':'bad')});
+const b=document.createElement('span');b.className=exact?'solved':'';b.textContent=exact?chars(v.answer)[secretColumn-v.start]:'·';sec.append(b);
+});document.getElementById('result').textContent=`Правильно: ${good} из 9. Ошибки только в диакритике: ${near}.`;
+document.getElementById('reveal').textContent=good===data.length?'ἈΚΡΟΠΟΛΙΣ — Акрополь, знаменитый холм Афин.':'';
+}
+document.getElementById('clear').onclick=()=>{rows.flat().forEach(x=>x.value='');verify();rows[0][0].focus()};document.getElementById('check').onclick=verify;
+const sol=document.getElementById('solutions');data.forEach((v,i)=>{let p=document.createElement('p');p.textContent=`${i+1}. ${v.answer}`;sol.append(p)});
+verify();
+</script></body></html>

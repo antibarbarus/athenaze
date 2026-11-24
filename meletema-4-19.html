@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Μελέτημα 4.19</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap">
+<style>
+body{margin:20px;font:16px/1.65 'Fira Mono',monospace;color:#222}a{color:#276392}h1{margin:.4em 0}h2{font-size:17px;font-weight:normal;margin:0 0 16px}.intro{max-width:1050px;margin-bottom:22px}.exercise{max-width:1030px}.item{margin:0 0 23px;padding-bottom:18px;border-bottom:1px solid #e6e6e6}.question{font-size:19px;line-height:1.85;margin:0 0 10px}.answer{display:block;width:100%;box-sizing:border-box;min-height:78px;padding:9px;font:17px/1.6 'Fira Mono',monospace;border:1px solid #aaa;border-radius:3px;resize:vertical}.sample{margin-top:10px}.sample summary{cursor:pointer;color:#275e86}.translation{font-size:16px;line-height:1.75;margin:10px 0 4px}.note{font-size:14px;color:#555;margin:4px 0 0}.controls button{font:inherit;padding:6px 12px;cursor:pointer}footer{margin-top:30px;color:#666;font-size:14px}
+</style>
+</head>
+<body>
+<p><a href="meletemata.html">&lt; назад</a></p>
+<h1>Μελέτημα 4.19</h1>
+<h2>Переведите предложения на русский язык.</h2>
+<p class="intro">Обратите особое внимание на местоименное значение артикля в сочетании с <span lang="grc">μέν</span> и <span lang="grc">δέ</span>: «одни — другие», «одному — другому» и т. п.</p>
+<main class="exercise" id="exercise"></main>
+<div class="controls"><button type="button" id="clear">Очистить ответы</button></div>
+<footer>Образцы — один из возможных вариантов русского перевода. Автоматической проверки нет, поскольку правильный перевод можно сформулировать по-разному.</footer>
+<script>
+const items=[
+ {q:'Τῶν γεωργῶν οἱ μὲν ἀροτρεύουσιν, οἱ δὲ τοὺς καρποὺς κατασείουσιν.',ru:'Одни из земледельцев пашут, а другие стряхивают плоды.',note:'οἱ μὲν … οἱ δέ — «одни … другие»; τῶν γεωργῶν — родительный разделительный.'},
+ {q:'Ἐν τῷ ἐργαστηρίῳ ὁ μὲν θύραν ποιεῖ, ὁ δὲ κλίνην, ὁ δὲ τράπεζαν.',ru:'В мастерской один делает дверь, другой — кровать, третий — стол.',note:'ὁ μὲν … ὁ δὲ … ὁ δέ — «один … другой … третий»; глагол ποιεῖ подразумевается во второй и третьей частях.'},
+ {q:'Ὁ δοῦλος τοὺς μὲν τῶν καρπῶν δρέπει, τοὺς δὲ ἐπὶ τῷ δένδρῳ λείπει.',ru:'Раб одни плоды срывает, а другие оставляет на дереве.',note:'τοὺς μὲν … τοὺς δέ относится к плодам, упомянутым в τῶν καρπῶν.'},
+ {q:'Τῶν προβάτων ὁ δοῦλος τὰ μὲν ἀμέλγει, τὰ δὲ θεραπεύει.',ru:'Из овец одних раб доит, а за другими ухаживает.',note:'τὰ μὲν … τὰ δέ — винительный падеж среднего рода множественного числа; τῶν προβάτων — родительный разделительный.'},
+ {q:'Ὁ δεσπότης τῷ μὲν σῦκα παρέχει, τῷ δὲ οἶνον.',ru:'Хозяин одному даёт инжир, а другому — вино.',note:'τῷ μὲν … τῷ δέ — дательный падеж: «одному … другому».'}
+];
+const root=document.getElementById('exercise');
+items.forEach((x,i)=>{
+ const section=document.createElement('section');section.className='item';
+ const question=document.createElement('p');question.className='question';question.lang='grc';question.textContent=(i+1)+'. '+x.q;
+ const input=document.createElement('textarea');input.className='answer';input.lang='ru';input.rows=2;input.setAttribute('aria-label','Перевод предложения '+(i+1));
+ const details=document.createElement('details');details.className='sample';
+ const summary=document.createElement('summary');summary.textContent='Показать образец перевода';
+ const translation=document.createElement('p');translation.className='translation';translation.textContent=x.ru;
+ const note=document.createElement('p');note.className='note';note.textContent=x.note;
+ details.append(summary,translation,note);section.append(question,input,details);root.append(section);
+});
+document.getElementById('clear').addEventListener('click',()=>{document.querySelectorAll('.answer').forEach(e=>e.value='')});
+</script>
+</body>
+</html>
